@@ -1,6 +1,6 @@
 * release_history.txt
 * Release history for the DotNet Photon Client Library (DotNet / Unity / Windows Store 8.1 and 10)
-(C) 2016 Exit Games GmbH, http://www.photonengine.com
+(C) 2018 Exit Games GmbH, http://www.photonengine.com
 
 Questions? Visit:
 https://www.photonengine.com
@@ -8,9 +8,51 @@ https://doc.photonengine.com
 http://forum.photonengine.com
 
 
+*** Version 4.1.2.1 (31. July 2018 - rev4787)
+	Fixed: OutOfMemory exception while building 'Master' version on UWP with .Net Native Toolchain. This is a workaround for an alleged bug in ilc.exe.
+	Added: EventData.Sender to simplify access to this info. If there is no sender or if the server sent the event, the actorNumber is 0.
+LoadBalancing:
+	Changed: OnStateChangeAction is now named StateChanged and provides a "previous state" value. State changes only trigger the event-call when the value actually changes.
+	Renamed: OnEventAction to EventReceived and OnOpResponseAction to OpResponseReceived.
+	Added: LoadBalancingClient now has AddCallbackTarget and RemoveCallbackTarget to simplify registering for various callbacks.
+Chat: 
+	Changed: Namespace from "ExitGames.Client.Photon.Chat" to "Photon.Chat".
+	Added: ConnectAndSetStatus method.
+	
+
+*** Version 4.1.2.0 (3. May 2018 - rev4660)
+	Added: Unsequenced delivery for messages (reliable and unreliable). This way, operations and resulting responses and events can be sent as unsequenced, which is good for use cases like streaming voice, input and such.
+    Internal: The Photon library now re-uses memory for messages and commands. This avoids garbage collection in Unity, which can be a performance problem. 
+    Changed: There is a new method to send operations: PhotonPeer.SendOperation. It uses the SendOptions struct to define the delivery mode, encryption, etc. This replaces the obsolete OpCustom().
+    Added: Optionally, the Serialization Protocol v1.8 can now be used. Consider it a pre-release/test version for which we could use feedback. Set PhotonPeer.SerializationProtocolType.
+    Internal: Replaced foreach with while in SerializeParameterTable, SerializeHashTable and SerializeDictionaryElements in SerializationProtocol v1.6.
+    Internal: Changed EnetPeer to have a CommandQueue. Instead of queueing ExecuteCommand(cmd) delegates, we now queue the commands. This is leaner.
+	Internal: The SendOptions.DeliveryMode enum's order changed.
+    Added: PeerBase.MessageBufferPool, MessageBufferPoolGet() and MessageBufferPoolPut(StreamBuffer buff) as a simple memory pool implementation.
+    Added: PhotonPeer.MessageBufferPoolTrim() to give an option to limit the amount of memory buffered.
+    Added: PhotonPeer.MessageBufferPoolGet() as a (brute force) way to externally debug the memory buffer. This is temporary. Don't rely on this.
+    Added: For TCP, a client-side timeout. This is based on checking timestampOfLastReceive in the DispatchIncomingCommands method (timeouts only get called when you dispatch).
+	Fixed: The TCP implementation only checks for a TimeoutDisconnect, while in ConnectionStateValue.Connected. Otherwise, no timeout can happen.
+    Internal: Renamed various values for more fitting names.
+	Internal: Added special handling of Arrays of int and byte to DeserializeArray() in Protocol 1.6, using DeserializeByteArray and DeserializeIntArray respectively.
+LoadBalancing:
+	Changed: The namespace to the simpler "Photon.Realtime".
+	Added: Various callbacks to signal specific situations / events. To get those, a class must implement the interface and be added to a list of "Targets". See: ILoadBalancingCallbacks.
+	Added: RegionHandler, which provides methods to ping a list of regions and to find the one with best ping. This moves PUN's "Best Region" feature to the LoadBalancing API.
+	Moved: The PhotonPing was part of the dll but is now part of LoadBalancing.
+	Added: LoadBalancingClient.UseAlternativeUdpPorts. This way, UDP may use ports of the Steam Multiplayer port-range by simply replacing existing port strings in addresses.
+    Changed: RaiseEvent now has an overload, that uses RaiseEventOptions and SendOptions. The old variant is obsolete but will still work.
+	Changed: CheckUserOnJoin is now set by default. The RoomOptions.CheckUserOnJoin got removed.
+	Added: Client-side checks and limits for OpFindFriends.
+	Added: Optional parameter sendAuthCookie to OpLeaveRoom. The app can control what's passed from Photon to a server via WebHook.
+	Changes: The room list for lobbies is no longer part of the LoadBalancingClient. Instead, implement the callback for the changed room list.
+	Added: AppSettings, a base class to host AppId and some settings for a title. This will help make it available across products. Right now, the LoadBalancingClient is not using it yet.
+	Changed: Player.ID is now .ActorNumber, which mirrors the server's naming.
+	Fixed: Unity compile defines to support Unity 2018,
+	
+
 *** Version 4.1.1.19 (9. April 2018 - rev4590)
 	Fixed: WSS now sends an operation "ping" in SendAcksOnly() (and SendOutgoingCommands()) to avoid getting timed out. This happens right away, while other commands/operations stay in queue.
-
 
 *** Version 4.1.1.18 (19. December 2017 - rev4540)
 	Fixed: Exception in QueueOutgoingAcknowledgement() with a lock(). This avoids threading issues between Send- and Receive-thread. This was an issue mostly seen in Photon Voice, which uses the library multi-threaded.
@@ -50,6 +92,7 @@ Chat:
 	Added: ChatClient.SocketImplementationConfig as shortcut to modify PhotonPeer's SocketImplementationConfig. This enables you to setup which IPhotonSocket implementation to use for which network protocol.
 	Changed: ChatPeer.ConfigUnitySockets() to try to find our websocket implementations in the assembly, making the SocketWebTcpCoroutine and SocketWebTcpThread classes optional.
 	Removed: Class "SocketWebTcp" is no longer found by ConfigUnitySockets().
+
 
 *** Version 4.1.1.14 (5. July 2017 - rev4191)
     Changed: SupportClass StartBackgroundCalls method now assigns an ID to each thread/task and enables you to cancel it explicitly via StopBackgroundCalls. CallInBackground is now obsolete due to renaming.
