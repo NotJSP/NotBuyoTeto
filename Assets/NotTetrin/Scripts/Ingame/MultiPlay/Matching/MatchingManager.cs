@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
 using NotTetrin.Constants;
 using NotTetrin.SceneManagement;
 
@@ -21,16 +23,16 @@ namespace NotTetrin.Ingame.MultiPlay.Matching {
         private bool quit = false;
         private bool foundOpponent = false;
 
-        private string PlayerName => IdentificationNameUtility.ParseName(PhotonNetwork.player.NickName);
+        private string PlayerName => IdentificationNameUtility.ParseName(PhotonNetwork.LocalPlayer.NickName);
 
         private void Awake() {
-            var state = PhotonNetwork.connectionStateDetailed;
+            var state = PhotonNetwork.NetworkClientState;
             Debug.Log("PhotonNetwork.connectionStateDetailed: " + state);
 
             if (state == ClientState.PeerCreated) {
                 connectToPhoton();
             }
-            else if (state == ClientState.ConnectedToMaster) {
+            else if (state == ClientState.ConnectedToMasterserver) {
                 joinLobby();
             }
         }
@@ -50,7 +52,7 @@ namespace NotTetrin.Ingame.MultiPlay.Matching {
         private void connectToPhoton() {
             Debug.Log("Connecting to Server...");
             statusLabel.text = @"接続中";
-            PhotonNetwork.ConnectUsingSettings("1.0");
+            PhotonNetwork.ConnectUsingSettings();
         }
 
         private void joinLobby() {
@@ -58,7 +60,7 @@ namespace NotTetrin.Ingame.MultiPlay.Matching {
         }
 
         private IEnumerator requestJoinRandomRoom() {
-            yield return new WaitUntil(() => PhotonNetwork.insideLobby);
+            yield return new WaitUntil(() => PhotonNetwork.InLobby);
             PhotonNetwork.JoinRandomRoom();
         }
 
@@ -95,12 +97,12 @@ namespace NotTetrin.Ingame.MultiPlay.Matching {
 
             foundOpponent = true;
 
-            messageLabel.text = string.Format("対戦相手が見つかりました！\n<size=25>あなたは<size=40>{0}</size>です</size>", PhotonNetwork.player.ID == 1 ? "<color=red>1P</color>" : "<color=blue>2P</color>");
-            statusLabel.text = @"あいて: " + IdentificationNameUtility.ParseName(PhotonNetwork.otherPlayers[0].NickName);
+            messageLabel.text = string.Format("対戦相手が見つかりました！\n<size=25>あなたは<size=40>{0}</size>です</size>", PhotonNetwork.LocalPlayer.ActorNumber == 1 ? "<color=red>1P</color>" : "<color=blue>2P</color>");
+            statusLabel.text = @"あいて: " + IdentificationNameUtility.ParseName(PhotonNetwork.PlayerListOthers[0].NickName);
             cancelButton.interactable = false;
 
-            PhotonNetwork.room.IsOpen = false;
-            PhotonNetwork.isMessageQueueRunning = false;
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+            PhotonNetwork.IsMessageQueueRunning = false;
 
             updateStartingCounter(3);
             yield return new WaitForSeconds(1.0f);
@@ -117,22 +119,22 @@ namespace NotTetrin.Ingame.MultiPlay.Matching {
             startingCounter.text = $"<size=36>{count}</size><size=18> </size>秒後に開始します...";
         }
 
-        public void OnPhotonPlayerConnected(PhotonPlayer player) {
-            Debug.Log($"Joined player(id: { player.ID }) in this room.");
+        public void OnPhotonPlayerConnected(Player player) {
+            Debug.Log($"Joined player(id: { player.ActorNumber }) in this room.");
 
-            if (PhotonNetwork.otherPlayers.Length > 0) {
+            if (PhotonNetwork.PlayerListOthers.Length > 0) {
                 StartCoroutine(successMatching());
             }
         }
 
-        public void OnPhotonPlayerDisconnected(PhotonPlayer player) {
-            Debug.Log($"A player(id: { player.ID }) has left room.");
+        public void OnPhotonPlayerDisconnected(Player player) {
+            Debug.Log($"A player(id: { player.ActorNumber }) has left room.");
         }
 
         public void OnJoinedRoom() {
             Debug.Log("OnJoinedRoom");
 
-            if (PhotonNetwork.otherPlayers.Length > 0) {
+            if (PhotonNetwork.PlayerListOthers.Length > 0) {
                 StartCoroutine(successMatching());
             } else {
                 StartCoroutine(observeRoomStatus());
@@ -144,7 +146,7 @@ namespace NotTetrin.Ingame.MultiPlay.Matching {
 
             var name = PlayerPrefs.GetString(PlayerPrefsKey.PlayerName);
             var id = PhotonNetwork.AuthValues.UserId;
-            PhotonNetwork.playerName = IdentificationNameUtility.Create(name, id);
+            PhotonNetwork.LocalPlayer.NickName = IdentificationNameUtility.Create(name, id);
 
             StartMatching();
         }

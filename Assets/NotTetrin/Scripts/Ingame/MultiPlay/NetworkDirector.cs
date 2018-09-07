@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 using NotTetrin.Ingame.MultiPlay.Marathon;
 using NotTetrin.Ingame.Marathon;
 
@@ -15,7 +16,7 @@ namespace NotTetrin.Ingame.MultiPlay {
         [SerializeField] Text[] nameLabels;
         [SerializeField] WinsCounter[] winsCounters;
 
-        public int PlayerIndex => (PhotonNetwork.player.ID - 1);
+        public int PlayerIndex => (PhotonNetwork.LocalPlayer.ActorNumber - 1);
         public int OpponentIndex => (1 - PlayerIndex);
 
         public override GameObject Floor => floors[PlayerIndex];
