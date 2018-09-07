@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 using NotTetrin.UI;
 using NotTetrin.Constants;
 using NotTetrin.SceneManagement;
@@ -32,18 +34,17 @@ namespace NotTetrin.Ingame.MultiPlay.Marathon {
         protected override void Awake() {
             base.Awake();
             photonView = GetComponent<PhotonView>();
-            PhotonNetwork.sendRate = 15;
-            PhotonNetwork.sendRateOnSerialize = 15;
-            Debug.Log("PhotonNetwork.isMessageQueueRunning: " + PhotonNetwork.isMessageQueueRunning);
-            PhotonNetwork.isMessageQueueRunning = false;
+            PhotonNetwork.SendRate = 15;
+            Debug.Log("PhotonNetwork.IsMessageQueueRunning: " + PhotonNetwork.IsMessageQueueRunning);
+            PhotonNetwork.IsMessageQueueRunning = false;
         }
 
         protected override void OnSceneReady(object sender, EventArgs args) {
             minoManager.HitMino += onHitMino;
             groupManager.MinoDeleted += onMinoDeleted;
 
-            director.PlayerNameLabel.text = IdentificationNameUtility.ParseName(PhotonNetwork.player.NickName);
-            director.OpponentNameLabel.text = IdentificationNameUtility.ParseName(PhotonNetwork.otherPlayers[0].NickName);
+            director.PlayerNameLabel.text = IdentificationNameUtility.ParseName(PhotonNetwork.LocalPlayer.NickName);
+            director.OpponentNameLabel.text = IdentificationNameUtility.ParseName(PhotonNetwork.PlayerListOthers[0].NickName);
             director.PlayerYouLabel.enabled = true;
 
             StartCoroutine(updateAndSendPing());
@@ -67,11 +68,11 @@ namespace NotTetrin.Ingame.MultiPlay.Marathon {
 
             // タイトルに戻る場合はネットワークを切断
             if (scene == SceneName.Title) {
-                if (PhotonNetwork.connected) { PhotonNetwork.Disconnect(); }
+                if (PhotonNetwork.IsConnected) { PhotonNetwork.Disconnect(); }
             }
             // マッチングに戻る場合はルームから退室
             if (scene == SceneName.Matching) {
-                if (PhotonNetwork.connected) { PhotonNetwork.LeaveRoom(); }
+                if (PhotonNetwork.IsConnected) { PhotonNetwork.LeaveRoom(); }
             }
 
             SceneController.Instance.LoadScene(scene, 0.7f);
@@ -81,7 +82,7 @@ namespace NotTetrin.Ingame.MultiPlay.Marathon {
             while (true) {
                 var ping = PhotonNetwork.GetPing();
                 director.PlayerPingLabel.text = $"Ping: { ping }ms";
-                photonView.RPC(@"OnUpdateOpponentPing", PhotonTargets.Others, ping);
+                photonView.RPC(@"OnUpdateOpponentPing", RpcTarget.Others, ping);
                 yield return new WaitForSeconds(2.0f);
             }
         }
@@ -103,10 +104,10 @@ namespace NotTetrin.Ingame.MultiPlay.Marathon {
 
         private void ready() {
             Debug.Log(@"GameManager.ready()");
-            PhotonNetwork.isMessageQueueRunning = true;
+            PhotonNetwork.IsMessageQueueRunning = true;
             isReady = true;
 
-            photonView.RPC(@"OnReadyOpponent", PhotonTargets.Others);
+            photonView.RPC(@"OnReadyOpponent", RpcTarget.Others);
 
             if (isReadyOpponent) {
                 gamestart();
@@ -116,15 +117,15 @@ namespace NotTetrin.Ingame.MultiPlay.Marathon {
         private void gamestart() {
             Debug.Log(@"GameManager.gamestart()");
             resetObjects();
-            photonView.RPC(@"OnGamestartOpponent", PhotonTargets.Others);
+            photonView.RPC(@"OnGamestartOpponent", RpcTarget.Others);
             sfxManager.Play(IngameSfxType.GameStart);
             bgmManager.RandomPlay();
             minoManager.Next();
         }
 
         private void gameover() {
-            gameOverTime = PhotonNetwork.time;
-            photonView.RPC("OnGameoverOpponent", PhotonTargets.Others, gameOverTime);
+            gameOverTime = PhotonNetwork.Time;
+            photonView.RPC("OnGameoverOpponent", RpcTarget.Others, gameOverTime);
         }
 
         private void win() {
@@ -148,7 +149,7 @@ namespace NotTetrin.Ingame.MultiPlay.Marathon {
         }
 
         private void onMinoDeleted(object sender, DeleteMinoInfo info) {
-            photonView.RPC("OnDeleteMinoOpponent", PhotonTargets.Others, info.LineCount, info.ObjectCount);
+            photonView.RPC("OnDeleteMinoOpponent", RpcTarget.Others, info.LineCount, info.ObjectCount);
         }
 
         private void onHitMino(object sender, EventArgs args) {
@@ -178,7 +179,7 @@ namespace NotTetrin.Ingame.MultiPlay.Marathon {
             Invoke("backToTitle", 3.0f);
         }
 
-        private void OnPhotonPlayerDisconnected(PhotonPlayer player) {
+        private void OnPhotonPlayerDisconnected(Player player) {
             if (quit) { return; }
             messageWindow.Message = @"対戦相手が切断されました";
             messageWindow.Status = @"タイトルに戻ります";
@@ -206,10 +207,10 @@ namespace NotTetrin.Ingame.MultiPlay.Marathon {
             minoManager.Destroy();
 
             if (timestamp < gameOverTime) {
-                photonView.RPC("OnRoundWinAccepted", PhotonTargets.Others);
+                photonView.RPC("OnRoundWinAccepted", RpcTarget.Others);
                 OnRoundLoseAccepted();
             } else {
-                photonView.RPC("OnRoundLoseAccepted", PhotonTargets.Others);
+                photonView.RPC("OnRoundLoseAccepted", RpcTarget.Others);
                 OnRoundWinAccepted();
             }
         }

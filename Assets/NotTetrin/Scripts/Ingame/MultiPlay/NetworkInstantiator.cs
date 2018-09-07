@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Photon.Pun;
 
 namespace NotTetrin.Ingame.MultiPlay {
     public class NetworkInstantiator : Instantiator {

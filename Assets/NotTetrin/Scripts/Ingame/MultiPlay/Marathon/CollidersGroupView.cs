@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NotTetrin.Utility;
+using Photon.Pun;
 
 namespace NotTetrin.Ingame.MultiPlay.Marathon {
     [RequireComponent(typeof(Renderer))]
@@ -20,7 +21,7 @@ namespace NotTetrin.Ingame.MultiPlay.Marathon {
         private bool firstWrite = true;
 
         private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
-            if (stream.isWriting) {
+            if (stream.IsWriting) {
                 serialize(stream, info);
             } else {
                 deserialize(stream, info);
