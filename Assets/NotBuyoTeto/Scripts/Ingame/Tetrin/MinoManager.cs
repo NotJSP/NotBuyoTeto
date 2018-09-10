@@ -1,0 +1,102 @@
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+using NotBuyoTeto.Utility;
+
+namespace NotBuyoTeto.Ingame.Tetrin {
+    public class MinoManager : MonoBehaviour {
+        [SerializeField]
+        private Instantiator instantiator;
+        [SerializeField]
+        private TetoDirector director;
+        [SerializeField]
+        private MinoSpawner spawner;
+        [SerializeField]
+        private TetoSfxManager sfxManager;
+        [SerializeField]
+        private Rigidbody2D minoRigidbody;
+
+        private List<GameObject> minos = new List<GameObject>();
+        private MinoType currentType;
+        private bool controlable = true;
+        private float fallSpeed = 1.5f;
+        private float defaultfallSpeed = 1.5f;
+
+        public event EventHandler HitMino;
+
+        private TetoPerspective perspective => director.Perspective;
+        private TetoField field => perspective.Field;
+        private NextMino nextMino => perspective.NextMino;
+        private HoldMino holdMino => perspective.HoldMino;
+
+        public GameObject CurrentMino => minos.Count != 0 ? minos[minos.Count - 1] : null;
+
+        private void Update() {
+            if (!controlable) { return; }
+
+            if (Input.GetButtonDown(@"Hold")) {
+                hold();
+            }
+        }
+
+        public void Reset() {
+            fallSpeed = defaultfallSpeed;
+            controlable = true;
+
+            nextMino.Clear();
+            holdMino.Clear();
+
+            minos.ForEach(instantiator.Destroy);
+            minos.Clear();
+        }
+
+        public void Next() {
+            var type = nextMino.Pop();
+            set(type);
+            holdMino.Free();
+        }
+
+        private void hold() {
+            var holdIndex = holdMino.Type;
+            if (!holdMino.Push(currentType)) { return; }
+
+            Destroy();
+
+            var type = holdIndex.HasValue ? holdIndex.Value : nextMino.Pop();
+            set(type);
+        }
+
+        public void Release() {
+            controlable = false;
+            var controller = CurrentMino.GetComponent<MinoController>();
+            Destroy(controller);
+        }
+
+        public void Destroy() {
+            controlable = false;
+            instantiator.Destroy(CurrentMino);
+            minos.RemoveAt(minos.Count - 1);
+        }
+
+        private void set(MinoType type) {
+            currentType = type;
+            controlable = true;
+
+            var obj = spawner.Spawn(type, field.Ceiling);
+            obj.AddComponent<Rigidbody2D>().CopyOf(minoRigidbody);
+            var controller = obj.AddComponent<MinoController>().Initialize(sfxManager, fallSpeed);
+            controller.Hit += onHitMino;
+            minos.Add(obj);
+
+            Debug.Log(fallSpeed);
+        }
+
+        private void onHitMino(object sender, EventArgs args) {
+            HitMino?.Invoke(sender, args);
+        }
+
+        public void fallSpeedUp(int level) {
+            fallSpeed = fallSpeed + (0.01f * level);
+        }
+    }
+}
