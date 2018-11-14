@@ -6,10 +6,10 @@ using NotBuyoTeto.Constants;
 
 namespace NotBuyoTeto.Ingame.Title {
     public class TitleManager : MonoBehaviour {
-        [SerializeField] InputField nameField;
-        [SerializeField] CanvasGroup buttonGroup;
-
-        public static readonly float TransitionDuration = 0.7f;
+        [SerializeField]
+        private InputField nameField;
+        [SerializeField]
+        private CanvasGroup buttonGroup;
 
         private void Awake() {
             // アプリケーションのFPSを60に固定

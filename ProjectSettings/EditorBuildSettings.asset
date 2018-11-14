@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/NotBuyoTeto/Scenes/MarathonMode.unity
     guid: 04cf2364d7600754e8c9621346d06b02
+  - enabled: 1
+    path: Assets/NotBuyoTeto/Scenes/Matching.unity
+    guid: c60b772d71643ba43bba5ac20754316e
+  - enabled: 1
+    path: Assets/NotBuyoTeto/Scenes/SinglePlay.unity
+    guid: 043103c114f72d94b91e203781150583
   m_configObjects: {}
