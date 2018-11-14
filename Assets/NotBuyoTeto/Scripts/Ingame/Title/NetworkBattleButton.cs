@@ -13,7 +13,7 @@ namespace NotBuyoTeto.Ingame.Title {
 
         public void OnPressed() {
             toggler.ToggleAll();
-            SceneController.Instance.LoadScene(SceneName.Matching, TitleManager.TransitionDuration);
+            SceneController.Instance.LoadScene(SceneName.Matching, SceneTransition.Duration);
         }
     }
 }

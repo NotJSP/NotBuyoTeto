@@ -3,7 +3,7 @@
 --- !u!74 &7400000
 AnimationClip:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: FrameIn
   serializedVersion: 6
@@ -21,7 +21,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 320
+        value: 160
         inSlope: -909.2961
         outSlope: -909.2961
         tangentMode: 0
@@ -29,8 +29,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.03345725
       - serializedVersion: 3
-        time: 0.5
-        value: 80
+        time: 0.46666667
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -49,16 +49,16 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -280
-        inSlope: 967.3354
-        outSlope: 967.3354
+        value: -125
+        inSlope: 755.9081
+        outSlope: 755.9081
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.034944236
+        outWeight: 0.05705059
       - serializedVersion: 3
-        time: 0.5
-        value: -40
+        time: 0.46666667
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -76,17 +76,17 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: -560
-        inSlope: 1645.1079
-        outSlope: 1645.1079
-        tangentMode: 0
+        time: 0.083333336
+        value: 1360
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.042379178
+        outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.6666667
-        value: -120
+        time: 0.5833333
+        value: -45
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -97,24 +97,44 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.x
-    path: Left Panel
+    path: Tetrin Button
+    classID: 224
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_AnchoredPosition.y
+    path: Tetrin Button
+    classID: 224
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_AnchoredPosition.z
+    path: Tetrin Button
     classID: 224
     script: {fileID: 0}
   - curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 540
-        inSlope: -1494.902
-        outSlope: -1494.902
-        tangentMode: 0
+        time: 0.3
+        value: 1430
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.03420074
+        outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.6666667
-        value: 100
+        time: 0.8
+        value: 45
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -125,7 +145,27 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.x
-    path: Right Panel
+    path: Buyo Button
+    classID: 224
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_AnchoredPosition.y
+    path: Buyo Button
+    classID: 224
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_AnchoredPosition.z
+    path: Buyo Button
     classID: 224
     script: {fileID: 0}
   m_PPtrCurves: []
@@ -151,14 +191,14 @@ AnimationClip:
       customType: 28
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3719895191
+      path: 3162882283
       attribute: 1460864421
       script: {fileID: 0}
       typeID: 224
       customType: 28
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3882768328
+      path: 3822954931
       attribute: 1460864421
       script: {fileID: 0}
       typeID: 224
@@ -170,7 +210,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.6666667
+    m_StopTime: 0.8
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -191,7 +231,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 320
+        value: 160
         inSlope: -909.2961
         outSlope: -909.2961
         tangentMode: 0
@@ -199,8 +239,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.03345725
       - serializedVersion: 3
-        time: 0.5
-        value: 80
+        time: 0.46666667
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -219,16 +259,16 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -280
-        inSlope: 967.3354
-        outSlope: 967.3354
+        value: -125
+        inSlope: 755.9081
+        outSlope: 755.9081
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.034944236
+        outWeight: 0.05705059
       - serializedVersion: 3
-        time: 0.5
-        value: -40
+        time: 0.46666667
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -246,17 +286,17 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: -560
-        inSlope: 1645.1079
-        outSlope: 1645.1079
-        tangentMode: 0
+        time: 0.083333336
+        value: 1360
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.042379178
+        outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.6666667
-        value: -120
+        time: 0.5833333
+        value: -45
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -267,24 +307,44 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.x
-    path: Left Panel
+    path: Tetrin Button
+    classID: 224
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_AnchoredPosition.y
+    path: Tetrin Button
+    classID: 224
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_AnchoredPosition.z
+    path: Tetrin Button
     classID: 224
     script: {fileID: 0}
   - curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 540
-        inSlope: -1494.902
-        outSlope: -1494.902
-        tangentMode: 0
+        time: 0.3
+        value: 1430
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.03420074
+        outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.6666667
-        value: 100
+        time: 0.8
+        value: 45
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -295,7 +355,27 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.x
-    path: Right Panel
+    path: Buyo Button
+    classID: 224
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_AnchoredPosition.y
+    path: Buyo Button
+    classID: 224
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_AnchoredPosition.z
+    path: Buyo Button
     classID: 224
     script: {fileID: 0}
   m_EulerEditorCurves: []

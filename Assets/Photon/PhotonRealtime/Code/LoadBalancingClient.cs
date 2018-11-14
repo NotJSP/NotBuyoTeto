@@ -124,30 +124,42 @@ namespace Photon.Realtime
     {
         /// <summary>No error was tracked.</summary>
         None,
-        /// <summary>OnStatusChanged: The CCUs count of your Photon Server License is exausted (temporarily).</summary>
-        DisconnectByServerUserLimit,
         /// <summary>OnStatusChanged: The server is not available or the address is wrong. Make sure the port is provided and the server is up.</summary>
         ExceptionOnConnect,
-        /// <summary>OnStatusChanged: The server disconnected this client. Most likely the server's send buffer is full (receiving too much from other clients).</summary>
-        DisconnectByServer,
-        /// <summary>OnStatusChanged: This client detected that the server's responses are not received in due time. Maybe you send / receive too much?</summary>
-        TimeoutDisconnect,
         /// <summary>OnStatusChanged: Some internal exception caused the socket code to fail. Contact Exit Games.</summary>
         Exception,
-        /// <summary>OnOperationResponse: Authenticate in the Photon Cloud with invalid AppId. Update your subscription or contact Exit Games.</summary>
-        InvalidAuthentication,
-        /// <summary>OnOperationResponse: Authenticate (temporarily) failed when using a Photon Cloud subscription without CCU Burst. Update your subscription.</summary>
-        MaxCcuReached,
-        /// <summary>OnOperationResponse: Authenticate when the app's Photon Cloud subscription is locked to some (other) region(s). Update your subscription or master server address.</summary>
-        InvalidRegion,
-        /// <summary>OnOperationResponse: Operation that's (currently) not available for this client (not authorized usually). Only tracked for op Authenticate.</summary>
-        OperationNotAllowedInCurrentState,
-        /// <summary>OnOperationResponse: Authenticate in the Photon Cloud with invalid client values or custom authentication setup in Cloud Dashboard.</summary>
-        CustomAuthenticationFailed,
+
+        /// <summary>OnStatusChanged: The server disconnected this client due to timing out (missing acknowledgements from the client).</summary>
+        ServerTimeout,
+        /// <summary>OnStatusChanged: The server disconnected this client. Most likely the server's send buffer is full (receiving too much from other clients).</summary>
+        [Obsolete("Replace with: ServerTimeout (same value).")]
+        DisconnectByServer = ServerTimeout,
+        /// <summary>OnStatusChanged: This client detected that the server's responses are not received in due time.</summary>
+        ClientTimeout,
+        /// <summary>OnStatusChanged: This client detected that the server's responses are not received in due time.</summary>
+        [Obsolete("Replace with: ClientTimeout (same value).")]
+        TimeoutDisconnect = ClientTimeout,
         /// <summary>OnStatusChanged: The server disconnected this client from within the room's logic (the C# code).</summary>
         DisconnectByServerLogic,
+        /// <summary>OnStatusChanged: The server disconnected this client for unknown reasons.</summary>
+        DisconnectByServerReasonUnknown,
+
+        /// <summary>OnOperationResponse: Authenticate in the Photon Cloud with invalid AppId. Update your subscription or contact Exit Games.</summary>
+        InvalidAuthentication,
+        /// <summary>OnOperationResponse: Authenticate in the Photon Cloud with invalid client values or custom authentication setup in Cloud Dashboard.</summary>
+        CustomAuthenticationFailed,
         /// <summary>The authentication ticket should provide access to any Photon Cloud server without doing another authentication-service call. However, the ticket expired.</summary>
         AuthenticationTicketExpired,
+        /// <summary>OnOperationResponse: Authenticate (temporarily) failed when using a Photon Cloud subscription without CCU Burst. Update your subscription.</summary>
+        MaxCcuReached,
+        /// <summary>OnStatusChanged: The current CCUs exceed the CCUs of your subscription (or license). Get a suitable subscription (some include overage).</summary>
+        [Obsolete("Replace with: MaxCcuReached (same value).")]
+        DisconnectByServerUserLimit = MaxCcuReached,
+        /// <summary>OnOperationResponse: Authenticate when the app's Photon Cloud subscription is locked to some (other) region(s). Update your subscription or master server address.</summary>
+        InvalidRegion,
+
+        /// <summary>OnOperationResponse: Operation that's (currently) not available for this client (not authorized usually). Only tracked for op Authenticate.</summary>
+        OperationNotAllowedInCurrentState,
         /// <summary>OnStatusChanged: The client disconnected from within the logic (the C# code).</summary>
         DisconnectByClientLogic
     }
@@ -266,7 +278,8 @@ namespace Photon.Realtime
 
 
         /// <summary>True if this client uses a NameServer to get the Master Server address.</summary>
-        public bool IsUsingNameServer { get; protected internal set; }
+        /// <remarks>This value is public, despite being an internal value, which should only be set by this client or PUN.</remarks>
+        public bool IsUsingNameServer { get; set; }
 
         /// <summary>Name Server Host Name for Photon Cloud. Without port and without any prefix.</summary>
         public string NameServerHost = "ns.exitgames.com";
@@ -304,7 +317,7 @@ namespace Photon.Realtime
         /// In the Photon Cloud, explicit definition of a Master Server Address is not best practice.
         /// The Photon Cloud has a "Name Server" which redirects clients to a specific Master Server (per Region and AppId).
         /// </remarks>
-        public string MasterServerAddress { get; protected internal set; }
+        public string MasterServerAddress { get; set; }
 
         /// <summary>The game server's address for a particular room. In use temporarily, as assigned by master.</summary>
         public string GameServerAddress { get; protected internal set; }
@@ -326,7 +339,7 @@ namespace Photon.Realtime
                 return this.state;
             }
 
-            protected internal set
+            set
             {
                 if (this.state == value)
                 {
@@ -410,11 +423,11 @@ namespace Photon.Realtime
 
         /// <summary>Wraps up the target objects for a group of callbacks, so they can be called conveniently.</summary>
         /// <remarks>By using Add or Remove, objects can "subscribe" or "unsubscribe" for this group  of callbacks.</remarks>
-        internal ConnectionCallbacksContainer ConnectionCallbackTargets = new ConnectionCallbacksContainer();
+        public ConnectionCallbacksContainer ConnectionCallbackTargets = new ConnectionCallbacksContainer();
 
         /// <summary>Wraps up the target objects for a group of callbacks, so they can be called conveniently.</summary>
         /// <remarks>By using Add or Remove, objects can "subscribe" or "unsubscribe" for this group  of callbacks.</remarks>
-        internal MatchMakingCallbacksContainer MatchMakingCallbackTargets = new MatchMakingCallbacksContainer();
+        public MatchMakingCallbacksContainer MatchMakingCallbackTargets = new MatchMakingCallbacksContainer();
 
         /// <summary>Wraps up the target objects for a group of callbacks, so they can be called conveniently.</summary>
         /// <remarks>By using Add or Remove, objects can "subscribe" or "unsubscribe" for this group  of callbacks.</remarks>
@@ -445,7 +458,7 @@ namespace Photon.Realtime
         public bool InLobby { get; private set; }
 
         /// <summary>The lobby this client currently uses.</summary>
-        public TypedLobby CurrentLobby { get; protected internal set; }
+        public TypedLobby CurrentLobby { get; set; }
 
         /// <summary>
         /// If enabled, the client will get a list of available lobbies from the Master Server.
@@ -594,11 +607,7 @@ namespace Photon.Realtime
             {
                 this.LoadBalancingPeer.Listener.DebugReturn(DebugLevel.WARNING, "WebGL requires WebSockets. Switching TransportProtocol to WebSocketSecure.");
                 this.LoadBalancingPeer.TransportProtocol = ConnectionProtocol.WebSocketSecure;
-            }
-            if (this.LoadBalancingPeer.SerializationProtocolType != SerializationProtocol.GpBinaryV16)
-            {
-                this.LoadBalancingPeer.Listener.DebugReturn(DebugLevel.WARNING, "WebGL requires SerializationProtocolType GpBinaryV16. Switching that now.");
-                this.LoadBalancingPeer.SerializationProtocolType = SerializationProtocol.GpBinaryV16;
+                //SocketWebTcp.SerializationProtocol = Enum.GetName(typeof(SerializationProtocol), this.LoadBalancingPeer.SerializationProtocolType);
             }
             #endif
 
@@ -1545,7 +1554,7 @@ namespace Photon.Realtime
 
         /// <summary>Internally used to cache and set properties (including well known properties).</summary>
         /// <remarks>Requires being in a room (because this attempts to send an operation which will fail otherwise).</remarks>
-        protected internal bool OpSetPropertiesOfRoom(Hashtable gameProperties, Hashtable expectedProperties = null, WebFlags webFlags = null)
+        public bool OpSetPropertiesOfRoom(Hashtable gameProperties, Hashtable expectedProperties = null, WebFlags webFlags = null)
         {
             if (this.CurrentRoom == null)
             {
@@ -1686,7 +1695,7 @@ namespace Photon.Realtime
         /// Internally used to set the LocalPlayer's ID (from -1 to the actual in-room ID).
         /// </summary>
         /// <param name="newID">New actor ID (a.k.a actorNr) assigned when joining a room.</param>
-        protected internal void ChangeLocalID(int newID)
+        public void ChangeLocalID(int newID)
         {
             if (this.LocalPlayer == null)
             {
@@ -2296,6 +2305,11 @@ namespace Photon.Realtime
                             this.ConnectToGameServer();     // this connects the client with the Game Server (when joining/creating a room)
                             break;
 
+                        case ClientState.Disconnected:
+                            // this client is already Disconnected, so no further action is needed.
+                            // this.DebugReturn(DebugLevel.INFO, "LBC.OnStatusChanged(Disconnect) this.State: " + this.State + ". Server: " + this.Server);
+                            break;
+
                         default:
                             string stacktrace = "";
                             #if DEBUG && !NETFX_CORE
@@ -2319,7 +2333,7 @@ namespace Photon.Realtime
                     {
                         this.AuthValues.Token = null; // when leaving the server, invalidate the secret (but not the auth values)
                     }
-                    this.DisconnectedCause = DisconnectCause.DisconnectByServerUserLimit;
+                    this.DisconnectedCause = DisconnectCause.MaxCcuReached;
                     this.State = ClientState.Disconnected;
                     break;
                 case StatusCode.ExceptionOnConnect:
@@ -2332,13 +2346,14 @@ namespace Photon.Realtime
                     this.State = ClientState.Disconnected;
                     this.ConnectionCallbackTargets.OnDisconnected(this.DisconnectedCause);
                     break;
-                case StatusCode.DisconnectByServer:
+                case StatusCode.DisconnectByServerTimeout:
                     if (this.AuthValues != null)
                     {
                         this.AuthValues.Token = null; // when leaving the server, invalidate the secret (but not the auth values)
                     }
-                    this.DisconnectedCause = DisconnectCause.DisconnectByServer;
+                    this.DisconnectedCause = DisconnectCause.ServerTimeout;
                     this.State = ClientState.Disconnected;
+                    this.ConnectionCallbackTargets.OnDisconnected(this.DisconnectedCause);
                     break;
                 case StatusCode.DisconnectByServerLogic:
                     if (this.AuthValues != null)
@@ -2349,12 +2364,21 @@ namespace Photon.Realtime
                     this.State = ClientState.Disconnected;
                     this.ConnectionCallbackTargets.OnDisconnected(this.DisconnectedCause);
                     break;
+                case StatusCode.DisconnectByServerReasonUnknown:
+                    if (this.AuthValues != null)
+                    {
+                        this.AuthValues.Token = null; // when leaving the server, invalidate the secret (but not the auth values)
+                    }
+                    this.DisconnectedCause = DisconnectCause.DisconnectByServerReasonUnknown;
+                    this.State = ClientState.Disconnected;
+                    this.ConnectionCallbackTargets.OnDisconnected(this.DisconnectedCause);
+                    break;
                 case StatusCode.TimeoutDisconnect:
                     if (this.AuthValues != null)
                     {
                         this.AuthValues.Token = null; // when leaving the server, invalidate the secret (but not the auth values)
                     }
-                    this.DisconnectedCause = DisconnectCause.TimeoutDisconnect;
+                    this.DisconnectedCause = DisconnectCause.ClientTimeout;
                     this.State = ClientState.Disconnected;
                     this.ConnectionCallbackTargets.OnDisconnected(this.DisconnectedCause);
                     break;
@@ -2630,7 +2654,16 @@ namespace Photon.Realtime
         }
 
 
-
+        /// <summary>
+        /// Registers an object for callbacks for the implemented callback-interfaces.
+        /// </summary>
+        /// <remarks>
+        /// The covered callback interfaces are: IConnectionCallbacks, IMatchmakingCallbacks,
+        /// ILobbyCallbacks, IInRoomCallbacks, IOnEventCallback and IWebRpcCallback.
+        ///
+        /// See: <a href="https://doc.photonengine.com/en-us/pun/v2/getting-started/dotnet-callbacks"/>
+        /// </remarks>
+        /// <param name="target">The object that registers to get callbacks from this client.</param>
         public void AddCallbackTarget(object target)
         {
 
@@ -2671,6 +2704,17 @@ namespace Photon.Realtime
             }
         }
 
+
+        /// <summary>
+        /// Unregisters an object from callbacks for the implemented callback-interfaces.
+        /// </summary>
+        /// <remarks>
+        /// The covered callback interfaces are: IConnectionCallbacks, IMatchmakingCallbacks,
+        /// ILobbyCallbacks, IInRoomCallbacks, IOnEventCallback and IWebRpcCallback.
+        ///
+        /// See: <a href="https://doc.photonengine.com/en-us/pun/v2/getting-started/dotnet-callbacks">.Net Callbacks</a>
+        /// </remarks>
+        /// <param name="target">The object that unregisters from getting callbacks.</param>
         public void RemoveCallbackTarget(object target)
         {
             IInRoomCallbacks inRoomCallback = target as IInRoomCallbacks;
@@ -3098,7 +3142,7 @@ namespace Photon.Realtime
     /// While the interfaces of callbacks wrap up the methods that will be called,
     /// the container classes implement a simple way to call a method on all registered objects.
     /// </remarks>
-    internal class ConnectionCallbacksContainer : List<IConnectionCallbacks>, IConnectionCallbacks
+    public class ConnectionCallbacksContainer : List<IConnectionCallbacks>, IConnectionCallbacks
     {
         private HashSet<IConnectionCallbacks> targetsToAdd;
         private HashSet<IConnectionCallbacks> targetsToRemove;
@@ -3211,7 +3255,7 @@ namespace Photon.Realtime
     /// While the interfaces of callbacks wrap up the methods that will be called,
     /// the container classes implement a simple way to call a method on all registered objects.
     /// </remarks>
-    internal class MatchMakingCallbacksContainer : List<IMatchmakingCallbacks>, IMatchmakingCallbacks
+    public class MatchMakingCallbacksContainer : List<IMatchmakingCallbacks>, IMatchmakingCallbacks
     {
 
         private HashSet<IMatchmakingCallbacks> targetsToAdd;
