@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114832419871163152}
   - component: {fileID: 82548735915109560}
   m_Layer: 0
-  m_Name: _BgmManager
+  m_Name: BgmManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148,9 +148,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Clips:
-  - {fileID: 8300000, guid: 485d237dd03188a418b5f748195fd038, type: 3}
-  - {fileID: 8300000, guid: 3a614bb61de34944e850007db9959fb2, type: 3}
-  - {fileID: 8300000, guid: 15174b5324ccf3d42893e190236bad32, type: 3}
-  - {fileID: 8300000, guid: 35e5a9df047d196428c01996d9589e8b, type: 3}
-  - {fileID: 8300000, guid: 1db969ddfc5702f4292686041275da9d, type: 3}
-  - {fileID: 8300000, guid: 65aa50b9b09bed14e8207a9f61e0d7c7, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
