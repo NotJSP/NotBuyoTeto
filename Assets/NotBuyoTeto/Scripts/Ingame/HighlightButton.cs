@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace NotBuyoTeto.Ingame {
     [RequireComponent(typeof(Button))]
-    public class HighlightButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler {
+    public class HighlightButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
         [SerializeField]
         private Button button;
 
@@ -49,15 +49,6 @@ namespace NotBuyoTeto.Ingame {
         }
 
         public void OnPointerExit(PointerEventData eventData) {
-            isHover = false;
-        }
-
-        public void OnSelect(BaseEventData eventData) {
-            hoverTime = 0.0f;
-            isHover = true;
-        }
-
-        public void OnDeselect(BaseEventData eventData) {
             isHover = false;
         }
     }
