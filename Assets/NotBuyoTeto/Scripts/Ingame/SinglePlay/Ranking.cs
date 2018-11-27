@@ -29,7 +29,7 @@ namespace NotBuyoTeto.Ingame.SinglePlay {
         private string getClassName(RankingType type) {
             switch (type) {
                 case RankingType.MarathonMode:
-                    return @"SinglePlay-Marathon-Ranking";
+                    return @"Marathon-Ranking";
                 default:
                     throw new ArgumentOutOfRangeException("Invalid type was specified.");
             }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NotBuyoTeto.Ingame.Tetrin;
 
-namespace NotBuyoTeto.Ingame.SinglePlay.Tetrin {
+namespace NotBuyoTeto.Ingame.SinglePlay.Marathon {
     [RequireComponent(typeof(ColliderField))]
     public class LineDeleteScoring : MonoBehaviour {
         [SerializeField]

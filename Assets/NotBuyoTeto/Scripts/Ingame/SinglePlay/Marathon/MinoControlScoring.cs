@@ -10,7 +10,8 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Tetrin {
         private Score score;
         private MinoManager minoManager;
 
-        private static int ScoreIncrementDuration = 5;
+        // TODO
+        private static float ScoreIncrementDuration = 0.1f;
 
         private void Awake() {
             minoManager = GetComponent<MinoManager>();
@@ -26,7 +27,7 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Tetrin {
             if (controller == null) { return; }
 
             var velocity = rigidbody.velocity;
-            if (controller.DropFrames % ScoreIncrementDuration == 1) {
+            if (controller.DropTime % ScoreIncrementDuration == 1) {
                 velocity.x = 0.0f;
                 var amount = (int)(velocity.magnitude - 1.0f);
                 score.Increase(amount);

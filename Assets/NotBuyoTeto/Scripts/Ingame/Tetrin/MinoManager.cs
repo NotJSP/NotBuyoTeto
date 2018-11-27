@@ -15,12 +15,14 @@ namespace NotBuyoTeto.Ingame.Tetrin {
         private TetoSfxManager sfxManager;
         [SerializeField]
         private Rigidbody2D minoRigidbody;
+        [SerializeField]
+        private MinoControlSettings controlSettings;
 
         private List<GameObject> minos = new List<GameObject>();
         private MinoType currentType;
         private bool controlable = true;
-        private float fallSpeed = 1.5f;
-        private float defaultfallSpeed = 1.5f;
+
+        private float fallSpeed;
 
         public event EventHandler HitMino;
 
@@ -39,8 +41,7 @@ namespace NotBuyoTeto.Ingame.Tetrin {
             }
         }
 
-        public void Reset() {
-            fallSpeed = defaultfallSpeed;
+        public void Initialize(float fallSpeed) {
             controlable = true;
 
             nextMino.Clear();
@@ -48,6 +49,8 @@ namespace NotBuyoTeto.Ingame.Tetrin {
 
             minos.ForEach(instantiator.Destroy);
             minos.Clear();
+
+            SetFallSpeed(fallSpeed);
         }
 
         public void Next() {
@@ -84,19 +87,18 @@ namespace NotBuyoTeto.Ingame.Tetrin {
 
             var obj = spawner.Spawn(type, field.Ceiling);
             obj.AddComponent<Rigidbody2D>().CopyOf(minoRigidbody);
-            var controller = obj.AddComponent<MinoController>().Initialize(sfxManager, fallSpeed);
+            var controller = obj.AddComponent<MinoController>().Initialize(sfxManager, controlSettings, fallSpeed);
             controller.Hit += onHitMino;
-            minos.Add(obj);
 
-            Debug.Log(fallSpeed);
+            minos.Add(obj);
         }
 
         private void onHitMino(object sender, EventArgs args) {
             HitMino?.Invoke(sender, args);
         }
 
-        public void fallSpeedUp(int level) {
-            fallSpeed = fallSpeed + (0.01f * level);
+        public void SetFallSpeed(float speed) {
+            fallSpeed = speed;
         }
     }
 }
