@@ -9,6 +9,9 @@ TagManager:
   - Mino
   - GroupField
   - Level
+  - Buyo
+  - Parent
+  - Floor
   layers:
   - Default
   - TransparentFX
@@ -18,8 +21,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Parent
+  - Buyo
   - 
   - 
   - 

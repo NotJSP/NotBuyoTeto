@@ -2245,9 +2245,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frames:
   - {fileID: 736851162}
-  - {fileID: 1118148488}
-  - {fileID: 505742777}
-  - {fileID: 311488523}
   resolver: {fileID: 878107802}
 --- !u!1 &970437433
 GameObject:
@@ -4471,6 +4468,7 @@ MonoBehaviour:
   sfxManager: {fileID: 360695388}
   buyoRigidbody: {fileID: 50285768773259338, guid: b6b55003f246f744d9a658a493ad9887,
     type: 2}
+  buyoparent: {fileID: 1124500297751202, guid: 3b0b3843a0bcf8d4b9941d807fce1350, type: 2}
 --- !u!1 &1798673522
 GameObject:
   m_ObjectHideFlags: 0
@@ -4638,7 +4636,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   field: {fileID: 1875391544}
   nextBuyo: {fileID: 939025593}
-  holdBuyo: {fileID: 1967552201}
 --- !u!4 &1844774872
 Transform:
   m_ObjectHideFlags: 0
@@ -5059,7 +5056,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1967552201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5071,9 +5068,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74f599d7b2026014fb54a2c1c9db746a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sfxManager: {fileID: 360695388}
-  resolver: {fileID: 878107802}
-  frame: {fileID: 1039778571}
 --- !u!4 &1967552202
 Transform:
   m_ObjectHideFlags: 0
@@ -5200,7 +5194,7 @@ GameObject:
   - component: {fileID: 2029798872}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

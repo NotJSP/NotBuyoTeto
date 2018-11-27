@@ -13,9 +13,9 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         [SerializeField]
         private NextBuyo nextBuyo;
         public NextBuyo NextBuyo => nextBuyo;
-        [SerializeField]
-        private HoldBuyo holdBuyo;
-        public HoldBuyo HoldBuyo => holdBuyo;
+        //[SerializeField]
+        //private HoldBuyo holdBuyo;
+        //public HoldBuyo HoldBuyo => holdBuyo;
 
         public void OnRoundStarted() {
             field.Floor.SetActive(true);

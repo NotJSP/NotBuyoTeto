@@ -22,7 +22,7 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Buyobuyo {
 
             var rigidbody = buyo.GetComponent<Rigidbody2D>();
             if (rigidbody == null) { return; }
-            var controller = buyo.GetComponent<BuyoController>();
+            var controller = buyo.GetComponentInParent<Parent>();
             if (controller == null) { return; }
 
             var velocity = rigidbody.velocity;

@@ -16,10 +16,12 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             container = GetComponentInChildren<SpriteRenderer>();
         }
 
-        public void Set(BuyoType type) {
-            var buyo = resolver.Get(type);
-            var buyoRenderer = buyo.GetComponent<SpriteRenderer>();
-            container.sprite = buyoRenderer.sprite;
+        public void Set(List<BuyoType> types) {
+            foreach (BuyoType type in types) {
+                var mino = resolver.Get(type);
+                var minoRenderer = mino.GetComponent<SpriteRenderer>();
+                container.sprite = minoRenderer.sprite;
+            }
         }
     }
 }
