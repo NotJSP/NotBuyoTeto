@@ -7,7 +7,7 @@ using NotBuyoTeto.Constants;
 using NotBuyoTeto.SceneManagement;
 
 namespace NotBuyoTeto.Ingame.Title {
-    public class MarathonModeButton : MonoBehaviour {
+    public class SinglePlayButton : MonoBehaviour {
         [SerializeField]
         private SelectableToggler toggler;
 

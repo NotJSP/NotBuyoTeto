@@ -7,13 +7,13 @@ using NotBuyoTeto.Constants;
 using NotBuyoTeto.SceneManagement;
 
 namespace NotBuyoTeto.Ingame.Title {
-    public class NetworkBattleButton : MonoBehaviour {
+    public class MultiPlayButton : MonoBehaviour {
         [SerializeField]
         private SelectableToggler toggler;
 
         public void OnPressed() {
             toggler.ToggleAll();
-            SceneController.Instance.LoadScene(SceneName.Matching, SceneTransition.Duration);
+            SceneController.Instance.LoadScene(SceneName.MultiPlay, SceneTransition.Duration);
         }
     }
 }
