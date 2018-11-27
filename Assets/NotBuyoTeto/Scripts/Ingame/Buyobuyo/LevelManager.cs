@@ -25,16 +25,9 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         }
 
         private void Awake() {
-            //colliderField.LineDeleted += onBuyoDeleted;
             deletecount = 0;
             Value = 1;
             updateText();
-        }
-
-        private void onBuyoDeleted(object sender, DeleteBuyoInfo info) {
-            for (int i = 0; i < info.LineCount; i++) {
-                DeleteCountUp();
-            }
         }
 
         public void DeleteCountUp() { 

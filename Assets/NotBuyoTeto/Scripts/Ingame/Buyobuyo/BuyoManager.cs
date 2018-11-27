@@ -30,16 +30,11 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         private BuyoPerspective perspective => director.Perspective;
         private BuyoField field => perspective.Field;
         private NextBuyo nextBuyo => perspective.NextBuyo;
-        //private HoldBuyo holdBuyo => perspective.HoldBuyo;
 
         public GameObject CurrentBuyo => buyos.Count != 0 ? buyos[buyos.Count - 1] : null;
 
         private void Update() {
             if (!controlable) { return; }
-
-            //if (Input.GetButtonDown(@"Hold")) {
-            //    hold();
-            //}
         }
 
         public void Reset() {
@@ -47,7 +42,6 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             controlable = true;
 
             nextBuyo.Clear();
-            //holdBuyo.Clear();
 
             buyos.ForEach(instantiator.Destroy);
             buyos.Clear();
@@ -56,18 +50,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         public void Next() {
             var type = nextBuyo.Pop();
             set(type);
-            //holdBuyo.Free();
         }
-
-        //private void hold() {
-        //    var holdIndex = holdBuyo.Type;
-        //    if (!holdBuyo.Push(currentType)) { return; }
-
-        //    Destroy();
-
-        //    var type = holdIndex.HasValue ? holdIndex.Value : nextBuyo.Pop();
-        //    set(type);
-        //}
 
         public void Release() {
             controlable = false;
@@ -84,7 +67,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         private void set(List<BuyoType> types) {
             //親オブジェクト作成
             GameObject parent = Instantiate(buyoparent);
-            var controller = parent.AddComponent<Parent>().Initialize(sfxManager, fallSpeed);
+            parent.AddComponent<Parent>().Initialize(sfxManager, fallSpeed);
 
             //子オブジェクト(ぶよ)作成
             controlable = true;

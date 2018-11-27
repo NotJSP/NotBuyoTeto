@@ -4,7 +4,6 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         BuyoMove,
         BuyoRotate,
         BuyoHit,
-        BuyoHold,
         BuyoDelete,
     }
 }

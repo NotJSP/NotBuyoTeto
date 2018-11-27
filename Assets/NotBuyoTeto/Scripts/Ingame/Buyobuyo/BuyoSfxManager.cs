@@ -16,7 +16,6 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         private void Awake() {
             Set(BuyoSfxType.BuyoMove, entries[BuyoSfxType.BuyoMove]);
             Set(BuyoSfxType.BuyoRotate, entries[BuyoSfxType.BuyoRotate]);
-            Set(BuyoSfxType.BuyoHold, entries[BuyoSfxType.BuyoHold]);
             Set(BuyoSfxType.BuyoHit, entries[BuyoSfxType.BuyoHit]);
             Set(BuyoSfxType.BuyoDelete, entries[BuyoSfxType.BuyoDelete]);
         }

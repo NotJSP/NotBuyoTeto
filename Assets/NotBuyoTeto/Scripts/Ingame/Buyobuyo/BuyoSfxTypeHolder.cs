@@ -7,7 +7,6 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         public E BuyoMove;
         public E BuyoRotate;
         public E BuyoHit;
-        public E BuyoHold;
         public E BuyoDelete;
 
         public E this[BuyoSfxType type] { 
@@ -19,8 +18,6 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
                         return BuyoRotate;
                     case BuyoSfxType.BuyoHit:
                         return BuyoHit;
-                    case BuyoSfxType.BuyoHold:
-                        return BuyoHold;
                     case BuyoSfxType.BuyoDelete:
                         return BuyoDelete;
                 }

@@ -18,9 +18,9 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
 
         public void Set(List<BuyoType> types) {
             foreach (BuyoType type in types) {
-                var mino = resolver.Get(type);
-                var minoRenderer = mino.GetComponent<SpriteRenderer>();
-                container.sprite = minoRenderer.sprite;
+                var buyo = resolver.Get(type);
+                var buyoRenderer = buyo.GetComponent<SpriteRenderer>();
+                container.sprite = buyoRenderer.sprite;
             }
         }
     }
