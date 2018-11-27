@@ -7,6 +7,10 @@ namespace NotBuyoTeto.Ingame {
         public bool IsHit { get; private set; } = false;
         private int hitCount = 0;
 
+        public void Clear() {
+            hitCount = 0;
+        }
+
         public void OnTriggerEnter2D(Collider2D collision) {
             if (hitCount == 0) {
                 IsHit = true;

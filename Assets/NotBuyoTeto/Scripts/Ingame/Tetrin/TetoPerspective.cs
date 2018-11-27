@@ -19,6 +19,7 @@ namespace NotBuyoTeto.Ingame.Tetrin {
 
         public void OnRoundStarted() {
             field.Floor.SetActive(true);
+            field.Ceiling.Clear();
             field.Ceiling.gameObject.SetActive(true);
         }
 

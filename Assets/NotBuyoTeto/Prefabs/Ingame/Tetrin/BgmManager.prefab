@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114832419871163152}
   - component: {fileID: 82548735915109560}
   m_Layer: 0
-  m_Name: BGMManager
+  m_Name: BgmManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
