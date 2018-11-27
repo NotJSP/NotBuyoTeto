@@ -25,13 +25,19 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Marathon {
         private Ranking ranking;
         [SerializeField]
         private LevelManager levelManager;
+        [SerializeField]
+        private FallSpeedManager fallSpeedManager;
+        [SerializeField]
+        private ColliderField colliderField;
 
         private TetoPerspective perspective => director.Perspective;
         private TetoField field => perspective.Field;
 
         protected override void OnSceneReady(object sender, EventArgs args) {
             base.OnSceneReady(sender, args);
+            colliderField.LineDeleted += onLineDeleted;
             minoManager.HitMino += onHitMino;
+            levelManager.ValueChanged += onLevelChanged;
             loadRanking();
             roundstart();
         }
@@ -47,10 +53,11 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Marathon {
 
         private void reset() {
             CancelInvoke("roundstart");
+
             sfxManager.Stop(IngameSfxType.RoundEnd);
-            score.Reset();
-            minoManager.Reset();
-            levelManager.Reset();
+            score.Initialize();
+            minoManager.Initialize(fallSpeedManager.DefaultSpeed);
+            levelManager.Initialize();
         }
 
         private void roundstart() {
@@ -91,10 +98,21 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Marathon {
             if (field.Ceiling.IsHit) {
                 roundend();
             } else {
-                score.Increase(200 + (50 * levelManager.getLevel()));
+                score.Increase(200 + (50 * levelManager.Value));
                 field.ColliderField.DeleteLine();
                 minoManager.Next();
             }
         }
+
+        private void onLineDeleted(object sende, DeleteMinoInfo info) {
+            levelManager.DeleteCountUp(info.LineCount);
+        }
+
+        private void onLevelChanged(object sender, int level) {
+            var fallSpeed = fallSpeedManager.GetSpeed(level);
+            minoManager.SetFallSpeed(fallSpeed);
+            Debug.Log(fallSpeed);
+        }
+
     }
 }

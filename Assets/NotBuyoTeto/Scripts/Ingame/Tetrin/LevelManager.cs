@@ -7,59 +7,46 @@ using UnityEngine.UI;
 namespace NotBuyoTeto.Ingame.Tetrin {
     public class LevelManager : MonoBehaviour {
         [SerializeField]
-        private ColliderField colliderField;
-        [SerializeField]
-        private Text levelText;
-        [SerializeField]
-        private MinoManager minoManager;
+        private Text label;
 
-        private int deletecount; //ミノを消した列数。
-        private int level; //レベル
-       
+        public event EventHandler<int> ValueChanged;
+
+        private static readonly int CountPerLevel = 4;
+
+        private int deleteCount;
+
+        private int level;  // レベル
         public int Value {
             get {
                 return level;
             }
             private set {
                 level = value;
+                ValueChanged?.Invoke(this, value);
                 updateText();
             }
         }
 
-        private void Awake() {
-            colliderField.LineDeleted += onMinoDeleted;
-            deletecount = 0;
+        public void DeleteCountUp(int count) { 
+            deleteCount += count;
+
+            var estimatedLevel = CalculateLevel(deleteCount);
+            if (level != estimatedLevel) {
+                Value = estimatedLevel;
+            }
+        }
+
+        public void Initialize() {
+            deleteCount = 0;
             Value = 1;
-            updateText();
-        }
-
-        private void onMinoDeleted(object sender, DeleteMinoInfo info) {
-            for (int i = 0; i < info.LineCount; i++) {
-                DeleteCountUp();
-            }
-        }
-
-        public void DeleteCountUp() { 
-            deletecount++;
-            if(deletecount % 3 == 0) { //三列消すごとにレベルを1あげる。
-                Value++;
-                minoManager.fallSpeedUp(level);
-                updateText();
-            }
-        }
-
-        public void Reset() {
-            deletecount = 0;
-            level = 1;
-            updateText();
-        }
-
-        public int getLevel() {
-            return level;
         }
         
         private void updateText() {
-            levelText.text = string.Format("{0:000}", level);
+            label.text = string.Format("{0:000}", level);
+        }
+
+        public int CalculateLevel(int deleteCount) {
+            return 1 + deleteCount / CountPerLevel;
         }
     }
 }

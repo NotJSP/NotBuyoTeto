@@ -307,7 +307,7 @@ GameObject:
   - component: {fileID: 270307195}
   - component: {fileID: 270307196}
   m_Layer: 5
-  m_Name: ButtonGroup
+  m_Name: Buttons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -423,7 +423,7 @@ GameObject:
   - component: {fileID: 631146419}
   - component: {fileID: 631146421}
   m_Layer: 5
-  m_Name: NetworkBattleButton
+  m_Name: MultiPlay Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1367,7 +1367,7 @@ GameObject:
   - component: {fileID: 1757385371}
   - component: {fileID: 1757385373}
   m_Layer: 5
-  m_Name: MarathonModeButton
+  m_Name: SinglePlay Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
