@@ -48,7 +48,7 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
         private void reset() {
             CancelInvoke("roundstart");
             sfxManager.Stop(IngameSfxType.RoundEnd);
-            score.Reset();
+            score.Initialize();
             buyoManager.Reset();
             //levelManager.Reset();
         }
