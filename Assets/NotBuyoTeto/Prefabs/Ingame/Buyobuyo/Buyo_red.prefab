@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 70882092479258102}
   - component: {fileID: 114040299724738388}
   m_Layer: 9
-  m_Name: red
+  m_Name: Buyo_red
   m_TagString: Buyo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -40,7 +40,6 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         }
 
         private void enqueueGroup() {
-            Debug.Log("enqueueGroup");
             var buyo1 = allTypes[Random.Range(0, allTypes.Length)];
             var buyo2 = allTypes[Random.Range(0, allTypes.Length)];
             var group = new BuyoType[] { buyo1, buyo2 };
