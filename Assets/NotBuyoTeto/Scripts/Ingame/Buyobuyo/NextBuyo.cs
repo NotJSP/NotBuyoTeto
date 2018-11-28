@@ -18,7 +18,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             BuyoType.black,
         };
 
-        public List<List<BuyoType>> Types { get; private set; } = new List<List<BuyoType>>();
+        public List<BuyoType[]> Types { get; private set; } = new List<BuyoType[]>();
 
         public void Awake() {
             Debug.Log(frames.Length);
@@ -31,7 +31,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             Types.Clear();
         }
 
-        public List<BuyoType> Pop() {
+        public BuyoType[] Pop() {
             enqueueGroup(); 
             var type = Types[0];
 
@@ -41,10 +41,10 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         }
 
         private void enqueueGroup() {
-            var group = new List<List<BuyoType>>() {
-                new List<BuyoType>(){ allTypes[Random.Range(0, allTypes.Length)], allTypes[Random.Range(0, allTypes.Length)] }
-            };
-            Types.AddRange(group);
+            var buyo1 = allTypes[Random.Range(0, allTypes.Length)];
+            var buyo2 = allTypes[Random.Range(0, allTypes.Length)];
+            var group = new BuyoType[] { buyo1, buyo2 };
+            Types.Add(group);
         }
 
         private void updateView() {

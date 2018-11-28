@@ -67,7 +67,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             buyos.RemoveAt(buyos.Count - 1);
         }
 
-        private void set(List<BuyoType> types) {
+        private void set(BuyoType[] types) {
             //親オブジェクト作成
             GameObject parent = Instantiate(buyoparent);
             parent.AddComponent<Parent>().Initialize(sfxManager, fallSpeed);
@@ -77,10 +77,10 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             controlable = true;
             currentType = types[0];
             var obj0 = spawner.Spawn(types[0], field.Ceiling, 0);
-            //obj0.AddComponent<Rigidbody2D>().CopyOf(buyoRigidbody);
+            obj0.AddComponent<Rigidbody2D>().CopyOf(buyoRigidbody);
             currentType = types[1];
             var obj1 = spawner.Spawn(types[1], field.Ceiling, 1);
-            //obj1.AddComponent<Rigidbody2D>().CopyOf(buyoRigidbody);
+            obj1.AddComponent<Rigidbody2D>().CopyOf(buyoRigidbody);
             
             //ペアをつくる
             var controller1 = obj0.AddComponent<BuyoController>().Initialize(sfxManager, obj1);

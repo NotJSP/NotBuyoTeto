@@ -1631,6 +1631,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &836188406
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4968557048246354, guid: b6b55003f246f744d9a658a493ad9887, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.018457681
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968557048246354, guid: b6b55003f246f744d9a658a493ad9887, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.08402613
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968557048246354, guid: b6b55003f246f744d9a658a493ad9887, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.034333017
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968557048246354, guid: b6b55003f246f744d9a658a493ad9887, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968557048246354, guid: b6b55003f246f744d9a658a493ad9887, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968557048246354, guid: b6b55003f246f744d9a658a493ad9887, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968557048246354, guid: b6b55003f246f744d9a658a493ad9887, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968557048246354, guid: b6b55003f246f744d9a658a493ad9887, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b6b55003f246f744d9a658a493ad9887, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &877567685
 GameObject:
   m_ObjectHideFlags: 0
@@ -3831,7 +3873,7 @@ MonoBehaviour:
   director: {fileID: 927754451}
   spawner: {fileID: 1563286283}
   sfxManager: {fileID: 360695388}
-  buyoRigidbody: {fileID: 50285768773259338, guid: b6b55003f246f744d9a658a493ad9887,
+  buyoRigidbody: {fileID: 50785185717546436, guid: b6b55003f246f744d9a658a493ad9887,
     type: 2}
   buyoparent: {fileID: 1124500297751202, guid: 3b0b3843a0bcf8d4b9941d807fce1350, type: 2}
 --- !u!1 &1798673522
