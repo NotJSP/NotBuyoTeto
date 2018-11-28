@@ -10,17 +10,19 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         [SerializeField]
         private BuyoResolver resolver;
         [SerializeField]
-        private SpriteRenderer container;
-
+        private SpriteRenderer[] containers;
+        
         private void Reset() {
-            container = GetComponentInChildren<SpriteRenderer>();
+            var containers = GetComponentsInChildren<SpriteRenderer>();
+            this.containers[0] = containers[0];
+            this.containers[1] = containers[1];
         }
 
         public void Set(BuyoType[] types) {
-            foreach (BuyoType type in types) {
-                var buyo = resolver.Get(type);
+            for(int i =0; i < types.Length; i++) { 
+                var buyo = resolver.Get(types[i]);
                 var buyoRenderer = buyo.GetComponent<SpriteRenderer>();
-                container.sprite = buyoRenderer.sprite;
+                containers[i].sprite = buyoRenderer.sprite;
             }
         }
     }
