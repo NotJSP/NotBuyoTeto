@@ -20,6 +20,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         public GameObject buyoparent;
 
         private List<GameObject> buyos = new List<GameObject>();
+        private GameObject parent;
         private BuyoType currentType;
         private bool controlable = true;
         private float fallSpeed = 1.5f;
@@ -45,6 +46,8 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
 
             buyos.ForEach(instantiator.Destroy);
             buyos.Clear();
+
+            Destroy(parent);
         }
 
         public void Next() {
@@ -68,6 +71,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             //親オブジェクト作成
             GameObject parent = Instantiate(buyoparent);
             parent.AddComponent<Parent>().Initialize(sfxManager, fallSpeed);
+            this.parent = parent;
 
             //子オブジェクト(ぶよ)作成
             controlable = true;
