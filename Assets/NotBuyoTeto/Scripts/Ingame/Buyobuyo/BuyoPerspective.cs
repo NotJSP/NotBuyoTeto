@@ -16,6 +16,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
 
         public void OnRoundStarted() {
             field.Floor.SetActive(true);
+            field.Ceiling.Clear();
             field.Ceiling.gameObject.SetActive(true);
         }
 
