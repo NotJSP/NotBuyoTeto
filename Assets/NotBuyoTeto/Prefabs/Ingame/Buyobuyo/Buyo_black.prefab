@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212626013486986662}
   - component: {fileID: 70949117267866714}
   - component: {fileID: 114185408901665360}
+  - component: {fileID: 114488588594599714}
   m_Layer: 9
   m_Name: Buyo_black
   m_TagString: Buyo
@@ -69,6 +70,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 5
+--- !u!114 &114488588594599714
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1883773267670660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4e49f6ec07f188448cbdbd07fbd66eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212626013486986662
 SpriteRenderer:
   m_ObjectHideFlags: 1
