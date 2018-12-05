@@ -37,7 +37,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
 
             BuyoDeleteEffect.Play();
             gameObject.transform.localScale = Vector3.zero;
-            Destroy(gameObject, 1.0f);
+            Destroy(gameObject, 1.5f);
             chainObjects.Clear();
         }
 
