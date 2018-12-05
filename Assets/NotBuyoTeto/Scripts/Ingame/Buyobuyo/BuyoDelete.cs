@@ -7,9 +7,11 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
     public class BuyoDelete : MonoBehaviour, IEqualityComparer<BuyoDelete> {
         private BuyoType type;
         private HashSet<BuyoDelete> chainObjects = new HashSet<BuyoDelete>();
+        private ParticleSystem BuyoDeleteEffect;
 
         private void Awake() {
             type = GetComponent<Buyo>().Type;
+            BuyoDeleteEffect = gameObject.GetComponentInChildren<ParticleSystem>();
         }
 
         // Update is called once per frame
@@ -33,7 +35,9 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             var destroyList = new List<BuyoDelete>(destroyObjects);
             destroyList.ForEach(o => o.DestroyChain(alreadyDestroyed));
 
-            Destroy(gameObject);
+            BuyoDeleteEffect.Play();
+            gameObject.transform.localScale = Vector3.zero;
+            Destroy(gameObject, 1.0f);
             chainObjects.Clear();
         }
 
