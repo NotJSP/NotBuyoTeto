@@ -8,8 +8,8 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         public E blue = default(E);
         public E green = default(E);
         public E yellow = default(E);
-        public E purple = default(E);
-        public E black = default(E);
+        //public E purple = default(E);
+        //public E black = default(E);
 
         public E this[BuyoType type] {
             get {
@@ -18,8 +18,8 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
                     case BuyoType.blue: return blue;
                     case BuyoType.green: return green;
                     case BuyoType.yellow: return yellow;
-                    case BuyoType.purple: return purple;
-                    case BuyoType.black: return black;
+                    //case BuyoType.purple: return purple;
+                    //case BuyoType.black: return black;
                 }
                 throw new ArgumentOutOfRangeException("Invalid type was specified.");
             }
