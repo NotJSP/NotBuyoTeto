@@ -14,8 +14,8 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             BuyoType.blue,
             BuyoType.green,
             BuyoType.yellow,
-            BuyoType.purple,
-            BuyoType.black,
+            //BuyoType.purple,
+            //BuyoType.black,
         };
 
         public List<BuyoType[]> Types { get; private set; } = new List<BuyoType[]>();

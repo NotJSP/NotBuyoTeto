@@ -1073,7 +1073,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4358377687995974, guid: 9abcda7f5d84a124a940fa9b7f7c66db, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114451309390560328, guid: 9abcda7f5d84a124a940fa9b7f7c66db,
         type: 2}
@@ -1695,7 +1695,7 @@ Transform:
   - {fileID: 1777563733}
   - {fileID: 1563286284}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1563286283 stripped
 MonoBehaviour:
