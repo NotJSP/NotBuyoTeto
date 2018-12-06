@@ -15,16 +15,16 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         private BuyoSfxManager sfxManager;
         [SerializeField]
         private Rigidbody2D buyoRigidbody;
-
-        //親のプレハブ
+        [SerializeField]
         public GameObject buyoparent;
-
+        [SerializeField]
+        private BuyoControlSettings controlSettings;
+        
         private List<GameObject> buyos = new List<GameObject>();
         private GameObject parent;
         private BuyoType currentType;
         private bool controlable = true;
-        private float fallSpeed = 1.5f;
-        private float defaultfallSpeed = 1.5f;
+        private float fallSpeed;
 
         public event EventHandler HitBuyo;
 
@@ -38,16 +38,15 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             if (!controlable) { return; }
         }
 
-        public void Reset() {
-            fallSpeed = defaultfallSpeed;
+        public void Initialize(float fallSpeed) {
             controlable = true;
 
             nextBuyo.Clear();
 
             buyos.ForEach(instantiator.Destroy);
             buyos.Clear();
-
             Destroy(parent);
+            SetFallSpeed(fallSpeed);
         }
 
         public void Next() {
@@ -70,7 +69,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         private void set(BuyoType[] types) {
             //親オブジェクト作成
             GameObject parent = Instantiate(buyoparent);
-            parent.AddComponent<Parent>().Initialize(sfxManager, fallSpeed);
+            parent.AddComponent<Parent>().Initialize(sfxManager, controlSettings, fallSpeed);
             this.parent = parent;
 
             //子オブジェクト(ぶよ)作成
@@ -99,8 +98,8 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             HitBuyo?.Invoke(sender, args);
         }
 
-        public void fallSpeedUp(int level) {
-            fallSpeed = fallSpeed + (0.01f * level);
+        public void SetFallSpeed(float speed) {
+            fallSpeed = speed;
         }
     }
 }

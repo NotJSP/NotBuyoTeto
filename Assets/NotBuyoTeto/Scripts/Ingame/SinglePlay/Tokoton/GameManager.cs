@@ -25,13 +25,16 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
         private Ranking ranking;
         [SerializeField]
         private LevelManager levelManager;
-
+        [SerializeField]
+        private FallSpeedManager fallSpeedManager;
+        
         private BuyoPerspective perspective => director.Perspective;
         private BuyoField field => perspective.Field;
 
         protected override void OnSceneReady(object sender, EventArgs args) {
             base.OnSceneReady(sender, args);
             buyoManager.HitBuyo += onHitBuyo;
+            levelManager.ValueChanged += onLevelChanged;
             loadRanking();
             roundstart();
         }
@@ -49,8 +52,8 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
             CancelInvoke("roundstart");
             sfxManager.Stop(IngameSfxType.RoundEnd);
             score.Initialize();
-            buyoManager.Reset();
-            //levelManager.Reset();
+            buyoManager.Initialize(fallSpeedManager.DefaultSpeed);
+            levelManager.Initialize();
         }
 
         private void roundstart() {
@@ -91,10 +94,15 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
             if (field.Ceiling.IsHit) {
                 roundend();
             } else {
-                //score.Increase(200 + (50 * levelManager.getLevel()));
-                //field.ColliderField.DeleteLine();
+                score.Increase(200 + (50 * levelManager.Value));
                 buyoManager.Next();
             }
+        }
+
+        private void onLevelChanged(object sender, int level) {
+            var fallSpeed = fallSpeedManager.GetSpeed(level);
+            buyoManager.SetFallSpeed(fallSpeed);
+            Debug.Log(fallSpeed);
         }
     }
 }

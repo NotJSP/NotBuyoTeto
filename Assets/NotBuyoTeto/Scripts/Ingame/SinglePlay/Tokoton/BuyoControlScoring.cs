@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using NotBuyoTeto.Ingame.Buyobuyo;
 
-namespace NotBuyoTeto.Ingame.SinglePlay.Buyobuyo {
+namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
     [RequireComponent(typeof(BuyoManager))]
     public class BuyoControlScoring : MonoBehaviour {
         [SerializeField]
         private Score score;
         private BuyoManager buyoManager;
 
-        private static int ScoreIncrementDuration = 5;
+        private static float ScoreIncrementDuration = 0.1f;
 
         private void Awake() {
             buyoManager = GetComponent<BuyoManager>();
@@ -26,7 +26,7 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Buyobuyo {
             if (controller == null) { return; }
 
             var velocity = rigidbody.velocity;
-            if (controller.DropFrames % ScoreIncrementDuration == 1) {
+            if (controller.DropTime % ScoreIncrementDuration == 1) {
                 velocity.x = 0.0f;
                 var amount = (int)(velocity.magnitude - 1.0f);
                 score.Increase(amount);
