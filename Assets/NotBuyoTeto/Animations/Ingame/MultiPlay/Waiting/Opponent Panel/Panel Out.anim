@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Frames Out
+  m_Name: Panel Out
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -22,54 +22,26 @@ AnimationClip:
       - serializedVersion: 3
         time: 0
         value: -10
-        inSlope: -491.65823
-        outSlope: -491.65823
+        inSlope: 2524.986
+        outSlope: 2524.986
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.066738434
+        outWeight: 0.05489774
       - serializedVersion: 3
-        time: 0.46666667
-        value: -140
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
+        time: 0.81666666
+        value: 620
+        inSlope: 0.001119849
+        outSlope: 0.001119849
+        tangentMode: 0
         weightedMode: 0
-        inWeight: 0.33333334
+        inWeight: 0.0667384
         outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_AnchoredPosition.y
-    path: Bottom Panel
-    classID: 224
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 5
-        inSlope: 539.2112
-        outSlope: 539.2112
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.058127023
-      - serializedVersion: 3
-        time: 0.46666667
-        value: 170
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_AnchoredPosition.y
-    path: Top Panel
+    attribute: m_AnchoredPosition.x
+    path: 
     classID: 224
     script: {fileID: 0}
   m_PPtrCurves: []
@@ -81,15 +53,8 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 1996794839
-      attribute: 538195251
-      script: {fileID: 0}
-      typeID: 224
-      customType: 28
-      isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 2398513352
-      attribute: 538195251
+      path: 0
+      attribute: 1460864421
       script: {fileID: 0}
       typeID: 224
       customType: 28
@@ -100,7 +65,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.46666667
+    m_StopTime: 0.81666666
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -122,54 +87,26 @@ AnimationClip:
       - serializedVersion: 3
         time: 0
         value: -10
-        inSlope: -491.65823
-        outSlope: -491.65823
+        inSlope: 2524.986
+        outSlope: 2524.986
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.066738434
+        outWeight: 0.05489774
       - serializedVersion: 3
-        time: 0.46666667
-        value: -140
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
+        time: 0.81666666
+        value: 620
+        inSlope: 0.001119849
+        outSlope: 0.001119849
+        tangentMode: 0
         weightedMode: 0
-        inWeight: 0.33333334
+        inWeight: 0.0667384
         outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_AnchoredPosition.y
-    path: Bottom Panel
-    classID: 224
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 5
-        inSlope: 539.2112
-        outSlope: 539.2112
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.058127023
-      - serializedVersion: 3
-        time: 0.46666667
-        value: 170
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_AnchoredPosition.y
-    path: Top Panel
+    attribute: m_AnchoredPosition.x
+    path: 
     classID: 224
     script: {fileID: 0}
   m_EulerEditorCurves: []

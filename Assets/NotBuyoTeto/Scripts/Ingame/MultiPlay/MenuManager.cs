@@ -3,19 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Photon.Pun;
+using Photon;
 using NotBuyoTeto.SceneManagement;
 using NotBuyoTeto.Constants;
 using NotBuyoTeto.Ingame.MultiPlay.League;
 using NotBuyoTeto.Ingame.MultiPlay.Club;
-using Photon.Realtime;
 
 namespace NotBuyoTeto.Ingame.MultiPlay {
-    public class MenuManager : MonoBehaviourPunCallbacks {
+    public class MenuManager : PunBehaviour {
         [SerializeField]
-        private MatchingManager matchingManager;
+        private LeagueManager leagueManager;
         [SerializeField]
-        private LobbyManager lobbyManager;
+        private ClubManager clubManager;
 
         [SerializeField]
         private GameObject menuPanel;
@@ -53,83 +52,99 @@ namespace NotBuyoTeto.Ingame.MultiPlay {
 #if !DEBUG
             StartCoroutine(AnimationTransit.In(connectingTransit));
 #endif
-            PhotonNetwork.ConnectUsingSettings();
+            PhotonNetwork.ConnectUsingSettings("1.0");
         }
 
         private void Update() {
             if (AnimationTransit.IsAnimating) { return; }
 
             if (Input.GetKeyDown(KeyCode.Escape)) {
-                if (state == State.Menu) {
-                    if (PhotonNetwork.IsConnected) {
-                        PhotonNetwork.Disconnect();
-                    }
-                    SceneController.Instance.LoadScene(SceneName.Title, SceneTransition.Duration);
-                }
+                Back();
+            }
+        }
 
-                if (state == State.League) {
-                    CancelMatching();
+        public void Back() {
+            if (state == State.Menu) {
+                if (PhotonNetwork.connected) {
+                    PhotonNetwork.Disconnect();
                 }
+                SceneController.Instance.LoadScene(SceneName.Title, SceneTransition.Duration);
+            }
 
-                if (state == State.ClubMenu) {
-                    CancelClub();
-                }
+            if (state == State.League) {
+                OnCancelLeague();
+            }
 
-                if (state == State.CreateRoom) {
-                    CancelCreateRoom();
-                }
+            if (state == State.ClubMenu) {
+                OnCancelClub();
+            }
+
+            if (state == State.CreateRoom) {
+                OnCancelCreateRoom();
             }
         }
 
         public void OnPressedCreateRoomOnLobby() {
             state = State.CreateRoom;
-            lobbyManager.CreateRoomOnLobby();
+            clubManager.CreateRoomOnLobby();
         }
 
         public void OnPressedCreateRoomOnPanel() {
             state = State.ClubMenu;
-            lobbyManager.CreateRoomOnPanel();
+            clubManager.CreateRoomOnPanel();
         }
 
         public void OnPressedLeagueButton() {
             state = State.League;
             StartCoroutine(AnimationTransit.Transition(menuTransit, leagueTransit));
-            matchingManager.StartMatching();
+            //leagueManager.enabled = true;
+            leagueManager.gameObject.SetActive(true);
+            leagueManager.OnStart();
+        }
+
+        public void OnCancelLeague() {
+            state = State.Menu;
+            StartCoroutine(AnimationTransit.Transition(leagueTransit, menuTransit));
+            leagueManager.OnCancel();
+            //leagueManager.enabled = false;
+            leagueManager.gameObject.SetActive(false);
         }
 
         public void OnPressedClubButton() {
             state = State.ClubMenu;
             StartCoroutine(AnimationTransit.Transition(menuTransit, clubTransit));
+            //clubManager.enabled = true;
+            clubManager.gameObject.SetActive(true);
+            clubManager.OnStart();
         }
 
-        public void CancelCreateRoom() {
-            state = State.ClubMenu;
-            lobbyManager.CancelCreateRoom();
-        }
-
-        public void CancelMatching() {
-            state = State.Menu;
-            StartCoroutine(AnimationTransit.Transition(leagueTransit, menuTransit));
-            matchingManager.CancelMatching();
-        }
-
-        public void CancelClub() {
+        public void OnCancelClub() {
             state = State.Menu;
             StartCoroutine(AnimationTransit.Transition(clubTransit, menuTransit));
+            clubManager.OnCancel();
+            //clubManager.enabled = false;
+            clubManager.gameObject.SetActive(false);
+        }
+
+        public void OnCancelCreateRoom() {
+            state = State.ClubMenu;
+            clubManager.OnCancelCreateRoom();
         }
 
         public override void OnConnectedToMaster() {
             if (!connected) {
                 Debug.Log("OnConnectedToMaster");
                 connected = true;
+
+                PhotonNetwork.playerName = PlayerPrefs.GetString(PlayerPrefsKey.PlayerName);
 #if !DEBUG
                 StartCoroutine(AnimationTransit.Out(connectingTransit));
 #endif
             }
         }
 
-        public override void OnDisconnected(DisconnectCause cause) {
-            Debug.Log($"OnDisconnected(cause:{cause.ToString()})");
+        public override void OnDisconnectedFromPhoton() { 
+            Debug.Log($"MenuManager::OnDisconnectedFromPhoton()");
             if (connected) {
                 Debug.Log("サーバーから切断されました。");
             } else {

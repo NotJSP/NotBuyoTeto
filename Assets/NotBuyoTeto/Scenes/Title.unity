@@ -746,8 +746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c21244d4c9558b54c9e922bf4085ca63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groups:
-  - {fileID: 503985775}
+  groups: []
   objects: []
 --- !u!1 &943384049
 GameObject:
@@ -1108,14 +1107,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1330669213}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f5a5d6ab257d47e288a8c2cced8e1df, type: 3}
+  m_Script: {fileID: 11500000, guid: 3cce9f462cbd54512a9cbcde9b713e2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   applicationKey: 7e9d11441de3464e722c6d3acfe051dd85907c404311b2c35aaac168467c3cf6
   clientKey: 574be491cade90d6515cf5936e98231aec9038ed6c7321e693109d7d1f2cdd00
   usePush: 0
   useAnalytics: 0
-  androidSenderId: 
   responseValidation: 0
 --- !u!4 &1330669215
 Transform:
