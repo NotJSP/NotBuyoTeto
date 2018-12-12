@@ -14,6 +14,8 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         [SerializeField]
         private BuyoSfxManager sfxManager;
         [SerializeField]
+        private ComboManager comboManager;
+        [SerializeField]
         private Rigidbody2D buyoRigidbody;
         [SerializeField]
         public GameObject buyoparent;
@@ -76,9 +78,11 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             controlable = true;
             currentType = types[0];
             var obj0 = spawner.Spawn(types[0], field.Ceiling, 0);
+            obj0.GetComponent<BuyoDelete>().DeleteBuyo += onDeleteBuyo;         
             obj0.AddComponent<Rigidbody2D>().CopyOf(buyoRigidbody);
             currentType = types[1];
             var obj1 = spawner.Spawn(types[1], field.Ceiling, 1);
+            obj1.GetComponent<BuyoDelete>().DeleteBuyo += onDeleteBuyo;
             obj1.AddComponent<Rigidbody2D>().CopyOf(buyoRigidbody);
             
             //ペアをつくる
@@ -101,5 +105,10 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         public void SetFallSpeed(float speed) {
             fallSpeed = speed;
         }
+
+        private void onDeleteBuyo(object sender, Vector3 position) {
+            comboManager.countUp(position);
+        }
+
     }
 }
