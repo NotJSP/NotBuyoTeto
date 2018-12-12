@@ -10,7 +10,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         private HashSet<BuyoDelete> chainObjects = new HashSet<BuyoDelete>();
         private ParticleSystem BuyoDeleteEffect;
 
-        public event EventHandler<Vector3> DeleteBuyo;
+        public event EventHandler<Vector2> DeleteBuyo;
 
         private void Awake() {
             type = GetComponent<Buyo>().Type;

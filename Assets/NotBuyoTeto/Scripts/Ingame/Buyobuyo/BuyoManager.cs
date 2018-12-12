@@ -106,7 +106,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             fallSpeed = speed;
         }
 
-        private void onDeleteBuyo(object sender, Vector3 position) {
+        private void onDeleteBuyo(object sender, Vector2 position) {
             comboManager.countUp(position);
         }
 
