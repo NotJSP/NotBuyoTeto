@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 namespace NotBuyoTeto.Ingame.Buyobuyo {
     public class BuyoDelete : MonoBehaviour, IEqualityComparer<BuyoDelete> {
         private BuyoType type;
         private HashSet<BuyoDelete> chainObjects = new HashSet<BuyoDelete>();
         private ParticleSystem BuyoDeleteEffect;
+
+        public event EventHandler<Vector3> DeleteBuyo;
 
         private void Awake() {
             type = GetComponent<Buyo>().Type;
@@ -17,6 +20,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         // Update is called once per frame
         void Update() {
             if (GetChainCount(null) >= 4) {
+                DeleteBuyo?.Invoke(this, transform.position);
                 DestroyChain(null);
             }
         }
@@ -37,7 +41,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
 
             BuyoDeleteEffect.Play();
             gameObject.transform.localScale = Vector3.zero;
-            Destroy(gameObject, 1.0f);
+            Destroy(gameObject, 1.5f);
             chainObjects.Clear();
         }
 

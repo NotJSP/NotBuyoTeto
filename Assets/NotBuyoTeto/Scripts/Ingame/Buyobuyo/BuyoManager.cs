@@ -14,17 +14,19 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         [SerializeField]
         private BuyoSfxManager sfxManager;
         [SerializeField]
+        private ComboManager comboManager;
+        [SerializeField]
         private Rigidbody2D buyoRigidbody;
-
-        //親のプレハブ
+        [SerializeField]
         public GameObject buyoparent;
-
+        [SerializeField]
+        private BuyoControlSettings controlSettings;
+        
         private List<GameObject> buyos = new List<GameObject>();
         private GameObject parent;
         private BuyoType currentType;
         private bool controlable = true;
-        private float fallSpeed = 1.5f;
-        private float defaultfallSpeed = 1.5f;
+        private float fallSpeed;
 
         public event EventHandler HitBuyo;
 
@@ -38,16 +40,15 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             if (!controlable) { return; }
         }
 
-        public void Reset() {
-            fallSpeed = defaultfallSpeed;
+        public void Initialize(float fallSpeed) {
             controlable = true;
 
             nextBuyo.Clear();
 
             buyos.ForEach(instantiator.Destroy);
             buyos.Clear();
-
             Destroy(parent);
+            SetFallSpeed(fallSpeed);
         }
 
         public void Next() {
@@ -70,16 +71,18 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         private void set(BuyoType[] types) {
             //親オブジェクト作成
             GameObject parent = Instantiate(buyoparent);
-            parent.AddComponent<Parent>().Initialize(sfxManager, fallSpeed);
+            parent.AddComponent<Parent>().Initialize(sfxManager, controlSettings, fallSpeed);
             this.parent = parent;
 
             //子オブジェクト(ぶよ)作成
             controlable = true;
             currentType = types[0];
             var obj0 = spawner.Spawn(types[0], field.Ceiling, 0);
+            obj0.GetComponent<BuyoDelete>().DeleteBuyo += onDeleteBuyo;         
             obj0.AddComponent<Rigidbody2D>().CopyOf(buyoRigidbody);
             currentType = types[1];
             var obj1 = spawner.Spawn(types[1], field.Ceiling, 1);
+            obj1.GetComponent<BuyoDelete>().DeleteBuyo += onDeleteBuyo;
             obj1.AddComponent<Rigidbody2D>().CopyOf(buyoRigidbody);
             
             //ペアをつくる
@@ -99,8 +102,13 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             HitBuyo?.Invoke(sender, args);
         }
 
-        public void fallSpeedUp(int level) {
-            fallSpeed = fallSpeed + (0.01f * level);
+        public void SetFallSpeed(float speed) {
+            fallSpeed = speed;
         }
+
+        private void onDeleteBuyo(object sender, Vector3 position) {
+            comboManager.countUp(position);
+        }
+
     }
 }

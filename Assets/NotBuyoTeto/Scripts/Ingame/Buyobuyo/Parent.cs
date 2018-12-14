@@ -11,28 +11,21 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
 
         private bool hit = false;
 
+        private BuyoControlSettings settings;
         private float prevHorizontal;
-        private static float LimitHorizontalVelocity = 4.2f;
-        private static float LimitAngularVelocity = 180.0f;
 
         private float fallSpeed;
         private float fallAccelaration;
-        public int DropFrames { get; private set; }
-
-        private static float SoftdropPeekAccelaration = 6.58f;
-        private static float HarddropPeekAccelaration = SoftdropPeekAccelaration * 1.5f;
-        private static AnimationCurve DropAccelarationCurve = new AnimationCurve(
-            new Keyframe(0, 0, 1.617043f, 1.617043f, 0, 0.1401876f),
-            new Keyframe(1, 1, 0.7356746f, 0.7356746f, 0.3873379f, 0)
-        );
-        private static int DropPeekFrames = 60;
-
+        public float DropTime { get; private set; }
+        public float ReleaseTime { get; private set; }
+        
         public void Awake() {
             rigidbody = GetComponent<Rigidbody2D>();
         }
 
-        public Parent Initialize(BuyoSfxManager sfxManager, float fallSpeed) {
+        public Parent Initialize(BuyoSfxManager sfxManager, BuyoControlSettings settings, float fallSpeed) {
             this.fallSpeed = fallSpeed;
+            this.settings = settings;
             this.sfxManager = sfxManager;
             return this;
         }
@@ -53,41 +46,50 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
                 sfxManager.Play(BuyoSfxType.BuyoMove);
             }
             if (horizontal < 0) {
-                velocity.x -= 0.122f;
+                velocity.x -= settings.HorizontalVelocity * Time.deltaTime;
             }
             if (horizontal > 0) {
-                velocity.x += 0.122f;
+                velocity.x += settings.HorizontalVelocity * Time.deltaTime;
             }
-            velocity.x = Mathf.Clamp(velocity.x, -LimitHorizontalVelocity, LimitHorizontalVelocity);
+            velocity.x = Mathf.Clamp(velocity.x, -settings.LimitHorizontalVelocity, settings.LimitHorizontalVelocity);
             prevHorizontal = horizontal;
 
             var vertical = Input.GetAxis(@"Vertical");
             if (vertical != 0) {
-                DropFrames++;
-                var frames = Mathf.Clamp(DropFrames, 0, DropPeekFrames);
-                var peekAccelaration = (vertical < 0) ? SoftdropPeekAccelaration : HarddropPeekAccelaration;
-                fallAccelaration = peekAccelaration * DropAccelarationCurve.Evaluate((float)frames / DropPeekFrames);
+                var t1 = Mathf.Clamp(DropTime, 0, settings.AccelarationTime);
+                var t2 = t1 / settings.AccelarationTime;
+                var t3 = settings.AccelarationCurve.Evaluate(t2);
+                var peek = (vertical < 0) ? settings.SoftdropPeekAccelaration : settings.HarddropPeekAccelaration;
+                fallAccelaration = peek * t3;
+
+                DropTime += Time.deltaTime;
+                ReleaseTime = 0.0f;
             }
             else {
-                DropFrames = 0;
-                fallAccelaration *= 0.86f;
+                var t1 = Mathf.Clamp(ReleaseTime, 0, settings.DecelerationTime);
+                var t2 = t1 / settings.DecelerationTime;
+                var t3 = settings.DecelerationCurve.Evaluate(t2);
+                fallAccelaration = Mathf.Lerp(fallAccelaration, 0.0f, t3);
+
+                ReleaseTime += Time.deltaTime;
+                DropTime = 0.0f;
             }
 
             if (Input.GetButtonDown(@"Rotate Left") || Input.GetButtonDown(@"Rotate Right")) {
                 sfxManager.Play(BuyoSfxType.BuyoRotate);
             }
             if (Input.GetButton(@"Rotate Left")) {
-                torque += 2.08f;
+                torque += settings.AngularVelocity * Time.deltaTime;
             }
             if (Input.GetButton(@"Rotate Right")) {
-                torque -= 2.08f;
+                torque -= settings.AngularVelocity * Time.deltaTime;
             }
 
             velocity.y -= fallAccelaration;
 
             rigidbody.AddTorque(torque);
             rigidbody.velocity = velocity;
-            rigidbody.angularVelocity = Mathf.Clamp(rigidbody.angularVelocity, -LimitAngularVelocity, LimitAngularVelocity);
+            rigidbody.angularVelocity = Mathf.Clamp(rigidbody.angularVelocity, -settings.LimitAngularVelocity, settings.LimitAngularVelocity);
 
             //            dropEffect.transform.rotation = Quaternion.identity;
         }
