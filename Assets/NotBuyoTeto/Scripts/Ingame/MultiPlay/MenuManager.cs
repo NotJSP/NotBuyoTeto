@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon;
 using NotBuyoTeto.SceneManagement;
 using NotBuyoTeto.Constants;
@@ -17,6 +18,9 @@ namespace NotBuyoTeto.Ingame.MultiPlay {
         private ClubManager clubManager;
 
         [SerializeField]
+        private Button backButton;
+
+        [SerializeField]
         private GameObject menuPanel;
         [SerializeField]
         private GameObject leaguePanel;
@@ -25,6 +29,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay {
         [SerializeField]
         private ConnectingPanel connectingPanel;
 
+        private AnimationTransitEntry backButtonTransit;
         private AnimationTransitEntry menuTransit;
         private AnimationTransitEntry leagueTransit;
         private AnimationTransitEntry clubTransit;
@@ -42,6 +47,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay {
         private State state;
 
         private void Awake() {
+            this.backButtonTransit = new AnimationTransitEntry(backButton.gameObject, "Back Button In", "Back Button Out");
             this.menuTransit = new AnimationTransitEntry(menuPanel, "Menu In", "Menu Out");
             this.leagueTransit = new AnimationTransitEntry(leaguePanel, "Open Window", "Close Window");
             this.clubTransit = new AnimationTransitEntry(clubPanel, "In Menu", "Out Menu");
@@ -64,6 +70,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay {
         }
 
         public void Back() {
+            if (!backButton.interactable) { return; }
+
             if (state == State.Menu) {
                 if (PhotonNetwork.connected) {
                     PhotonNetwork.Disconnect();
@@ -96,7 +104,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay {
 
         public void OnPressedLeagueButton() {
             state = State.League;
-            StartCoroutine(AnimationTransit.Transition(menuTransit, leagueTransit));
+            BackButtonOut();
+            StartCoroutine(AnimationTransit.Transition(menuTransit, leagueTransit, () => BackButtonIn()));
             //leagueManager.enabled = true;
             leagueManager.gameObject.SetActive(true);
             leagueManager.OnStart();
@@ -104,23 +113,24 @@ namespace NotBuyoTeto.Ingame.MultiPlay {
 
         public void OnCancelLeague() {
             state = State.Menu;
-            StartCoroutine(AnimationTransit.Transition(leagueTransit, menuTransit));
+            BackButtonOut();
+            StartCoroutine(AnimationTransit.Transition(leagueTransit, menuTransit, () => BackButtonIn()));
             leagueManager.OnCancel();
-            //leagueManager.enabled = false;
             leagueManager.gameObject.SetActive(false);
         }
 
         public void OnPressedClubButton() {
             state = State.ClubMenu;
-            StartCoroutine(AnimationTransit.Transition(menuTransit, clubTransit));
-            //clubManager.enabled = true;
+            BackButtonOut();
+            StartCoroutine(AnimationTransit.Transition(menuTransit, clubTransit, () => BackButtonIn()));
             clubManager.gameObject.SetActive(true);
             clubManager.OnStart();
         }
 
         public void OnCancelClub() {
             state = State.Menu;
-            StartCoroutine(AnimationTransit.Transition(clubTransit, menuTransit));
+            BackButtonOut();
+            StartCoroutine(AnimationTransit.Transition(clubTransit, menuTransit, () => BackButtonIn()));
             clubManager.OnCancel();
             //clubManager.enabled = false;
             clubManager.gameObject.SetActive(false);
@@ -151,6 +161,14 @@ namespace NotBuyoTeto.Ingame.MultiPlay {
                 connectingPanel.Text.text = "インターネットに接続できません。\nタイトルに戻ります。";
                 connectingPanel.indicator.SetActive(false);
             }
+        }
+
+        public void BackButtonIn() {
+            StartCoroutine(AnimationTransit.In(backButtonTransit, false));
+        }
+
+        public void BackButtonOut() {
+            StartCoroutine(AnimationTransit.Out(backButtonTransit, false));
         }
     }
 }

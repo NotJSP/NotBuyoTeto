@@ -7294,6 +7294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leagueManager: {fileID: 629124359}
   clubManager: {fileID: 71351907}
+  backButton: {fileID: 894204447}
   menuPanel: {fileID: 1743142901}
   leaguePanel: {fileID: 1145865650}
   clubPanel: {fileID: 831743568}
