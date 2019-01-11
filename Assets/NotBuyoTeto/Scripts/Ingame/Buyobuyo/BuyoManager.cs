@@ -16,6 +16,8 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         [SerializeField]
         private ComboManager comboManager;
         [SerializeField]
+        private LevelManager levelManager;
+        [SerializeField]
         private Rigidbody2D buyoRigidbody;
         [SerializeField]
         public GameObject buyoparent;
@@ -108,6 +110,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
 
         private void onDeleteBuyo(object sender, Vector2 position) {
             comboManager.countUp(position);
+            levelManager.DeleteCountUp();
         }
 
     }

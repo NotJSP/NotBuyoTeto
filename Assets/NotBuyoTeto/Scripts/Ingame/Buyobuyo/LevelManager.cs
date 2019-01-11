@@ -27,8 +27,8 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             }
         }
 
-        public void DeleteCountUp(int count) { 
-            deleteCount += count;
+        public void DeleteCountUp() { 
+            deleteCount += 1;
 
             var estimatedLevel = CalculateLevel(deleteCount);
             if (level != estimatedLevel) {

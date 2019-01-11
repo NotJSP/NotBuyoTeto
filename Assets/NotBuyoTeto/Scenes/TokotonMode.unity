@@ -1962,6 +1962,11 @@ Prefab:
       propertyPath: comboManager
       value: 
       objectReference: {fileID: 952612658}
+    - target: {fileID: 114819173668993604, guid: 7755f47df1bc0794a886903ac5a96783,
+        type: 2}
+      propertyPath: levelManager
+      value: 
+      objectReference: {fileID: 1651480629}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7755f47df1bc0794a886903ac5a96783, type: 2}
   m_IsPrefabAsset: 0
