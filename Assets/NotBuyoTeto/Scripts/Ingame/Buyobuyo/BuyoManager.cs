@@ -78,11 +78,11 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             controlable = true;
             currentType = types[0];
             var obj0 = spawner.Spawn(types[0], field.Ceiling, 0);
-            obj0.GetComponent<BuyoDelete>().DeleteBuyo += onDeleteBuyo;         
+            obj0.GetComponent<Buyo>().DeleteBuyo += onDeleteBuyo;         
             obj0.AddComponent<Rigidbody2D>().CopyOf(buyoRigidbody);
             currentType = types[1];
             var obj1 = spawner.Spawn(types[1], field.Ceiling, 1);
-            obj1.GetComponent<BuyoDelete>().DeleteBuyo += onDeleteBuyo;
+            obj1.GetComponent<Buyo>().DeleteBuyo += onDeleteBuyo;
             obj1.AddComponent<Rigidbody2D>().CopyOf(buyoRigidbody);
             
             //ペアをつくる
