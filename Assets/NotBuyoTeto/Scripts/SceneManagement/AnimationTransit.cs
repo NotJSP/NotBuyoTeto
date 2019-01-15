@@ -20,38 +20,35 @@ namespace NotBuyoTeto.SceneManagement {
     public static class AnimationTransit {
         public static bool IsAnimating { get; private set; }
 
-        public static IEnumerator animate(AnimationTransitEntry e, string state) {
-            e.Animator.Play(state);
+        public static IEnumerator animate(Animator animator, string state) {
+            IsAnimating = true;
+
+            animator.Play(state);
             yield return new WaitForEndOfFrame();
-            yield return new WaitWhile(() => isPlaying(e.Animator));
-        }
+            yield return new WaitWhile(() => isPlaying(animator));
 
-        public static IEnumerator In(AnimationTransitEntry e, bool changeActivity = true, Action afterAction = null) {
-            IsAnimating = true;
-            if (changeActivity) { e.Object.SetActive(true); }
-            yield return animate(e, e.InState);
-            afterAction?.Invoke();
             IsAnimating = false;
         }
 
-        public static IEnumerator Out(AnimationTransitEntry e, bool changeActivity = true, Action afterAction = null) {
-            IsAnimating = true;
-            yield return animate(e, e.OutState);
-            if (changeActivity) { e.Object.SetActive(false); }
+        public static IEnumerator In(AnimationTransitEntry e, Action afterAction = null) {
+            e.Object.SetActive(true);
+            yield return animate(e.Animator, e.InState);
             afterAction?.Invoke();
-            IsAnimating = false;
+        }
+
+        public static IEnumerator Out(AnimationTransitEntry e, Action afterAction = null) {
+            yield return animate(e.Animator, e.OutState);
+            e.Object.SetActive(false);
+            afterAction?.Invoke();
         }
 
         public static IEnumerator Transition(AnimationTransitEntry from, AnimationTransitEntry to, Action afterAction = null) {
-            var changeActivity = !from.Object.Equals(to.Object);
-
             if (from != null) {
                 yield return Out(from);
             }
             if (to != null) {
                 yield return In(to);
             }
-
             afterAction?.Invoke();
         }
 

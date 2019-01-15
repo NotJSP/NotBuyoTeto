@@ -1,16 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using Photon;
 using NotBuyoTeto.SceneManagement;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
     public class WaitingManager : PunBehaviour {
-        [SerializeField]
-        private MenuManager menuManager;
         [SerializeField]
         private StartingCounter counter;
 
@@ -37,13 +33,32 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
             AnimationTransit.In(waitingWindowTransition);
         }
 
-        private void back(object sender, EventArgs args) {
-            menuManager.Back();
-            counter.OnZero -= back;
-        }
-
         public override void OnJoinedRoom() {
             Debug.Log("WaitingManager::OnJoinedRoom");
+        }
+
+        public void OpenWaitingWindow() {
+            StartCoroutine(AnimationTransit.In(waitingWindowTransition));
+        }
+
+        public void CloseWaitingWindow() {
+            StartCoroutine(AnimationTransit.Out(waitingWindowTransition));
+        }
+
+        public void InPlayerPanel() {
+            StartCoroutine(AnimationTransit.In(playerPanelTransition));
+        }
+
+        public void OutPlayerPanel() {
+            StartCoroutine(AnimationTransit.Out(playerPanelTransition));
+        }
+
+        public void InOpponentPanel() {
+            StartCoroutine(AnimationTransit.In(opponentPanelTransition));
+        }
+
+        public void OutOpponentPanel() {
+            StartCoroutine(AnimationTransit.Out(opponentPanelTransition));
         }
     }
 }

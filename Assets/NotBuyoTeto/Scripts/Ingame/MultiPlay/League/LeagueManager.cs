@@ -5,20 +5,64 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon;
 using NotBuyoTeto.SceneManagement;
-using NotBuyoTeto.Constants;
+using NotBuyoTeto.Ingame.MultiPlay.Menu;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.League {
     public class LeagueManager : PunBehaviour {
         public static readonly TypedLobby Lobby = new TypedLobby("LeagueLobby", LobbyType.Default);
 
         [SerializeField]
+        private MenuManager menuManager;
+        [SerializeField]
+        private BackButton backButton;
+
+        [SerializeField]
+        private GameObject mainPanel;
+        [SerializeField]
         private Text messageLabel;
         [SerializeField]
         private Text statusLabel;
 
-        private string playerName => PhotonNetwork.playerName;
+        private AnimationTransitEntry transit;
 
         private bool joinedLobby = false;
+
+        private void Awake() {
+            transit = new AnimationTransitEntry(mainPanel, "Open Window", "Close Window");
+        }
+
+        private void OnEnable() {
+            backButton.OnPressed += back;
+        }
+
+        private void OnDisable() {
+            backButton.OnPressed -= back;
+        }
+
+        private void Update() {
+            if (AnimationTransit.IsAnimating) { return; }
+
+            if (backButton.IsActive && Input.GetKeyDown(KeyCode.Escape)) {
+                back(this, EventArgs.Empty);
+            }
+        }
+
+        public void InMenu(Action afterAction = null) {
+            StartCoroutine(AnimationTransit.In(transit, afterAction));
+        }
+
+        public void OutMenu(Action afterAction = null) {
+            StartCoroutine(AnimationTransit.Out(transit, afterAction));
+        }
+
+        private void back(object sender, EventArgs args) {
+            backButton.Inactive();
+            OutMenu(() => {
+                menuManager.gameObject.SetActive(true);
+                menuManager.InMenu(() => backButton.Active());
+                gameObject.SetActive(false);
+            });
+        }
 
         public void OnStart() {
             Debug.Log(@"LeagueManager::OnStart");
@@ -40,7 +84,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.League {
             // Photonのバグ?でOnJoinedLobbyのコールバックが多重登録されるので対策
             if (!joinedLobby) {
                 Debug.Log("LeagueManager::OnJoinedLobby");
-                statusLabel.text = $"あなた: {playerName}";
+                statusLabel.text = $"あなた: {PhotonNetwork.playerName}";
                 PhotonNetwork.JoinRandomRoom();
                 joinedLobby = true;
             }
