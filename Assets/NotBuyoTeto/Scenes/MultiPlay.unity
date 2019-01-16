@@ -2729,6 +2729,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counter: {fileID: 1853749984}
+  waitingPanel: {fileID: 1205568615}
   playerPanel: {fileID: 1937166547}
   opponentPanel: {fileID: 1959526228}
   waitingWindow: {fileID: 1482189323}
@@ -6768,8 +6769,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: OnPressedCreateRoomOnPanel
+      - m_Target: {fileID: 71351907}
+        m_MethodName: PressedCreateRoomOnPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7611,8 +7612,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: OnPressedCreateRoomOnLobby
+      - m_Target: {fileID: 71351907}
+        m_MethodName: PressedCreateRoomOnLobby
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

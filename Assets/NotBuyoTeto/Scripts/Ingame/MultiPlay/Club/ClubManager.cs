@@ -54,24 +54,12 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
         }
 
         private void back(object sender, EventArgs args) {
-            if (state == State.Menu) { 
-                backButton.Inactive();
-                OutMenu(() => {
-                    menuManager.gameObject.SetActive(true);
-                    menuManager.InMenu(() => backButton.Active());
-                    gameObject.SetActive(false);
-                });
+            if (state == State.Menu) {
+                OnCancel();
             }
             if (state == State.CreateRoom) {
-                backButton.Inactive();
-                StartCoroutine(AnimationTransit.Transition(createRoomTransit, transit, () => backButton.Active()));
-                state = State.Menu;
+                OnCancelCreateRoom();
             }
-        }
-
-        public void PressedCreateRoomButtonOnMainPanel() {
-            StartCoroutine(AnimationTransit.Transition(transit, createRoomTransit, () => backButton.Active()));
-            state = State.CreateRoom;
         }
 
         public void InMenu(Action afterAction = null) {
@@ -90,21 +78,42 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
 
         public void OnCancel() {
             Debug.Log("ClubManager::OnCancel");
+
             if (PhotonNetwork.inRoom) {
                 PhotonNetwork.LeaveRoom();
             }
             if (PhotonNetwork.connectionStateDetailed == ClientState.Authenticating || PhotonNetwork.connectionStateDetailed == ClientState.ConnectingToGameserver) {
                 PhotonNetwork.LeaveLobby();
             }
+
+            backButton.Inactive();
+            OutMenu(() => {
+                menuManager.gameObject.SetActive(true);
+                menuManager.InMenu(() => backButton.Active());
+                gameObject.SetActive(false);
+            });
+        } 
+
+        public void OnCancelCreateRoom() {
+            Debug.Log("ClubManager::OnCancelCreateRoom");
+            backButton.Inactive();
+            StartCoroutine(AnimationTransit.Transition(createRoomTransit, transit, () => backButton.Active()));
+            state = State.Menu;
         }
 
-        public void CreateRoomOnLobby() {
-            Debug.Log("ClubManager::CreateRoomOnLobby");
-            StartCoroutine(AnimationTransit.Transition(transit, createRoomTransit));
+        public override void OnJoinedLobby() {
+            Debug.Log("ClubManager::OnJoinedLobby");
         }
 
-        public void CreateRoomOnPanel() {
-            Debug.Log("ClubManager::CreateRoomOnPanel");
+        public void PressedCreateRoomOnLobby() {
+            Debug.Log("ClubManager::PressedCreateRoomOnLobby");
+            backButton.Inactive();
+            StartCoroutine(AnimationTransit.Transition(transit, createRoomTransit, () => backButton.Active()));
+            state = State.CreateRoom;
+        }
+
+        public void PressedCreateRoomOnPanel() {
+            Debug.Log("ClubManager::PressedCreateRoomOnPanel");
             var name = PhotonNetwork.playerName;
             // TODO:
             var settings = new RoomSettings {
@@ -116,17 +125,13 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
             // TODO:
             var record = new FightRecord(999, 999);
             var player = new WaitingPlayer(name, record, 1009);
+
+            backButton.Inactive();
             waitingManager.gameObject.SetActive(true);
-            StartCoroutine(AnimationTransit.Out(createRoomTransit, () => waitingManager.StartWaiting(player)));
-        }
-
-        public void OnCancelCreateRoom() {
-            Debug.Log("ClubManager::OnCancelCreateRoom");
-            StartCoroutine(AnimationTransit.Transition(createRoomTransit, transit));
-        }
-
-        public override void OnJoinedLobby() {
-            Debug.Log("ClubManager::OnJoinedLobby");
+            StartCoroutine(AnimationTransit.Out(createRoomTransit, () => {
+                waitingManager.StartWaiting(player, () => backButton.Active());
+                gameObject.SetActive(false);
+            }));
         }
     }
 }
