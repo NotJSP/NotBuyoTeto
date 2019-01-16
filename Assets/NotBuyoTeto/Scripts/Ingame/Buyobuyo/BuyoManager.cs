@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NotBuyoTeto.Utility;
+using NotBuyoTeto.Ingame.SinglePlay.Tokoton;
 
 namespace NotBuyoTeto.Ingame.Buyobuyo {
     public class BuyoManager : MonoBehaviour {
@@ -111,6 +112,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         private void onDeleteBuyo(object sender, Vector2 position) {
             comboManager.countUp(position);
             levelManager.DeleteCountUp();
+            gameObject.GetComponent<BuyoDeleteScoring>().buyoDeleteScoring(comboManager.getComboCount());
         }
 
     }

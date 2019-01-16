@@ -54,6 +54,10 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             }
             Destroy(comboText, 1.0f);
         }
+
+        public int getComboCount() {
+            return comboCount;
+        }
     }
     
 }
