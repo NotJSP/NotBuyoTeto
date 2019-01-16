@@ -14,19 +14,24 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
         private Text fallSpeed;
 
         private void Awake() {
-            Set(null);
+            Clear();
+        }
+
+        public void Clear() {
+            opponentName.text = "-";
+            winsCount.text = "-";
+            fallSpeed.text = "-";
         }
 
         public void Set(RoomEntry entry) {
-            if (entry != null) {
-                opponentName.text = entry.Name;
-                winsCount.text = $"{entry.Settings.WinsCount}";
-                fallSpeed.text = $"{entry.Settings.FallSpeed} m/s";
-            } else {
-                opponentName.text = "-";
-                winsCount.text = "-";
-                fallSpeed.text = "-";
+            if (entry == null) {
+                Clear();
+                return;
             }
+
+            opponentName.text = entry.RoomName;
+            winsCount.text = $"{entry.Settings.WinsCount}";
+            fallSpeed.text = $"{entry.Settings.FallSpeed} m/s";
         }
     }
 }

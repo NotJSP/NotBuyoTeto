@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using Photon.Pun;
+using Photon;
 
 namespace NotBuyoTeto.Network {
-    public class NetworkConditionChecker : MonoBehaviourPun {
+    public class NetworkConditionChecker : PunBehaviour {
         [SerializeField]
         private NetworkConditionIndicator indicator;
 
@@ -17,7 +17,7 @@ namespace NotBuyoTeto.Network {
 
         private IEnumerator startCheck() {
             while (true) {
-                if (PhotonNetwork.IsConnected) {
+                if (PhotonNetwork.connected) {
                     var ping = PhotonNetwork.GetPing();
                     Debug.Log($"Ping: {ping}");
                     updateIndicator(ping);

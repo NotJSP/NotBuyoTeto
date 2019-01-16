@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 namespace NotBuyoTeto.UI {
+    [RequireComponent(typeof(Selectable))]
     public class PopupObject : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
         [SerializeField]
         private Vector2 popupScale = new Vector2(1.0f, 1.0f);
@@ -12,6 +14,7 @@ namespace NotBuyoTeto.UI {
         [SerializeField]
         private AnimationCurve animationCurve = AnimationCurve.Linear(0, 0, 1, 1);
 
+        private Selectable selectable;
         private Vector3 defaultScale;
 
         private float time = 0.0f;
@@ -19,6 +22,7 @@ namespace NotBuyoTeto.UI {
         private bool isAnimating = false;
 
         private void Awake() {
+            selectable = GetComponent<Selectable>();
             defaultScale = transform.localScale;
         }
 
@@ -41,6 +45,7 @@ namespace NotBuyoTeto.UI {
         }
 
         public void OnPointerEnter(PointerEventData data) {
+            if (!selectable.interactable) { return; }
             time = 0.0f;
             entered = true;
             isAnimating = true;

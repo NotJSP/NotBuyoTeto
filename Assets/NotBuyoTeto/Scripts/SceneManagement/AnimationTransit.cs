@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace NotBuyoTeto.SceneManagement {
@@ -19,39 +20,36 @@ namespace NotBuyoTeto.SceneManagement {
     public static class AnimationTransit {
         public static bool IsAnimating { get; private set; }
 
-        public static IEnumerator In(AnimationTransitEntry e, bool changeActivity = true) {
+        public static IEnumerator animate(Animator animator, string state) {
             IsAnimating = true;
 
+            animator.Play(state);
+            yield return new WaitForEndOfFrame();
+            yield return new WaitWhile(() => isPlaying(animator));
+
+            IsAnimating = false;
+        }
+
+        public static IEnumerator In(AnimationTransitEntry e, Action afterAction = null) {
             e.Object.SetActive(true);
-
-            e.Animator.Play(e.InState);
-            yield return new WaitForEndOfFrame();
-            yield return new WaitWhile(() => isPlaying(e.Animator));
-
-            IsAnimating = false;
+            yield return animate(e.Animator, e.InState);
+            afterAction?.Invoke();
         }
 
-        public static IEnumerator Out(AnimationTransitEntry e, bool changeActivity = true) {
-            IsAnimating = true;
-
-            e.Animator.Play(e.OutState);
-            yield return new WaitForEndOfFrame();
-            yield return new WaitWhile(() => isPlaying(e.Animator));
-
+        public static IEnumerator Out(AnimationTransitEntry e, Action afterAction = null) {
+            yield return animate(e.Animator, e.OutState);
             e.Object.SetActive(false);
-
-            IsAnimating = false;
+            afterAction?.Invoke();
         }
 
-        public static IEnumerator Transition(AnimationTransitEntry from, AnimationTransitEntry to) {
-            var changeActivity = !from.Object.Equals(to);
-
+        public static IEnumerator Transition(AnimationTransitEntry from, AnimationTransitEntry to, Action afterAction = null) {
             if (from != null) {
-                yield return Out(from, changeActivity);
+                yield return Out(from);
             }
             if (to != null) {
-                yield return In(to, changeActivity);
+                yield return In(to);
             }
+            afterAction?.Invoke();
         }
 
         private static bool isPlaying(Animator animator) {

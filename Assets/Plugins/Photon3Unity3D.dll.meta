@@ -50,13 +50,11 @@ PluginImporter:
       enabled: 1
       settings: {}
     WP8:
-      enabled: 1
+      enabled: 0
       settings:
         CPU: AnyCPU
         DontProcess: False
         PlaceholderPath: 
-        SDK: AnySDK
-        ScriptingBackend: Il2Cpp
     Web:
       enabled: 1
       settings: {}

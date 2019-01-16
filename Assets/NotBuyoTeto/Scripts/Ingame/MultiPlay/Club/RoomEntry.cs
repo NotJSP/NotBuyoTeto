@@ -10,11 +10,20 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
         [SerializeField]
         private RulePanel rulePanel;
 
-        public string Name;
+        private string roomName;
+        public string RoomName {
+            get {
+                return roomName;
+            }
+            set {
+                this.roomName = value;
+                updateView();
+            }
+        }
         public RoomSettings Settings;
 
-        private void OnValidate() {
-            GetComponentInChildren<Text>().text = Name;
+        public void SetPanel(RulePanel panel) {
+            this.rulePanel = panel;
         }
 
         public void OnPointerEnter(PointerEventData data) {
@@ -22,6 +31,10 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
         }
 
         public void OnPointerExit(PointerEventData data) {
+        }
+
+        private void updateView() {
+            GetComponentInChildren<Text>().text = RoomName;
         }
     }
 }

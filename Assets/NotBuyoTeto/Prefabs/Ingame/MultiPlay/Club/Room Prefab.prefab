@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 114743094818386548}
   - component: {fileID: 114342714018542658}
   - component: {fileID: 114294661121496734}
+  - component: {fileID: 114578307842553012}
   m_Layer: 5
   m_Name: Room Prefab
   m_TagString: Untagged
@@ -58,10 +59,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c77c49515f636bf41a44025bb3094d01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: "\u3042\u3044\u3046\u3048\u304A\u304B\u304D\u304F\u3051\u3053"
+  rulePanel: {fileID: 0}
+  Name: 
   Settings:
-    WinsCount: 3
-    FallSpeed: 1.5
+    WinsCount: 0
+    FallSpeed: 0
 --- !u!114 &114342714018542658
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -103,6 +105,43 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114578307842553012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1894269632163722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9ef0c3ff87ec2b439b18d69714978da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popupScale: {x: 1.03, y: 1.05}
+  transitTime: 0.25
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.957841
+      outSlope: 2.957841
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.027372263
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &114743094818386548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -162,7 +201,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u3042\u3044\u3046\u3048\u304A\u304B\u304D\u304F\u3051\u3053"
+  m_Text: 
 --- !u!222 &222225020779615226
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -183,18 +222,18 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1894269632163722}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.008726558, w: 0.999962}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224887385254299450}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 80}
+  m_SizeDelta: {x: 495, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224887385254299450
 RectTransform:
