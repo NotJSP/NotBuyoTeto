@@ -1,15 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace NotBuyoTeto.Ingame.Buyobuyo {
     public class ComboManager : MonoBehaviour {
         public float setTime;
-        public GameObject[] combos;
+        public GameObject comboSprite;
+        public GameObject[] numberSprites;
         private float timeElapsed;
         private int comboCount = 0;
 
-        // Use this for initialization
+       // Use this for initialization
         void Start() {
 
         }
@@ -29,13 +31,32 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             comboCount = 0;
         }
 
-        public void countUp(Vector3 position) {
+        public void countUp(Vector2 position) {
             comboCount++;
             timeElapsed = 0.0f;
-            GameObject combo = Instantiate(combos[comboCount - 1]) as GameObject;
-            combo.transform.position = position;
-            Destroy(combo, 1.0f);
             Debug.Log(comboCount + "Combo");
+
+            GameObject comboText = new GameObject("comboText");
+            comboText.transform.position = position;
+            GameObject combo = Instantiate(comboSprite) as GameObject;
+            combo.transform.SetParent(comboText.transform, false);
+
+            string count = string.Join("", comboCount.ToString().Reverse());
+            float f = -1.0f;
+            foreach (char c in count) {
+                int i = int.Parse(c.ToString());
+                GameObject number = Instantiate(numberSprites[i]) as GameObject;
+                number.transform.SetParent(comboText.transform, false);
+                Vector2 tmp = number.transform.position;
+                tmp.x += f;
+                f += -0.35f;
+                number.transform.position = tmp;
+            }
+            Destroy(comboText, 1.0f);
+        }
+
+        public int getComboCount() {
+            return comboCount;
         }
     }
     

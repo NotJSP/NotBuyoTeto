@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NotBuyoTeto.Utility;
+using NotBuyoTeto.Ingame.SinglePlay.Tokoton;
 
 namespace NotBuyoTeto.Ingame.Buyobuyo {
     public class BuyoManager : MonoBehaviour {
@@ -15,6 +16,8 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         private BuyoSfxManager sfxManager;
         [SerializeField]
         private ComboManager comboManager;
+        [SerializeField]
+        private LevelManager levelManager;
         [SerializeField]
         private Rigidbody2D buyoRigidbody;
         [SerializeField]
@@ -78,11 +81,11 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             controlable = true;
             currentType = types[0];
             var obj0 = spawner.Spawn(types[0], field.Ceiling, 0);
-            obj0.GetComponent<BuyoDelete>().DeleteBuyo += onDeleteBuyo;         
+            obj0.GetComponent<Buyo>().DeleteBuyo += onDeleteBuyo;         
             obj0.AddComponent<Rigidbody2D>().CopyOf(buyoRigidbody);
             currentType = types[1];
             var obj1 = spawner.Spawn(types[1], field.Ceiling, 1);
-            obj1.GetComponent<BuyoDelete>().DeleteBuyo += onDeleteBuyo;
+            obj1.GetComponent<Buyo>().DeleteBuyo += onDeleteBuyo;
             obj1.AddComponent<Rigidbody2D>().CopyOf(buyoRigidbody);
             
             //ペアをつくる
@@ -106,8 +109,10 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             fallSpeed = speed;
         }
 
-        private void onDeleteBuyo(object sender, Vector3 position) {
+        private void onDeleteBuyo(object sender, Vector2 position) {
             comboManager.countUp(position);
+            levelManager.DeleteCountUp();
+            gameObject.GetComponent<BuyoDeleteScoring>().buyoDeleteScoring(comboManager.getComboCount());
         }
 
     }

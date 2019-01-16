@@ -982,21 +982,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   setTime: 3
-  combos:
-  - {fileID: 1310143416664068, guid: c2b3df470b1bb7d4f96bc2ab86aad602, type: 2}
-  - {fileID: 1034596170967388, guid: 4b75d7234d84bb945936ce457e03bda3, type: 2}
-  - {fileID: 1678870983366584, guid: d2f4a6283c6f9114cab922ca2fb16fbf, type: 2}
-  - {fileID: 1097326073479218, guid: f7971728a974d0442822ecc0476ffb8b, type: 2}
-  - {fileID: 1572099124493440, guid: 1d2c2dba6409b1a4c946b5031b344601, type: 2}
-  - {fileID: 1830564033808058, guid: c64e42e3ba933b348ace9b856aae20e2, type: 2}
-  - {fileID: 1096563925188682, guid: 0605ec0993607d74eb1e4dd0e2ad5795, type: 2}
-  - {fileID: 1344314013400570, guid: 9bdee9a4665108540b140a975d7f686d, type: 2}
-  - {fileID: 1001551342947896, guid: 3f8d86f882d50b14598fb815ba629206, type: 2}
-  - {fileID: 1600653364935224, guid: d96ed839bc8284e4a968ef81a4dd0089, type: 2}
-  - {fileID: 1285853922335772, guid: 0315f3a6605afab49bea8efd76a0e57d, type: 2}
-  - {fileID: 1140311951861990, guid: 30345f143b261ac49b29f32f8e547f5a, type: 2}
-  - {fileID: 1295126585413972, guid: 5e7b39f0a3b87ae498418be49328625c, type: 2}
-  - {fileID: 1144147016883576, guid: ece3365540b44fd4eafd5269a78ed606, type: 2}
+  comboSprite: {fileID: 1982584047277050, guid: c61c58661286aee4e92887c67fb6001d,
+    type: 2}
+  numberSprites:
+  - {fileID: 1708766485354534, guid: 337a3819d0fe1a644adc096613858b53, type: 2}
+  - {fileID: 1207013195408238, guid: 85cf774e5b2a33347bcf7f1a18773f3c, type: 2}
+  - {fileID: 1288825394734934, guid: 70555ecc7f2c7f741aad2cfb04054a55, type: 2}
+  - {fileID: 1681771534723268, guid: 2c02932cfcf036d469347573b2edac65, type: 2}
+  - {fileID: 1393733750661832, guid: bba47dcfca93596429ef154c30225044, type: 2}
+  - {fileID: 1079408733974172, guid: 7480eb5262b36664185a300d83c241d9, type: 2}
+  - {fileID: 1340438369403534, guid: 260d09f000f1f8842a7564a2bc1d8edf, type: 2}
+  - {fileID: 1806841545736520, guid: 69fafcdd50b225646be8c49394bd9fb3, type: 2}
+  - {fileID: 1105226338606894, guid: 3a45cb02d9d5806409bfa1d9acbc39c9, type: 2}
+  - {fileID: 1833200638908352, guid: 700a56c811b94b34796871ae20a27278, type: 2}
 --- !u!1001 &970962677
 Prefab:
   m_ObjectHideFlags: 0
@@ -1964,9 +1962,31 @@ Prefab:
       propertyPath: comboManager
       value: 
       objectReference: {fileID: 952612658}
+    - target: {fileID: 114819173668993604, guid: 7755f47df1bc0794a886903ac5a96783,
+        type: 2}
+      propertyPath: levelManager
+      value: 
+      objectReference: {fileID: 1651480629}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7755f47df1bc0794a886903ac5a96783, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &1698947533 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1032021498355392, guid: 7755f47df1bc0794a886903ac5a96783,
+    type: 2}
+  m_PrefabInternal: {fileID: 1687544534}
+--- !u!114 &1698947534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1698947533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51b9d38f95412b74e919f899c5932988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: {fileID: 1429037204}
 --- !u!1001 &1772981384
 Prefab:
   m_ObjectHideFlags: 0

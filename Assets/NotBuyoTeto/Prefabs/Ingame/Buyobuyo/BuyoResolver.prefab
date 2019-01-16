@@ -56,5 +56,3 @@ MonoBehaviour:
     blue: {fileID: 114888344350752786, guid: 7ba9f6274d3c9e54995d62e4801277a6, type: 2}
     green: {fileID: 114245126787862692, guid: 0aec987411d6db34ba0ac9808b7d2019, type: 2}
     yellow: {fileID: 114828264097213462, guid: deb5ed2daa4120b4e8e0fb08f592579b, type: 2}
-    purple: {fileID: 114843162175174762, guid: c73771048fc780146b2714a65b611ca7, type: 2}
-    black: {fileID: 114185408901665360, guid: 6bbc3542f5fe7c348abb84cd0be9b879, type: 2}

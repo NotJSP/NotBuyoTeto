@@ -105,7 +105,6 @@ GameObject:
   - component: {fileID: 212739687071806254}
   - component: {fileID: 70727735662279898}
   - component: {fileID: 114245126787862692}
-  - component: {fileID: 114605375651597698}
   m_Layer: 9
   m_Name: Buyo_green
   m_TagString: Buyo
@@ -302,17 +301,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 2
---- !u!114 &114605375651597698
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1822307983504058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4e49f6ec07f188448cbdbd07fbd66eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!198 &198192951542734386
 ParticleSystem:
   m_ObjectHideFlags: 1
