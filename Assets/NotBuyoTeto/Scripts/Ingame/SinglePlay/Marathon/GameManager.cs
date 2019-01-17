@@ -88,7 +88,7 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Marathon {
             var name = PlayerPrefs.GetString(PlayerPrefsKey.PlayerName);
             var score = highScore.Value;
             var ranker = new Ranker(name, score);
-            ranking.Save(RankingType.MarathonMode, ranker);
+            ranking.Save(highScore.RankingType, ranker);
         }
 
         private void onHitMino(object sender, EventArgs args) {
