@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bc8ba9085a60c04cb256bf152a09573, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rankingType: 0
+  rankingType: 1
   text: {fileID: 995870987}
   score: {fileID: 1429037204}
   animationCurve:

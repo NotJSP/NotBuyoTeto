@@ -36,10 +36,10 @@ namespace NotBuyoTeto.Ingame.SinglePlay {
 
         public int Value {
             get {
-                if (PlayerPrefs.HasKey(prefsKey)) {
-                    return PlayerPrefs.GetInt(prefsKey);
+                if (!PlayerPrefs.HasKey(prefsKey)) {
+                    PlayerPrefs.SetInt(prefsKey, 0);
                 }
-                return 0;
+                return PlayerPrefs.GetInt(prefsKey);
             }
             protected set {
                 PlayerPrefs.SetInt(prefsKey, value);
