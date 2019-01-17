@@ -98,7 +98,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             if (hit) { return; }
             if (other.collider.CompareTag(@"Wall")) { return; }
             hit = true;
-            GetComponentInChildren<BuyoController>().BuyoHit();
+            GetComponentInChildren<BuyoController>().BuyoHit(rigidbody);
         }
     }
 }
