@@ -11,7 +11,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
 
         public event EventHandler<int> ValueChanged;
 
-        private static readonly int CountPerLevel = 4;
+        private static readonly int CountPerLevel = 7;
 
         private int deleteCount; //ぶよを消した回数
         private int level; //レベル

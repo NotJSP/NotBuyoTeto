@@ -24,9 +24,9 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             buyoRigidbody = GetComponent<Rigidbody2D>();
         }
 
-        public void BuyoHit() {
-            var parent = OnHit();
-            pair.GetComponent<BuyoController>().OnHit();
+        public void BuyoHit(Rigidbody2D rigidbody) {
+            var parent = OnHit(rigidbody);
+            pair.GetComponent<BuyoController>().OnHit(rigidbody);
             if (parent != null) {
                 Destroy(parent.gameObject);
             }
@@ -37,11 +37,12 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             Hit?.Invoke(this, EventArgs.Empty);
         }
 
-        public Transform OnHit() {
+        public Transform OnHit(Rigidbody2D rigidbody) {
             var parent = transform.parent;
 
             transform.SetParent(transform.parent.parent);
             gameObject.layer = LayerMask.NameToLayer("Default");
+            buyoRigidbody.velocity = rigidbody.velocity;
             buyoRigidbody.isKinematic = false;
             return parent;
         }
