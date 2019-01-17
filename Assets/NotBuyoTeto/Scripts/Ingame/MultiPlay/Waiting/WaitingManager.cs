@@ -11,6 +11,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
         private StartingCounter counter;
 
         [SerializeField]
+        private GameObject waitingPanel;
+        [SerializeField]
         private PlayerPanel playerPanel;
         [SerializeField]
         private PlayerPanel opponentPanel;
@@ -27,10 +29,12 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
             waitingWindowTransition = new AnimationTransitEntry(waitingWindow, "In", "Out");
         }
 
-        public void StartWaiting(WaitingPlayer player) {
+        public void StartWaiting(WaitingPlayer player, Action afterAction = null) {
+            waitingPanel.SetActive(true);
             playerPanel.Set(player);
-            AnimationTransit.In(playerPanelTransition);
-            AnimationTransit.In(waitingWindowTransition);
+            StartCoroutine(AnimationTransit.In(playerPanelTransition));
+            StartCoroutine(AnimationTransit.In(waitingWindowTransition));
+            afterAction?.Invoke();
         }
 
         public override void OnJoinedRoom() {

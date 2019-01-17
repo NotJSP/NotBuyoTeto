@@ -11,10 +11,12 @@ namespace NotBuyoTeto.Constants {
 
         public static Dictionary<RankingType, string> HighScore = new Dictionary<RankingType, string>() {
             { RankingType.MarathonMode, @"marathon_high_score" },
+            { RankingType.TokotonMode, @"tokoton_high_score" },
         };
 
         public static Dictionary<RankingType, string> ObjectId = new Dictionary<RankingType, string>() {
             { RankingType.MarathonMode, @"marathon_object_id" },
+            { RankingType.TokotonMode, @"tokoton_object_id" },
         };
     }
 }
