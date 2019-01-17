@@ -81,7 +81,7 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Marathon {
         }
 
         private void loadRanking() {
-            ranking.Fetch(RankingType.MarathonMode);
+            ranking.Fetch(highScore.RankingType);
         }
 
         private void saveRanking() {

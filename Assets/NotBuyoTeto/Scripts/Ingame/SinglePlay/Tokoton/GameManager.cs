@@ -77,7 +77,7 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
         }
 
         private void loadRanking() {
-            ranking.Fetch(RankingType.MarathonMode);
+            ranking.Fetch(highScore.RankingType);
         }
 
         private void saveRanking() {
