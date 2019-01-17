@@ -15,8 +15,6 @@ namespace NotBuyoTeto.Ingame.Title {
             // アプリケーションのFPSを60に固定
             Application.targetFrameRate = 60;
 
-            // TODO: 本番はタイトルに戻る毎にプレイヤーデータを初期化
-            // PlayerPrefs.DeleteAll();
             if (PlayerPrefs.HasKey(PlayerPrefsKey.PlayerName)) {
                 nameField.text = PlayerPrefs.GetString(PlayerPrefsKey.PlayerName);
             }
@@ -27,8 +25,8 @@ namespace NotBuyoTeto.Ingame.Title {
             if (Input.GetButton(@"Escape")) {
                 Application.Quit();
             }
-            // デバッグ用
-            if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.D)) {
+            // デバッグ用 (Ctrl+F12)
+            if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.F12)) {
                 PlayerPrefs.DeleteAll();
                 Debug.Log(@"ローカルデータを削除しました。");
             }
