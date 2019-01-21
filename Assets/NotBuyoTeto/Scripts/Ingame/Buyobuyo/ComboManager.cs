@@ -11,7 +11,13 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         private float timeElapsed;
         private int comboCount = 0;
 
-       // Use this for initialization
+        public int Value {
+            get {
+                return comboCount;
+            }
+        }
+
+        // Use this for initialization
         void Start() {
 
         }
@@ -54,10 +60,5 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             }
             Destroy(comboText, 1.0f);
         }
-
-        public int getComboCount() {
-            return comboCount;
-        }
-    }
-    
+    }  
 }
