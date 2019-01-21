@@ -36,4 +36,7 @@ MonoBehaviour:
   - PunRespawn
   - RequestForPickupItems
   - RequestForPickupTimes
+  - DecideMode
+  - SelectMode
+  - UnselectMode
   DisableAutoOpenWizard: 1

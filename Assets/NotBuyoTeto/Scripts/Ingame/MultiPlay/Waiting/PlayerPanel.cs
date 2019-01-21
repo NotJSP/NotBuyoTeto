@@ -4,26 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
-    public class PlayerPanel : MonoBehaviour {
+    public class PlayerPanel : WaitingPanel {
         [SerializeField]
-        private Text nameField;
+        private Button tetrinButton;
         [SerializeField]
-        private Text recordField;
+        private Button buyoButton;
         [SerializeField]
-        private Text ratingField;
+        private PhotonView photonView;
 
-        public static string FormatRecord(FightRecord record) {
-            return $"{record.FightCount:0000}戦 {record.WinCount:0000}勝 {record.LoseCount:0000}敗 (勝率: {record.WinRate:00.0}%)";
+        public void SelectMode(GameMode mode) {
+            photonView.RPC("SelectMode", PhotonTargets.OthersBuffered, mode);
         }
 
-        public static string FormatRating(int rating) {
-            return $"レート: <size=32><b>{rating}</b></size>";
-        }
-
-        public void Set(WaitingPlayer player) {
-            nameField.text = player.Name;
-            recordField.text = FormatRecord(player.FightRecord);
-            ratingField.text = FormatRating(player.Rating);
+        public void DecideMode(GameMode mode) {
+            photonView.RPC("DecideMode", PhotonTargets.OthersBuffered, mode);
         }
     }
 }

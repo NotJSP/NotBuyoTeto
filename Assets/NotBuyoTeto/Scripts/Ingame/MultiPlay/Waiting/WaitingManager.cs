@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon;
 using NotBuyoTeto.SceneManagement;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
     public class WaitingManager : PunBehaviour {
@@ -15,7 +16,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
         [SerializeField]
         private PlayerPanel playerPanel;
         [SerializeField]
-        private PlayerPanel opponentPanel;
+        private OpponentPanel opponentPanel;
         [SerializeField]
         private GameObject waitingWindow;
 
@@ -29,7 +30,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
             waitingWindowTransition = new AnimationTransitEntry(waitingWindow, "In", "Out");
         }
 
-        public void StartWaiting(WaitingPlayer player, Action afterAction = null) {
+        public void StartByHost(WaitingPlayer player, Action afterAction = null) {
             waitingPanel.SetActive(true);
             playerPanel.Set(player);
             StartCoroutine(AnimationTransit.In(playerPanelTransition));
@@ -37,8 +38,33 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
             afterAction?.Invoke();
         }
 
+        public void StartByGuest(WaitingPlayer player, WaitingPlayer opponent, Action afterAction = null) {
+            waitingPanel.SetActive(true);
+            playerPanel.Set(player);
+            opponentPanel.Set(opponent);
+            StartCoroutine(AnimationTransit.In(playerPanelTransition));
+            StartCoroutine(AnimationTransit.In(opponentPanelTransition));
+            afterAction?.Invoke();
+        }
+
         public override void OnJoinedRoom() {
             Debug.Log("WaitingManager::OnJoinedRoom");
+        }
+
+        public override void OnPhotonPlayerConnected(PhotonPlayer player) {
+            Debug.Log("WaitingManager::OnPhotonPlayerConnected");
+            // TODO:
+            // var record = (FightRecord)player.CustomProperties["FightRecord"];
+            // var rating = (int)player.CustomProperties["Rating"];
+            var record = new FightRecord(1234, 768);
+            var rating = 1523;
+            var waitingPlayer = new WaitingPlayer(player.NickName, record, rating);
+            opponentPanel.Set(waitingPlayer);
+            StartCoroutine(AnimationTransit.Transition(waitingWindowTransition, opponentPanelTransition));
+        }
+
+        public override void OnPhotonPlayerDisconnected(PhotonPlayer player) {
+            StartCoroutine(AnimationTransit.Transition(opponentPanelTransition, waitingWindowTransition));
         }
 
         public void OpenWaitingWindow() {
