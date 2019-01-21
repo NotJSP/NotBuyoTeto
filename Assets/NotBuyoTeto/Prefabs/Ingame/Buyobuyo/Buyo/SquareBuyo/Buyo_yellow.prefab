@@ -122,6 +122,8 @@ GameObject:
   - component: {fileID: 212336657773474816}
   - component: {fileID: 60033084624652892}
   - component: {fileID: 114389392744117022}
+  - component: {fileID: 114533194748478770}
+  - component: {fileID: 111412648031609398}
   m_Layer: 9
   m_Name: Buyo_yellow
   m_TagString: Buyo
@@ -318,6 +320,21 @@ PolygonCollider2D:
       - {x: 1.2021791, y: -1.0524399}
       - {x: 1.239361, y: -0.9561895}
       - {x: 1.247371, y: 0.9303915}
+--- !u!111 &111412648031609398
+Animation:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1854311433870940}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 59c4384a049416a4cb272f4ec44a0e2e, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 59c4384a049416a4cb272f4ec44a0e2e, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!114 &114389392744117022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -330,6 +347,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
+--- !u!114 &114533194748478770
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1854311433870940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f6d3c6e4250e84192f5b34ce9e71bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  glowColor: {r: 1, g: 1, b: 1, a: 1}
+  glowBrightness: 1.25
+  outlineWidth: 10
+  alphaThreshold: 0.1
+  drawOutside: 0
+  enableInstancing: 0
 --- !u!198 &198191201055971734
 ParticleSystem:
   m_ObjectHideFlags: 1
