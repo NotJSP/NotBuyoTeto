@@ -9,9 +9,9 @@ namespace NotBuyoTeto.Ingame.Tetrin {
     [RequireComponent(typeof(TileCreator))]
     public class ColliderField : MonoBehaviour {
         [SerializeField]
-        private TetoDirector director;
-        [SerializeField]
         private Instantiator instantiator;
+        [SerializeField]
+        private TetoPerspective perspective;
         [SerializeField]
         private TetoSfxManager sfxManager;
 
@@ -26,7 +26,7 @@ namespace NotBuyoTeto.Ingame.Tetrin {
             var objects = GetComponent<TileCreator>().Create();
             var groups = objects.Select(o => o.GetComponent<ColliderGroup>());
             foreach (var group in groups) {
-                group.Initialize(instantiator, director.Perspective.Field.LeftSideWall);
+                group.Initialize(instantiator, perspective.Field.LeftSideWall);
             }
             return groups.ToArray();
         }

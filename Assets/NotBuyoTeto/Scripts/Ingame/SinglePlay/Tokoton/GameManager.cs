@@ -10,11 +10,11 @@ using NotBuyoTeto.Ingame.Buyobuyo;
 namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
     public class GameManager : SceneBase {
         [SerializeField]
-        private BuyoDirector director;
-        [SerializeField]
         private BgmManager bgmManager;
         [SerializeField]
         private IngameSfxManager sfxManager;
+        [SerializeField]
+        private BuyoPerspective perspective;
         [SerializeField]
         private BuyoManager buyoManager;
         [SerializeField]
@@ -28,9 +28,6 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
         [SerializeField]
         private FallSpeedManager fallSpeedManager;
         
-        private BuyoPerspective perspective => director.Perspective;
-        private BuyoField field => perspective.Field;
-
         protected override void OnSceneReady(object sender, EventArgs args) {
             base.OnSceneReady(sender, args);
             buyoManager.HitBuyo += onHitBuyo;
@@ -50,7 +47,7 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
 
         private void reset() {
             CancelInvoke("roundstart");
-            sfxManager.Stop(IngameSfxType.RoundEnd);
+            sfxManager.Stop(IngameSfxType.GameOver);
             score.Initialize();
             buyoManager.Initialize(fallSpeedManager.DefaultSpeed);
             levelManager.Initialize();
@@ -58,16 +55,16 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
 
         private void roundstart() {
             reset();
-            perspective.OnRoundStarted();
+            perspective.OnRoundStart();
             bgmManager.RandomPlay();
             sfxManager.Play(IngameSfxType.RoundStart);
             buyoManager.Next();
         }
 
-        private void roundend() {
-            perspective.OnRoundEnded();
+        private void gameover() {
+            perspective.OnGameOver();
             bgmManager.Stop();
-            sfxManager.Play(IngameSfxType.RoundEnd);
+            sfxManager.Play(IngameSfxType.GameOver);
             
             var updated = highScore.UpdateValue();
             if (updated) {
@@ -91,8 +88,8 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
             buyoManager.Release();
 
             // 天井に当たったらゲームオーバー
-            if (field.Ceiling.IsHit) {
-                roundend();
+            if (perspective.Field.Ceiling.IsHit) {
+                gameover();
             } else {
                 score.Increase(200 + (50 * levelManager.Value));
                 buyoManager.Next();

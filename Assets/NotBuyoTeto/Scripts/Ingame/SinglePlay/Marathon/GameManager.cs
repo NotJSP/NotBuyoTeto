@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,11 +9,11 @@ using NotBuyoTeto.Ingame.Tetrin;
 namespace NotBuyoTeto.Ingame.SinglePlay.Marathon {
     public class GameManager : SceneBase {
         [SerializeField]
-        private TetoDirector director;
-        [SerializeField]
         private BgmManager bgmManager;
         [SerializeField]
         private IngameSfxManager sfxManager;
+        [SerializeField]
+        private TetoPerspective perspective;
         [SerializeField]
         private MinoManager minoManager;
         [SerializeField]
@@ -27,15 +26,10 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Marathon {
         private LevelManager levelManager;
         [SerializeField]
         private FallSpeedManager fallSpeedManager;
-        [SerializeField]
-        private ColliderField colliderField;
-
-        private TetoPerspective perspective => director.Perspective;
-        private TetoField field => perspective.Field;
 
         protected override void OnSceneReady(object sender, EventArgs args) {
             base.OnSceneReady(sender, args);
-            colliderField.LineDeleted += onLineDeleted;
+            perspective.ColliderField.LineDeleted += onLineDeleted;
             minoManager.HitMino += onHitMino;
             levelManager.ValueChanged += onLevelChanged;
             loadRanking();
@@ -54,7 +48,7 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Marathon {
         private void reset() {
             CancelInvoke("roundstart");
 
-            sfxManager.Stop(IngameSfxType.RoundEnd);
+            sfxManager.Stop(IngameSfxType.GameOver);
             score.Initialize();
             minoManager.Initialize(fallSpeedManager.DefaultSpeed);
             levelManager.Initialize();
@@ -62,16 +56,16 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Marathon {
 
         private void roundstart() {
             reset();
-            perspective.OnRoundStarted();
+            perspective.OnRoundStart();
             bgmManager.RandomPlay();
             sfxManager.Play(IngameSfxType.RoundStart);
             minoManager.Next();
         }
 
-        private void roundend() {
-            perspective.OnRoundEnded();
+        private void gameover() {
+            perspective.OnGameOver();
             bgmManager.Stop();
-            sfxManager.Play(IngameSfxType.RoundEnd);
+            sfxManager.Play(IngameSfxType.GameOver);
             
             var updated = highScore.UpdateValue();
             if (updated) {
@@ -95,11 +89,11 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Marathon {
             minoManager.Release();
 
             // 天井に当たったらゲームオーバー
-            if (field.Ceiling.IsHit) {
-                roundend();
+            if (perspective.Field.Ceiling.IsHit) {
+                gameover();
             } else {
                 score.Increase(200 + (50 * levelManager.Value));
-                field.ColliderField.DeleteLine();
+                perspective.ColliderField.DeleteLine();
                 minoManager.Next();
             }
         }

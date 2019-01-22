@@ -8,7 +8,7 @@ namespace NotBuyoTeto.Ingame.Tetrin {
         [SerializeField]
         private Instantiator instantiator;
         [SerializeField]
-        private TetoDirector director;
+        private TetoPerspective perspective;
         [SerializeField]
         private MinoSpawner spawner;
         [SerializeField]
@@ -26,8 +26,6 @@ namespace NotBuyoTeto.Ingame.Tetrin {
 
         public event EventHandler HitMino;
 
-        private TetoPerspective perspective => director.Perspective;
-        private TetoField field => perspective.Field;
         private NextMino nextMino => perspective.NextMino;
         private HoldMino holdMino => perspective.HoldMino;
 
@@ -85,7 +83,8 @@ namespace NotBuyoTeto.Ingame.Tetrin {
             currentType = type;
             controlable = true;
 
-            var obj = spawner.Spawn(type, field.Ceiling);
+            var position = perspective.Field.Ceiling.transform.position;
+            var obj = spawner.Spawn(type, position);
             obj.AddComponent<Rigidbody2D>().CopyOf(minoRigidbody);
             var controller = obj.AddComponent<MinoController>().Initialize(sfxManager, controlSettings, fallSpeed);
             controller.Hit += onHitMino;

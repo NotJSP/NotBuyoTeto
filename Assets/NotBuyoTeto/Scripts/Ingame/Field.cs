@@ -1,12 +1,9 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
-namespace NotBuyoTeto.Ingame.Buyobuyo {
-    public class BuyoField : MonoBehaviour {
+namespace NotBuyoTeto.Ingame {
+    public class Field : MonoBehaviour {
         [SerializeField]
         private Ceiling ceiling;
         public Ceiling Ceiling => ceiling;
@@ -19,6 +16,5 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         [SerializeField]
         private GameObject floor;
         public GameObject Floor => floor;
-        
     }
 }

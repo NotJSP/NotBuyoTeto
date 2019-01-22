@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,12 +9,10 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         [SerializeField]
         private BuyoResolver resolver;
 
-        public GameObject Spawn(BuyoType type, Ceiling ceiling, int i) {
-            var spawnPosition = ceiling.transform.position;
-            spawnPosition.y = spawnPosition.y + (float)i * (float)0.75;
+        public GameObject Spawn(BuyoType type, Vector3 position, int i) {
+            position.y += 0.75f * i;
             var buyo = resolver.Get(type);
-            var obj = instantiator.Instantiate(buyo.gameObject, spawnPosition, Quaternion.identity);
-            return obj;
+            return instantiator.Instantiate(buyo.gameObject, position, Quaternion.identity);
         }
     }
 }

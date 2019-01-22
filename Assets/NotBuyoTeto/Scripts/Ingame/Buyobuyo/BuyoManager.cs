@@ -9,7 +9,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         [SerializeField]
         private Instantiator instantiator;
         [SerializeField]
-        private BuyoDirector director;
+        private BuyoPerspective perspective;
         [SerializeField]
         private BuyoSpawner spawner;
         [SerializeField]
@@ -27,14 +27,11 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         
         private List<GameObject> buyos = new List<GameObject>();
         private GameObject parent;
-        private BuyoType currentType;
         private bool controlable = true;
         private float fallSpeed;
 
         public event EventHandler HitBuyo;
 
-        private BuyoPerspective perspective => director.Perspective;
-        private BuyoField field => perspective.Field;
         private NextBuyo nextBuyo => perspective.NextBuyo;
 
         public GameObject CurrentBuyo => buyos.Count != 0 ? buyos[buyos.Count - 1] : null;
@@ -77,14 +74,14 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             parent.AddComponent<Parent>().Initialize(sfxManager, controlSettings, fallSpeed);
             this.parent = parent;
 
-            //子オブジェクト(ぶよ)作成
             controlable = true;
-            currentType = types[0];
-            var obj0 = spawner.Spawn(types[0], field.Ceiling, 0);
+
+            //子オブジェクト(ぶよ)作成
+            var position = perspective.Field.Ceiling.transform.position;
+            var obj0 = spawner.Spawn(types[0], position, 0);
             obj0.GetComponent<Buyo>().DeleteBuyo += onDeleteBuyo;         
             obj0.AddComponent<Rigidbody2D>().CopyOf(buyoRigidbody);
-            currentType = types[1];
-            var obj1 = spawner.Spawn(types[1], field.Ceiling, 1);
+            var obj1 = spawner.Spawn(types[1], position, 1);
             obj1.GetComponent<Buyo>().DeleteBuyo += onDeleteBuyo;
             obj1.AddComponent<Rigidbody2D>().CopyOf(buyoRigidbody);
             

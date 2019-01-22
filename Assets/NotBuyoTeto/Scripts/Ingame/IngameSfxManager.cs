@@ -14,7 +14,7 @@ namespace NotBuyoTeto.Ingame {
 
         private void Awake() {
             Set(IngameSfxType.RoundStart, entries[IngameSfxType.RoundStart]);
-            Set(IngameSfxType.RoundEnd, entries[IngameSfxType.RoundEnd]);
+            Set(IngameSfxType.GameOver, entries[IngameSfxType.GameOver]);
         }
     }
 }
