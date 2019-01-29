@@ -8,17 +8,18 @@ using NotBuyoTeto.Ingame.Tetrin;
 using Random = UnityEngine.Random;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
-    public class GarbageMinoManager : MonoBehaviour {
-        [SerializeField]
-        private UIManager ui;
-        [SerializeField]
-        private Director director;
+    public class GarbageMinoManager : GarbageManager {
+        [Header("References")]
         [SerializeField]
         private Instantiator instantiator;
         [SerializeField]
         private MinoResolver resolver;
         [SerializeField]
         private MinoSpawner spawner;
+        [SerializeField]
+        private Ceiling ceiling;
+
+        [Header("Prefabs")]
         [SerializeField]
         private Rigidbody2D minoRigidbody;
 
@@ -27,47 +28,28 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
         private static Vector2 ForceGarbage = new Vector2(0, -100.0f);
 
         private List<GameObject> garbages = new List<GameObject>();
-        private int readyGarbageCount;
-        private float elapsedTime;
 
-        public bool IsFalling { get; private set; }
-
-        private int ReadyGarbageCount {
-            get {
-                return readyGarbageCount;
-            }
-            set {
-                readyGarbageCount = value;
-                updateIndicator();
-            }
-        }
-
-        public void Clear() {
+        public override void Clear() {
+            base.Clear();
             garbages.ForEach(instantiator.Destroy);
-            ReadyGarbageCount = 0;
-            elapsedTime = 0.0f;
         }
 
-        private void Update() {
-            elapsedTime += Time.deltaTime;
-        }
-
-        public bool Fall() {
-            if (ReadyGarbageCount == 0) { return false; }
-
+        public override void Fall() {
+            if (ReadyGarbageCount == 0) { return; }
             IsFalling = true;
-            StartCoroutine(fallCoroutine(ReadyGarbageCount));
-            ReadyGarbageCount = 0;
-            updateIndicator();
-
-            return true;
+            var fallCount = Mathf.Min(ReadyGarbageCount, 10);
+            StartCoroutine(fallCoroutine(fallCount));
+            ReadyGarbageCount -= fallCount;
         }
 
         private IEnumerator fallCoroutine(int count) {
             for (int i = 0; i < count; i++) {
                 var index = Random.Range(0, resolver.Length);
+                var minoType = (MinoType)index;
+                var ceilingPosition = ceiling.transform.position;
                 var offset = Random.Range(-OffsetRange, OffsetRange);
-                var obj = spawner.Spawn((MinoType)index, offset);
+                var spawnPosition = new Vector2(ceilingPosition.x + offset, ceilingPosition.y);
+                var obj = spawner.Spawn(minoType, spawnPosition);
                 var rigidbody = obj.AddComponent<Rigidbody2D>().CopyOf(minoRigidbody);
                 var torque = Random.Range(-TorqueRange, TorqueRange);
                 rigidbody.AddTorque(torque);
@@ -77,20 +59,6 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
             }
             yield return new WaitForSeconds(0.8f);
             IsFalling = false;
-        }
-
-        public void Add(DeleteMinoInfo info) {
-            Debug.Log($"lines: {info.LineCount}, objects: {info.ObjectCount}");
-            var lineAmount = (float)info.LineCount;
-            var objectAmount = (float)info.ObjectCount / 7;
-            var cf = 1.0f + 0.25f * (int)(elapsedTime / 60);
-            var amount = (lineAmount + objectAmount) * cf;
-            Debug.Log(amount);
-            ReadyGarbageCount += (int)amount;
-        }
-
-        private void updateIndicator() {
-            ui.GarbageIndicator.Value = readyGarbageCount;
         }
     }
 }

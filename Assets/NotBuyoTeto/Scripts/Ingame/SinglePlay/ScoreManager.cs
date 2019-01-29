@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace NotBuyoTeto.Ingame.SinglePlay {
-    public class Score : MonoBehaviour {
+    public class ScoreManager : MonoBehaviour {
         [SerializeField] private Text text;
         [SerializeField] private IncrementScore incrementScore;
 

@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 4289774205297104}
   - component: {fileID: 114062657982662012}
   m_Layer: 0
-  m_Name: MinoFrame
+  m_Name: Mino Frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

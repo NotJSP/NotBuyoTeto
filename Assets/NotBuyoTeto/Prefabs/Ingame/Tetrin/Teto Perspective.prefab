@@ -253,7 +253,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1441381631453556
 GameObject:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
@@ -535,7 +535,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4465639327671538}
-  - component: {fileID: 114705202193945280}
+  - component: {fileID: 114599227391172326}
   m_Layer: 0
   m_Name: Field
   m_TagString: Untagged
@@ -897,12 +897,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1441381631453556}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 4.87, y: 10, z: 1}
   m_Children: []
-  m_Father: {fileID: 4465639327671538}
-  m_RootOrder: 4
+  m_Father: {fileID: 4883980739636460}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4461346660456728
 Transform:
@@ -936,7 +936,6 @@ Transform:
   - {fileID: 4778008002765266}
   - {fileID: 4154432389902358}
   - {fileID: 4641356999364056}
-  - {fileID: 4426513589868696}
   m_Father: {fileID: 4883980739636460}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1168,7 +1167,7 @@ Transform:
   - {fileID: 4752624663736684}
   - {fileID: 4311705725767344}
   m_Father: {fileID: 4883980739636460}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4782142989834976
 Transform:
@@ -1222,7 +1221,7 @@ Transform:
   - {fileID: 4152526014197362}
   - {fileID: 4218481029203162}
   m_Father: {fileID: 4883980739636460}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4863922984633378
 Transform:
@@ -1244,10 +1243,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1239208626390632}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.5, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4465639327671538}
+  - {fileID: 4426513589868696}
   - {fileID: 4778166346455136}
   - {fileID: 4853198203781992}
   m_Father: {fileID: 0}
@@ -1575,6 +1575,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: {fileID: 0}
+--- !u!114 &114599227391172326
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1810979911962426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8a68b139351ebc41b02a12fae85d0c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ceiling: {fileID: 114116684442933134}
+  leftSideWall: {fileID: 1815440785194232}
+  rightSideWall: {fileID: 1774764435036068}
+  floor: {fileID: 1741467589300710}
 --- !u!114 &114643401388493206
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1586,7 +1601,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20ae69abf5511394b9c45a947da2261d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  field: {fileID: 114705202193945280}
+  field: {fileID: 114599227391172326}
+  colliderField: {fileID: 114745287710047536}
   nextMino: {fileID: 114104557750694904}
   holdMino: {fileID: 114702596021302572}
 --- !u!114 &114702596021302572
@@ -1603,22 +1619,6 @@ MonoBehaviour:
   sfxManager: {fileID: 0}
   resolver: {fileID: 0}
   frame: {fileID: 114386884799886580}
---- !u!114 &114705202193945280
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1810979911962426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49c2c16384c74484ba56f4012a5fe204, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ceiling: {fileID: 114116684442933134}
-  leftSideWall: {fileID: 1815440785194232}
-  rightSideWall: {fileID: 1774764435036068}
-  floor: {fileID: 1741467589300710}
-  colliderField: {fileID: 114745287710047536}
 --- !u!114 &114745287710047536
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1630,8 +1630,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 764835330a9ae874c88b7709f1083e70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  director: {fileID: 0}
   instantiator: {fileID: 0}
+  perspective: {fileID: 114643401388493206}
   sfxManager: {fileID: 0}
 --- !u!212 &212002367947387392
 SpriteRenderer:

@@ -8,7 +8,7 @@ using NotBuyoTeto.Constants;
 using Stopwatch = System.Diagnostics.Stopwatch;
 
 namespace NotBuyoTeto.Ingame.SinglePlay {
-    public class HighScore : MonoBehaviour {
+    public class HighScoreManager : MonoBehaviour {
         private static Vector2 START_SCALE = new Vector2(1.0f, 1.25f);
         private static Vector2 END_SCALE = new Vector2(1.0f, 1.0f);
 
@@ -19,7 +19,7 @@ namespace NotBuyoTeto.Ingame.SinglePlay {
         [SerializeField]
         private Text text;
         [SerializeField]
-        private Score score;
+        private ScoreManager score;
 
         [SerializeField]
         private AnimationCurve animationCurve;

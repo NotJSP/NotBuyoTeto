@@ -9,30 +9,30 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1871769974436170}
+  m_RootGameObject: {fileID: 1973401351927238}
   m_IsPrefabAsset: 1
---- !u!1 &1871769974436170
+--- !u!1 &1973401351927238
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4519209096257636}
-  - component: {fileID: 114617384881524194}
+  - component: {fileID: 4273419470849014}
+  - component: {fileID: 114126536714306264}
   m_Layer: 0
-  m_Name: MinoResolver
+  m_Name: Sfx Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4519209096257636
+--- !u!4 &4273419470849014
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1871769974436170}
+  m_GameObject: {fileID: 1973401351927238}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,22 +40,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114617384881524194
+--- !u!114 &114126536714306264
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1871769974436170}
+  m_GameObject: {fileID: 1973401351927238}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7e673616c8eb764aba8fa19dc6a9cba, type: 3}
+  m_Script: {fileID: 11500000, guid: f27bfd6d8ebd9194f8747ccd7cc4a8a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minos:
-    I: {fileID: 114174923346554166, guid: d3d900d2596677043aa40bee343c1d12, type: 2}
-    O: {fileID: 114761718875838276, guid: b0ad43231084928479566d51fe03633b, type: 2}
-    T: {fileID: 114930902391232022, guid: e79f8122a3fcf3e489567068ccf1237c, type: 2}
-    L: {fileID: 114804692550173618, guid: c8f11e74dcc2f0b4990cfb9686a6e7e8, type: 2}
-    J: {fileID: 114952717067399080, guid: 8a8780e198bc086438c14d06566014a4, type: 2}
-    S: {fileID: 114402304672574054, guid: 0f36af9d0cd83014db2ff4a5c5477878, type: 2}
-    Z: {fileID: 114856397307144210, guid: 15acc1ab92248d4458f2b2c3f60041fe, type: 2}
+  entries:
+    RoundStart:
+      channel: 0
+      clip: {fileID: 8300000, guid: aa357575efbe8114287e3f5dd1d650a3, type: 3}
+      parameter:
+        Volume: 1
+        Pitch: 1
+    GameOver:
+      channel: 0
+      clip: {fileID: 8300000, guid: db4d57875f94813419383a5fedcf20ad, type: 3}
+      parameter:
+        Volume: 1
+        Pitch: 1

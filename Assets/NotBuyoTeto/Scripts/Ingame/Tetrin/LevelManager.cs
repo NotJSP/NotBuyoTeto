@@ -13,7 +13,8 @@ namespace NotBuyoTeto.Ingame.Tetrin {
 
         private static readonly int CountPerLevel = 4;
 
-        private int deleteCount;
+        private int increaseLevel;
+        private int deleteLines;
 
         private int level;  // レベル
         public int Value {
@@ -27,17 +28,23 @@ namespace NotBuyoTeto.Ingame.Tetrin {
             }
         }
 
-        public void DeleteCountUp(int count) { 
-            deleteCount += count;
+        public void CountUp(int lines) { 
+            deleteLines += lines;
 
-            var estimatedLevel = CalculateLevel(deleteCount);
+            var estimatedLevel = CalculateLevel(deleteLines) + increaseLevel;
             if (level != estimatedLevel) {
                 Value = estimatedLevel;
             }
         }
 
+        public void Increase(int amount) {
+            increaseLevel += amount;
+            Value += amount;
+        }
+
         public void Initialize() {
-            deleteCount = 0;
+            deleteLines = 0;
+            increaseLevel = 0;
             Value = 1;
         }
         

@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 114439531345358974}
   - component: {fileID: 114496841464089782}
   m_Layer: 0
-  m_Name: ColliderGroup
+  m_Name: Collider Group
   m_TagString: GroupField
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

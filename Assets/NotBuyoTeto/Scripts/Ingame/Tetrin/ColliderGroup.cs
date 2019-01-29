@@ -32,14 +32,14 @@ namespace NotBuyoTeto.Ingame.Tetrin {
             Children = objects.Select(o => o.GetComponent<ColliderBlock>());
         }
 
-        public virtual void Initialize(Instantiator instantiator, GameObject wall) {
+        public virtual void Initialize(Instantiator instantiator, GameObject anchor) {
             this.instantiator = instantiator;
             this.indicator = instantiator.Instantiate(indicatorPrefab, transform.position, Quaternion.identity).GetComponent<DensityIndicator>();
             var rate = gameObject.size().y / indicator.gameObject.size().y;
             var scale = indicator.gameObject.transform.localScale;
             scale.y *= rate;
             indicator.gameObject.transform.localScale = scale;
-            indicator.Initialize(wall);
+            indicator.Initialize(anchor);
 
             var objects = GetComponent<TileCreator>().Create();
             Children = objects.Select(o => o.GetComponent<ColliderBlock>());

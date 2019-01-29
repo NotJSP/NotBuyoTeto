@@ -39,4 +39,12 @@ MonoBehaviour:
   - DecideMode
   - SelectMode
   - UnselectMode
+  - OnDeleteBuyoOpponent
+  - OnDeleteMinoOpponent
+  - OnGameoverOpponent
+  - OnGamestartOpponent
+  - OnReadyOpponent
+  - OnRoundLoseAccepted
+  - OnRoundWinAccepted
+  - OnUpdateOpponentPing
   DisableAutoOpenWizard: 1

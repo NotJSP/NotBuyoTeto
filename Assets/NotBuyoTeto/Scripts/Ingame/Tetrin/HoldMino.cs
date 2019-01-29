@@ -16,7 +16,7 @@ namespace NotBuyoTeto.Ingame.Tetrin {
         public MinoType? Type { get; private set; }
         public bool Locked { get; private set; }
 
-        private void Awake() {
+        protected virtual void Awake() {
             animator = GetComponent<Animator>();
         }
 
@@ -34,7 +34,7 @@ namespace NotBuyoTeto.Ingame.Tetrin {
             Free();
         }
 
-        public void Push(MinoType type) {
+        public virtual void Push(MinoType type) {
             Type = type;
             frame.Set(type);
 

@@ -15,13 +15,15 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Marathon {
         [SerializeField]
         private TetoPerspective perspective;
         [SerializeField]
+        private ColliderField colliderField;
+        [SerializeField]
         private MinoManager minoManager;
         [SerializeField]
-        private Score score;
+        private ScoreManager scoreManager;
         [SerializeField]
-        private HighScore highScore;
+        private HighScoreManager highScoreManager;
         [SerializeField]
-        private Ranking ranking;
+        private RankingManager rankingManager;
         [SerializeField]
         private LevelManager levelManager;
         [SerializeField]
@@ -29,11 +31,11 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Marathon {
 
         protected override void OnSceneReady(object sender, EventArgs args) {
             base.OnSceneReady(sender, args);
-            perspective.ColliderField.LineDeleted += onLineDeleted;
+            colliderField.LineDeleted += onLineDeleted;
             minoManager.HitMino += onHitMino;
             levelManager.ValueChanged += onLevelChanged;
             loadRanking();
-            roundstart();
+            roundStart();
         }
 
         private void Update() {
@@ -41,20 +43,20 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Marathon {
                 SceneController.Instance.LoadScene(SceneName.Title, 0.7f);
             }
             if (Input.GetKeyDown(KeyCode.F12)) {
-                roundstart();
+                roundStart();
             }
         }
 
         private void reset() {
-            CancelInvoke("roundstart");
+            CancelInvoke("roundStart");
 
             sfxManager.Stop(IngameSfxType.GameOver);
-            score.Initialize();
+            scoreManager.Initialize();
             minoManager.Initialize(fallSpeedManager.DefaultSpeed);
             levelManager.Initialize();
         }
 
-        private void roundstart() {
+        private void roundStart() {
             reset();
             perspective.OnRoundStart();
             bgmManager.RandomPlay();
@@ -62,44 +64,46 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Marathon {
             minoManager.Next();
         }
 
-        private void gameover() {
+        private void gameOver() {
             perspective.OnGameOver();
             bgmManager.Stop();
             sfxManager.Play(IngameSfxType.GameOver);
             
-            var updated = highScore.UpdateValue();
+            var updated = highScoreManager.UpdateValue();
             if (updated) {
                 saveRanking();
             }
-            Invoke("roundstart", 9.0f);
+            Invoke("roundStart", 9.0f);
         }
 
         private void loadRanking() {
-            ranking.Fetch(highScore.RankingType);
+            var type = highScoreManager.RankingType;
+            var score = highScoreManager.Value;
+            rankingManager.Fetch(type, score);
         }
 
         private void saveRanking() {
             var name = PlayerPrefs.GetString(PlayerPrefsKey.PlayerName);
-            var score = highScore.Value;
+            var score = highScoreManager.Value;
             var ranker = new Ranker(name, score);
-            ranking.Save(highScore.RankingType, ranker);
+            rankingManager.Save(highScoreManager.RankingType, ranker);
         }
 
         private void onHitMino(object sender, EventArgs args) {
             minoManager.Release();
 
-            // 天井に当たったらゲームオーバー
-            if (perspective.Field.Ceiling.IsHit) {
-                gameover();
+            if (perspective.IsGameOver) {
+                gameOver();
             } else {
-                score.Increase(200 + (50 * levelManager.Value));
-                perspective.ColliderField.DeleteLine();
+                var score = 200 + (50 * levelManager.Value);
+                scoreManager.Increase(score);
+                colliderField.DeleteLines();
                 minoManager.Next();
             }
         }
 
-        private void onLineDeleted(object sende, DeleteMinoInfo info) {
-            levelManager.DeleteCountUp(info.LineCount);
+        private void onLineDeleted(object sender, DeleteMinoInfo info) {
+            levelManager.CountUp(info.LineCount);
         }
 
         private void onLevelChanged(object sender, int level) {
@@ -107,6 +111,5 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Marathon {
             minoManager.SetFallSpeed(fallSpeed);
             Debug.Log(fallSpeed);
         }
-
     }
 }

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4968557048246354}
   - component: {fileID: 50785185717546436}
   m_Layer: 0
-  m_Name: BuyoRigidbody
+  m_Name: Buyo Rigidbody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

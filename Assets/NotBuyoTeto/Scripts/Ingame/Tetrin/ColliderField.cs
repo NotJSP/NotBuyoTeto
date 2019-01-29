@@ -31,7 +31,7 @@ namespace NotBuyoTeto.Ingame.Tetrin {
             return groups.ToArray();
         }
 
-        public void DeleteLine() {
+        public void DeleteLines() {
             var eraseGroups = groups.Where(g => g.EnteredAll);
             var lineCount = eraseGroups.Count();
             var objectCount = eraseGroups.Sum(g => g.EnterCount);

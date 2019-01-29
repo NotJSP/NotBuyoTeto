@@ -7,7 +7,7 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
     [RequireComponent(typeof(BuyoManager))]
     public class BuyoControlScoring : MonoBehaviour {
         [SerializeField]
-        private Score score;
+        private ScoreManager score;
         private BuyoManager buyoManager;
 
         private static float ScoreIncrementDuration = 0.1f;

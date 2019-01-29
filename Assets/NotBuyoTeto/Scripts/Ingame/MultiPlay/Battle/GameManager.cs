@@ -17,17 +17,9 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
         [SerializeField]
         private IngameSfxManager sfxManager;
         [SerializeField]
-        private Director director;
-        [SerializeField]
         private UIManager ui;
         [SerializeField]
-        private PerspectiveManager perspectives;
-        [SerializeField]
-        private MinoManager minoManager;
-        [SerializeField]
-        private BuyoManager buyoManager;
-        [SerializeField]
-        private GarbageMinoManager garbageMinoManager;
+        private Director director;
         [SerializeField]
         private WinsManager winsManager;
         [SerializeField]
@@ -47,13 +39,14 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
             photonView = GetComponent<PhotonView>();
             PhotonNetwork.sendRate = 15;
             PhotonNetwork.sendRateOnSerialize = 15;
-            Debug.Log("PhotonNetwork.isMessageQueueRunning: " + PhotonNetwork.isMessageQueueRunning);
             PhotonNetwork.isMessageQueueRunning = false;
         }
 
         protected override void OnSceneReady(object sender, EventArgs args) {
-            minoManager.HitMino += onHitMino;
-            groupManager.MinoDeleted += onMinoDeleted;
+            var playerSideGameMode = GameMode.BuyoBuyo;
+            var opponentSideGameMode = GameMode.Tetrin;
+            director.SetMode(playerSideGameMode, opponentSideGameMode);
+            director.Initialize();
 
             ui.PlayerNameLabel.text = IdentificationNameUtility.ParseName(PhotonNetwork.player.NickName);
             ui.OpponentNameLabel.text = IdentificationNameUtility.ParseName(PhotonNetwork.otherPlayers[0].NickName);
@@ -100,22 +93,20 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
         }
 
         private void resetReadyFlags() {
-            Debug.Log(@"GameManager.resetReadyFlags()");
+            Debug.Log(@"GameManager::resetReadyFlags()");
             isReady = false;
             isReadyOpponent = false;
         }
 
-        private void resetObjects() {
-            Debug.Log(@"GameManager.resetObjects()");
+        private void clearObjects() {
+            Debug.Log(@"GameManager::clearObjects()");
             acceptedResult = false;
-            minoManager.Reset();
-            garbageMinoManager.Clear();
-            director.RoundStart();
+            director.ClearObjects();
             sfxManager.Stop(IngameSfxType.GameOver);
         }
 
         private void ready() {
-            Debug.Log(@"GameManager.ready()");
+            Debug.Log(@"GameManager::ready()");
             PhotonNetwork.isMessageQueueRunning = true;
             isReady = true;
 
@@ -128,11 +119,11 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
 
         private void gamestart() {
             Debug.Log(@"GameManager.gamestart()");
-            resetObjects();
+            clearObjects();
             photonView.RPC(@"OnGamestartOpponent", PhotonTargets.Others);
             sfxManager.Play(IngameSfxType.RoundStart);
             bgmManager.RandomPlay();
-            minoManager.Next();
+//            minoManager.Next();
         }
 
         private void gameover() {
@@ -157,30 +148,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
         }
 
         private void next() {
-            minoManager.Next();
-        }
-
-        private void onMinoDeleted(object sender, DeleteMinoInfo info) {
-            photonView.RPC("OnDeleteMinoOpponent", PhotonTargets.Others, info.LineCount, info.ObjectCount);
-        }
-
-        private void onHitMino(object sender, EventArgs args) {
-            minoManager.Release();
-
-            // ゲームオーバー
-            if (director.IsGameOver) {
-                gameover();
-            } else {
-                groupManager.DeleteMino();
-                StartCoroutine(fallGarbageAndNext());
-            }
-        }
-
-        private IEnumerator fallGarbageAndNext() {
-            if (garbageMinoManager.Fall()) {
-                yield return new WaitWhile(() => garbageMinoManager.IsFalling);
-            }
-            next();
+//            minoManager.Next();
         }
 
         private void OnDisconnectedFromPhoton() {
@@ -216,7 +184,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
         [PunRPC]
         private void OnGameoverOpponent(double timestamp) {
             Debug.Log("OnGameoverOpponent (" + timestamp + ")");
-            minoManager.Destroy();
+            director.RoundEnd();
 
             if (timestamp < gameOverTime) {
                 photonView.RPC("OnRoundWinAccepted", PhotonTargets.Others);
@@ -250,7 +218,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
             ui.OpponentWinsCounter.Increment();
 
             bgmManager.Stop();
-            director.Floor.SetActive(false);
+            director.GameOver();
             sfxManager.Play(IngameSfxType.GameOver);
             resetReadyFlags();
 
@@ -260,12 +228,6 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
                 Invoke("ready", 9.0f);
             }
             acceptedResult = true;
-        }
-
-        [PunRPC]
-        private void OnDeleteMinoOpponent(int lineCount, int objectCount) {
-            var info = new DeleteMinoInfo(lineCount, objectCount);
-            garbageMinoManager.Add(info);
         }
 
         [PunRPC]

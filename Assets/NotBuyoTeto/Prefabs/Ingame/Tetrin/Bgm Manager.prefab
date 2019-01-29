@@ -9,31 +9,31 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1193175570414210}
+  m_RootGameObject: {fileID: 1057073292302634}
   m_IsPrefabAsset: 1
---- !u!1 &1193175570414210
+--- !u!1 &1057073292302634
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4446807833182766}
-  - component: {fileID: 114016325281655928}
-  - component: {fileID: 82856094176656906}
+  - component: {fileID: 4922986864753134}
+  - component: {fileID: 82548735915109560}
+  - component: {fileID: 114832419871163152}
   m_Layer: 0
-  m_Name: BgmManager
+  m_Name: Bgm Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4446807833182766
+--- !u!4 &4922986864753134
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1193175570414210}
+  m_GameObject: {fileID: 1057073292302634}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -41,12 +41,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &82856094176656906
+--- !u!82 &82548735915109560
 AudioSource:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1193175570414210}
+  m_GameObject: {fileID: 1057073292302634}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -136,21 +136,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &114016325281655928
+--- !u!114 &114832419871163152
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1193175570414210}
+  m_GameObject: {fileID: 1057073292302634}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67dcd8c95116de647ae5a2b64aa928a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Clips:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 485d237dd03188a418b5f748195fd038, type: 3}
+  - {fileID: 8300000, guid: 3a614bb61de34944e850007db9959fb2, type: 3}
+  - {fileID: 8300000, guid: 15174b5324ccf3d42893e190236bad32, type: 3}
+  - {fileID: 8300000, guid: 35e5a9df047d196428c01996d9589e8b, type: 3}
+  - {fileID: 8300000, guid: 1db969ddfc5702f4292686041275da9d, type: 3}
+  - {fileID: 8300000, guid: 65aa50b9b09bed14e8207a9f61e0d7c7, type: 3}

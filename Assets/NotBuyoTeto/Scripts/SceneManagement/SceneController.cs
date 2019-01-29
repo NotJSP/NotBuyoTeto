@@ -1,15 +1,17 @@
 ﻿using System;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace NotBuyoTeto.SceneManagement {
     public class SceneController : SingletonMonoBehaviour<SceneController> {
-        [SerializeField] Canvas canvas;
-        [SerializeField] CanvasGroup canvasGroup;
-        [SerializeField] LoadingScreen screen;
+        [SerializeField]
+        private Canvas canvas;
+        [SerializeField]
+        private CanvasGroup canvasGroup;
+        [SerializeField]
+        private LoadingScreen screen;
 
         public event EventHandler SceneReady;
         private string lastSceneName;

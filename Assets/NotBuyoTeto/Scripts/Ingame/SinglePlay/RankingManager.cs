@@ -10,7 +10,7 @@ using NotBuyoTeto.Constants;
 using NotBuyoTeto.Utility;
 
 namespace NotBuyoTeto.Ingame.SinglePlay {
-    public class Ranking : MonoBehaviour {
+    public class RankingManager : MonoBehaviour {
         private Coroutine fetchCoroutine = null;
         private Coroutine saveCoroutine = null;
 
@@ -18,8 +18,6 @@ namespace NotBuyoTeto.Ingame.SinglePlay {
 
         [SerializeField]
         private Text textField;
-        [SerializeField]
-        private HighScore highScore;
 
         private ASyncValue<int, NCMBException> currentRank = new ASyncValue<int, NCMBException>();
         private ASyncValue<List<Ranker>, NCMBException> topRankers = new ASyncValue<List<Ranker>, NCMBException>();
@@ -37,11 +35,11 @@ namespace NotBuyoTeto.Ingame.SinglePlay {
             }
         }
 
-        public void Fetch(RankingType type) {
+        public void Fetch(RankingType type, int score) {
             if (fetchCoroutine != null) { return; }
 
             try {
-                fetchCoroutine = StartCoroutine(fetchAll(type));
+                fetchCoroutine = StartCoroutine(fetchAll(type, score));
             } catch (Exception e) {
                 Debug.LogError(e);
                 textField.text = @"ランキングの取得に失敗";
@@ -50,12 +48,12 @@ namespace NotBuyoTeto.Ingame.SinglePlay {
             }
         }
 
-        private IEnumerator fetchAll(RankingType type) {
+        private IEnumerator fetchAll(RankingType type, int score) {
             builder = new StringBuilder();
 
             while (true) { 
                 currentRank.Reset();
-                fetchRank(type, highScore.Value);
+                fetchRank(type, score);
                 yield return new WaitUntil(currentRank.TakeOrFailure);
 
                 if (!currentRank.Failure) { break; }
@@ -175,7 +173,7 @@ namespace NotBuyoTeto.Ingame.SinglePlay {
                 yield return new WaitForSeconds(3.0f);
             }
 
-            Fetch(type);
+            Fetch(type, ranker.Score);
         }
     }
 }
