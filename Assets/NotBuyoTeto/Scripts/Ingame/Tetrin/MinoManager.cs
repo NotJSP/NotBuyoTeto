@@ -5,6 +5,7 @@ using NotBuyoTeto.Utility;
 
 namespace NotBuyoTeto.Ingame.Tetrin {
     public class MinoManager : MonoBehaviour {
+        [Header("References")]
         [SerializeField]
         private Instantiator instantiator;
         [SerializeField]
@@ -13,8 +14,12 @@ namespace NotBuyoTeto.Ingame.Tetrin {
         private MinoSpawner spawner;
         [SerializeField]
         private TetoSfxManager sfxManager;
+
+        [Header("Prefabs")]
         [SerializeField]
         private Rigidbody2D minoRigidbody;
+
+        [Header("Properties")]
         [SerializeField]
         private MinoControlSettings controlSettings;
 
@@ -53,18 +58,20 @@ namespace NotBuyoTeto.Ingame.Tetrin {
 
         public void Next() {
             var type = nextMino.Pop();
-            set(type);
+            setType(type);
             holdMino.Free();
         }
 
         private void hold() {
-            var holdIndex = holdMino.Type;
-            if (!holdMino.Push(currentType)) { return; }
+            if (holdMino.Locked) { return; }
 
-            Destroy();
+            var holdType = holdMino.Type;
+            holdMino.Push(currentType);
 
-            var type = holdIndex.HasValue ? holdIndex.Value : nextMino.Pop();
-            set(type);
+            DestroyCurrentObject();
+
+            var type = holdType.HasValue ? holdType.Value : nextMino.Pop();
+            setType(type);
         }
 
         public void Release() {
@@ -73,13 +80,13 @@ namespace NotBuyoTeto.Ingame.Tetrin {
             Destroy(controller);
         }
 
-        public void Destroy() {
+        public void DestroyCurrentObject() {
             controlable = false;
             instantiator.Destroy(CurrentMino);
             minos.RemoveAt(minos.Count - 1);
         }
 
-        private void set(MinoType type) {
+        private void setType(MinoType type) {
             currentType = type;
             controlable = true;
 

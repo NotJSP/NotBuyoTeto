@@ -16,6 +16,10 @@ namespace NotBuyoTeto.Ingame.Tetrin {
             container = GetComponentInChildren<SpriteRenderer>();
         }
 
+        public void Clear() {
+            container.sprite = null;
+        }
+
         public void Set(MinoType type) {
             var mino = resolver.Get(type);
             var minoRenderer = mino.GetComponent<SpriteRenderer>();

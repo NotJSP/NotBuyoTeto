@@ -4,9 +4,12 @@ using UnityEngine;
 
 namespace NotBuyoTeto.Ingame.Tetrin {
     public class HoldMino : MonoBehaviour {
-        [SerializeField] private TetoSfxManager sfxManager;
-        [SerializeField] private MinoResolver resolver;
-        [SerializeField] private MinoFrame frame;
+        [SerializeField]
+        private TetoSfxManager sfxManager;
+        [SerializeField]
+        private MinoResolver resolver;
+        [SerializeField]
+        private MinoFrame frame;
 
         private Animator animator;
 
@@ -27,28 +30,18 @@ namespace NotBuyoTeto.Ingame.Tetrin {
 
         public void Clear() {
             Type = null;
+            frame.Clear();
+            Free();
         }
 
-        public bool Push(MinoType type) {
-            // ロックされていたら何もしない
-            if (Locked) {
-                return false;
-            }
-
-            // セット
+        public void Push(MinoType type) {
             Type = type;
             frame.Set(type);
 
-            // ホールドをロック
             Lock();
 
-            // SE
             sfxManager.Play(TetoSfxType.MinoHold);
-
-            // アニメーション
             animator.Play(@"HoldAnimation", 0, 0.0f);
-
-            return true;
         }
     }
 }
