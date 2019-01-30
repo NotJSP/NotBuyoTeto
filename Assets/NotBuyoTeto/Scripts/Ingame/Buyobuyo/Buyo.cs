@@ -10,6 +10,8 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         [SerializeField]
         private BuyoType type;
         public BuyoType Type => type;
+        [SerializeField]
+        private SpriteRenderer glowEffect;
 
         private HashSet<Buyo> chainObjects = new HashSet<Buyo>();
         private ParticleSystem BuyoDeleteEffect;
@@ -19,13 +21,21 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         private void Awake() {
             type = GetComponent<Buyo>().Type;
             BuyoDeleteEffect = gameObject.GetComponentInChildren<ParticleSystem>();
+            glowEffect.enabled = false;
         }
 
         // Update is called once per frame
         void Update() {
-            if (GetChainCount(null) >= 4) {
+            int chainCount = GetChainCount(null);
+            if (chainCount >= 4) {
                 DestroyChain(null);
                 DeleteBuyo?.Invoke(this, transform.position);
+            }
+            if (chainCount < 3) {
+                glowEffect.enabled = false;
+            }
+            if (chainCount >= 3) {
+                glowEffect.enabled = true;
             }
         }
 
@@ -71,7 +81,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             var chainObj = collision.gameObject.GetComponent<Buyo>();
 
             if (chainObj.type == this.type) {
-                chainObjects.Add(chainObj);
+                chainObjects.Add(chainObj);                
             }
         }
 

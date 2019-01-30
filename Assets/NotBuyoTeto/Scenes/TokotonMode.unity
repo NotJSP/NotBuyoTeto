@@ -1188,35 +1188,35 @@ Prefab:
       objectReference: {fileID: 878107802}
     - target: {fileID: 4429787139006266, guid: 9abcda7f5d84a124a940fa9b7f7c66db, type: 2}
       propertyPath: m_LocalScale.x
-      value: 0.26
+      value: 0.52
       objectReference: {fileID: 0}
     - target: {fileID: 4429787139006266, guid: 9abcda7f5d84a124a940fa9b7f7c66db, type: 2}
       propertyPath: m_LocalScale.y
-      value: 0.26
+      value: 0.52
       objectReference: {fileID: 0}
     - target: {fileID: 4000939006710086, guid: 9abcda7f5d84a124a940fa9b7f7c66db, type: 2}
       propertyPath: m_LocalScale.x
-      value: 0.26
+      value: 0.52
       objectReference: {fileID: 0}
     - target: {fileID: 4000939006710086, guid: 9abcda7f5d84a124a940fa9b7f7c66db, type: 2}
       propertyPath: m_LocalScale.y
-      value: 0.26
+      value: 0.52
       objectReference: {fileID: 0}
     - target: {fileID: 4776026263951038, guid: 9abcda7f5d84a124a940fa9b7f7c66db, type: 2}
       propertyPath: m_LocalScale.x
-      value: 0.26
+      value: 0.52
       objectReference: {fileID: 0}
     - target: {fileID: 4776026263951038, guid: 9abcda7f5d84a124a940fa9b7f7c66db, type: 2}
       propertyPath: m_LocalScale.y
-      value: 0.26
+      value: 0.52
       objectReference: {fileID: 0}
     - target: {fileID: 4265082954756638, guid: 9abcda7f5d84a124a940fa9b7f7c66db, type: 2}
       propertyPath: m_LocalScale.x
-      value: 0.26
+      value: 0.52
       objectReference: {fileID: 0}
     - target: {fileID: 4265082954756638, guid: 9abcda7f5d84a124a940fa9b7f7c66db, type: 2}
       propertyPath: m_LocalScale.y
-      value: 0.26
+      value: 0.52
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9abcda7f5d84a124a940fa9b7f7c66db, type: 2}
@@ -1359,25 +1359,25 @@ Prefab:
         type: 2}
       propertyPath: buyos.red
       value: 
-      objectReference: {fileID: 114308069351554216, guid: 3171772ff30ee604892978ce36159635,
+      objectReference: {fileID: 114877376987475912, guid: a58d1aef4fa87fc449227090675d31b4,
         type: 2}
     - target: {fileID: 114171713297092336, guid: ff6aef77ae75dfb40a51d2a69ad8c5e1,
         type: 2}
       propertyPath: buyos.blue
       value: 
-      objectReference: {fileID: 114882446450638768, guid: 06e989eefe11ed843a8eb15178202a48,
+      objectReference: {fileID: 114685063189900256, guid: d5f14040723fc714e9c3e92152f516f5,
         type: 2}
     - target: {fileID: 114171713297092336, guid: ff6aef77ae75dfb40a51d2a69ad8c5e1,
         type: 2}
       propertyPath: buyos.green
       value: 
-      objectReference: {fileID: 114471730498344052, guid: ad98110d9aea243439af174bdce68d50,
+      objectReference: {fileID: 114295309952859968, guid: a8c690ab485e3a14581d530a2484a7eb,
         type: 2}
     - target: {fileID: 114171713297092336, guid: ff6aef77ae75dfb40a51d2a69ad8c5e1,
         type: 2}
       propertyPath: buyos.yellow
       value: 
-      objectReference: {fileID: 114389392744117022, guid: 54146786c26236143bf9c3ae3d8565f6,
+      objectReference: {fileID: 114323936003360712, guid: 4c12d68db14852f4b91f35b0b27856ca,
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff6aef77ae75dfb40a51d2a69ad8c5e1, type: 2}
@@ -2165,6 +2165,7 @@ GameObject:
   - component: {fileID: 1776882943}
   - component: {fileID: 1776882942}
   - component: {fileID: 1776882941}
+  - component: {fileID: 1776882945}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -2219,7 +2220,7 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
+  m_HDR: 0
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
@@ -2239,6 +2240,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1776882945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1776882940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: f9e38e00e06f10841b2fe2060c470577, type: 2}
 --- !u!4 &1777563733 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4029359075915086, guid: 7755f47df1bc0794a886903ac5a96783,

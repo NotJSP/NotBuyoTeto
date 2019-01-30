@@ -9,9 +9,9 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
         [SerializeField]
         private Score score;
         
-        public void buyoDeleteScoring(int combo) {
-            var baseScore = 500.0f;
-            var amount = baseScore * combo;
+        public void buyoDeleteScoring(int combo, int level) {
+            var baseScore = 200.0f;
+            var amount = baseScore + (combo * level * 50);
             score.Increase((int)amount);
         }
     }
