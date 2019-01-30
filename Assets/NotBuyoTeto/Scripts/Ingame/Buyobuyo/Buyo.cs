@@ -6,24 +6,23 @@ using System;
 using SpriteGlow;
 
 namespace NotBuyoTeto.Ingame.Buyobuyo {
-    [RequireComponent(typeof(SpriteRenderer), typeof(Collider2D), typeof(SpriteGlowEffect))]
+    [RequireComponent(typeof(SpriteRenderer), typeof(Collider2D))]
     public class Buyo : MonoBehaviour, IEqualityComparer<Buyo> {
         [SerializeField]
         private BuyoType type;
         public BuyoType Type => type;
+        [SerializeField]
+        private SpriteRenderer glowEffect;
 
         private HashSet<Buyo> chainObjects = new HashSet<Buyo>();
         private ParticleSystem BuyoDeleteEffect;
-        private SpriteGlowEffect glowEffect;
 
         public event EventHandler<Vector2> DeleteBuyo;
 
         private void Awake() {
             type = GetComponent<Buyo>().Type;
             BuyoDeleteEffect = gameObject.GetComponentInChildren<ParticleSystem>();
-            glowEffect = GetComponent<SpriteGlowEffect>();
-            glowEffect.GlowBrightness = 0.0f;
-            glowEffect.OutlineWidth = 0;
+            glowEffect.enabled = false;
         }
 
         // Update is called once per frame
@@ -34,12 +33,10 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
                 DeleteBuyo?.Invoke(this, transform.position);
             }
             if (chainCount < 3) {
-                glowEffect.GlowBrightness = 0.0f;
-                glowEffect.OutlineWidth = 0;
+                glowEffect.enabled = false;
             }
             if (chainCount >= 3) {
-                glowEffect.GlowBrightness = 1.25f;
-                glowEffect.OutlineWidth = 12;
+                glowEffect.enabled = true;
             }
         }
 
