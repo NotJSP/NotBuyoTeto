@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
-using SpriteGlow;
 
 namespace NotBuyoTeto.Ingame.Buyobuyo {
     [RequireComponent(typeof(SpriteRenderer), typeof(Collider2D))]
