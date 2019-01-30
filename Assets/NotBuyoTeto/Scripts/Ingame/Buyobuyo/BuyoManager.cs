@@ -109,7 +109,9 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         private void onDeleteBuyo(object sender, Vector2 position) {
             comboManager.countUp(position);
             levelManager.DeleteCountUp();
-            gameObject.GetComponent<BuyoDeleteScoring>().buyoDeleteScoring(comboManager.getComboCount());
+            int combo = comboManager.Value;
+            int level = levelManager.Value;
+            gameObject.GetComponent<BuyoDeleteScoring>().buyoDeleteScoring(combo,level);
         }
 
     }
