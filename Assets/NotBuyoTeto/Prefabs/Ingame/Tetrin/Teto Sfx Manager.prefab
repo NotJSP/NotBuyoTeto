@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1503796883327626}
+  m_IsPrefabAsset: 1
+--- !u!1 &1503796883327626
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4189827289319342}
+  - component: {fileID: 114949215061674402}
+  m_Layer: 0
+  m_Name: Teto Sfx Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4189827289319342
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1503796883327626}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114949215061674402
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1503796883327626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d216e0c8d6f75f748baf2cff0437b71c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entries:
+    MinoMove:
+      channel: 0
+      clip: {fileID: 8300000, guid: 387607c5ddaf15f4a8939692c3cc4338, type: 3}
+      parameter:
+        Volume: 1
+        Pitch: 1
+    MinoRotate:
+      channel: 0
+      clip: {fileID: 8300000, guid: 6a0d13896c31ab44792661657309b8d3, type: 3}
+      parameter:
+        Volume: 1
+        Pitch: 1
+    MinoHit:
+      channel: 0
+      clip: {fileID: 8300000, guid: 3c064b9424eff604b867da50814016b2, type: 3}
+      parameter:
+        Volume: 1
+        Pitch: 1
+    MinoHold:
+      channel: 0
+      clip: {fileID: 8300000, guid: fda883631f8d32445a4ce65aa0274d48, type: 3}
+      parameter:
+        Volume: 1
+        Pitch: 1
+    MinoDelete:
+      channel: 0
+      clip: {fileID: 8300000, guid: d01a5baf866fbf84b82ae47f41c89bca, type: 3}
+      parameter:
+        Volume: 1
+        Pitch: 1

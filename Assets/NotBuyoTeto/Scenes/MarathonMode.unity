@@ -354,7 +354,7 @@ Prefab:
         type: 2}
       propertyPath: sfxManager
       value: 
-      objectReference: {fileID: 1491285561}
+      objectReference: {fileID: 1490978607}
     - target: {fileID: 114702596021302572, guid: dd64d7cbb418c404fb41b2057d89b5de,
         type: 2}
       propertyPath: resolver
@@ -369,7 +369,7 @@ Prefab:
         type: 2}
       propertyPath: sfxManager
       value: 
-      objectReference: {fileID: 1491285561}
+      objectReference: {fileID: 1490978607}
     - target: {fileID: 4641356999364056, guid: dd64d7cbb418c404fb41b2057d89b5de, type: 2}
       propertyPath: m_RootOrder
       value: 3
@@ -683,6 +683,54 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ac77ca09764feb41aaa67b7f83ac837, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1001 &1490978606
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 746029555}
+    m_Modifications:
+    - target: {fileID: 4189827289319342, guid: 7c94d7d041ce3d34caeb2e3330a92669, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4189827289319342, guid: 7c94d7d041ce3d34caeb2e3330a92669, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4189827289319342, guid: 7c94d7d041ce3d34caeb2e3330a92669, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4189827289319342, guid: 7c94d7d041ce3d34caeb2e3330a92669, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4189827289319342, guid: 7c94d7d041ce3d34caeb2e3330a92669, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4189827289319342, guid: 7c94d7d041ce3d34caeb2e3330a92669, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4189827289319342, guid: 7c94d7d041ce3d34caeb2e3330a92669, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4189827289319342, guid: 7c94d7d041ce3d34caeb2e3330a92669, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7c94d7d041ce3d34caeb2e3330a92669, type: 2}
+  m_IsPrefabAsset: 0
+--- !u!114 &1490978607 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114949215061674402, guid: 7c94d7d041ce3d34caeb2e3330a92669,
+    type: 2}
+  m_PrefabInternal: {fileID: 1490978606}
+  m_Script: {fileID: 11500000, guid: d216e0c8d6f75f748baf2cff0437b71c, type: 3}
 --- !u!1001 &1491285559
 Prefab:
   m_ObjectHideFlags: 0
@@ -725,53 +773,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8e2d8226d987784abe1fdeb276e0dc2, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &1491285560 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1973401351927238, guid: b8e2d8226d987784abe1fdeb276e0dc2,
-    type: 2}
-  m_PrefabInternal: {fileID: 1491285559}
---- !u!114 &1491285561
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1491285560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d216e0c8d6f75f748baf2cff0437b71c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entries:
-    MinoMove:
-      channel: 0
-      clip: {fileID: 8300000, guid: 387607c5ddaf15f4a8939692c3cc4338, type: 3}
-      parameter:
-        Volume: 1
-        Pitch: 1
-    MinoRotate:
-      channel: 0
-      clip: {fileID: 8300000, guid: 6a0d13896c31ab44792661657309b8d3, type: 3}
-      parameter:
-        Volume: 1
-        Pitch: 1
-    MinoHit:
-      channel: 0
-      clip: {fileID: 8300000, guid: 3c064b9424eff604b867da50814016b2, type: 3}
-      parameter:
-        Volume: 1
-        Pitch: 1
-    MinoHold:
-      channel: 0
-      clip: {fileID: 8300000, guid: fda883631f8d32445a4ce65aa0274d48, type: 3}
-      parameter:
-        Volume: 1
-        Pitch: 1
-    MinoDelete:
-      channel: 0
-      clip: {fileID: 8300000, guid: d01a5baf866fbf84b82ae47f41c89bca, type: 3}
-      parameter:
-        Volume: 1
-        Pitch: 1
 --- !u!114 &1514759362 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114832419871163152, guid: 7bd3ccf1d73f0c543aaea825854c0e2c,
@@ -1222,7 +1223,7 @@ Prefab:
         type: 2}
       propertyPath: sfxManager
       value: 
-      objectReference: {fileID: 1491285561}
+      objectReference: {fileID: 1490978607}
     - target: {fileID: 114353273943481486, guid: 1c35f70a59c345b4bbcbbf758fe3af88,
         type: 2}
       propertyPath: score

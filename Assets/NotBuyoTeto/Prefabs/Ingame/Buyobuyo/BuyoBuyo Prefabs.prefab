@@ -198,10 +198,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buyos:
-    red: {fileID: 114308069351554216, guid: 3171772ff30ee604892978ce36159635, type: 2}
-    blue: {fileID: 114882446450638768, guid: 06e989eefe11ed843a8eb15178202a48, type: 2}
-    green: {fileID: 114471730498344052, guid: ad98110d9aea243439af174bdce68d50, type: 2}
-    yellow: {fileID: 114389392744117022, guid: 54146786c26236143bf9c3ae3d8565f6, type: 2}
+    red: {fileID: 114877376987475912, guid: a58d1aef4fa87fc449227090675d31b4, type: 2}
+    blue: {fileID: 114685063189900256, guid: d5f14040723fc714e9c3e92152f516f5, type: 2}
+    green: {fileID: 114295309952859968, guid: a8c690ab485e3a14581d530a2484a7eb, type: 2}
+    yellow: {fileID: 114323936003360712, guid: 4c12d68db14852f4b91f35b0b27856ca, type: 2}
 --- !u!114 &114521232771834194
 MonoBehaviour:
   m_ObjectHideFlags: 1

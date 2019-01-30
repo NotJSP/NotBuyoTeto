@@ -48,9 +48,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
             director.SetMode(playerSideGameMode, opponentSideGameMode);
             director.Initialize();
 
-            ui.PlayerNameLabel.text = IdentificationNameUtility.ParseName(PhotonNetwork.player.NickName);
-            ui.OpponentNameLabel.text = IdentificationNameUtility.ParseName(PhotonNetwork.otherPlayers[0].NickName);
-            ui.PlayerYouLabel.enabled = true;
+//            ui.PlayerNameLabel.text = IdentificationNameUtility.ParseName(PhotonNetwork.player.NickName);
+//            ui.OpponentNameLabel.text = IdentificationNameUtility.ParseName(PhotonNetwork.otherPlayers[0].NickName);
 
             StartCoroutine(updateAndSendPing());
 
@@ -123,7 +122,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
             photonView.RPC(@"OnGamestartOpponent", PhotonTargets.Others);
             sfxManager.Play(IngameSfxType.RoundStart);
             bgmManager.RandomPlay();
-//            minoManager.Next();
+            director.Next();
         }
 
         private void gameover() {
@@ -148,7 +147,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
         }
 
         private void next() {
-//            minoManager.Next();
+            director.Next();
         }
 
         private void OnDisconnectedFromPhoton() {
