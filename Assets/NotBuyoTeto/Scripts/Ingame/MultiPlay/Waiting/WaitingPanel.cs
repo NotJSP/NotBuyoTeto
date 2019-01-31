@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
     public class WaitingPanel : MonoBehaviour {

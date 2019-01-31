@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon;
 using NotBuyoTeto.SceneManagement;
+using NotBuyoTeto.Constants;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
@@ -19,6 +20,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
         private OpponentPanel opponentPanel;
         [SerializeField]
         private GameObject waitingWindow;
+        [SerializeField]
+        private StartingCounter startingCounter;
 
         private AnimationTransitEntry playerPanelTransition;
         private AnimationTransitEntry opponentPanelTransition;
@@ -32,19 +35,32 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
 
         public void StartByHost(WaitingPlayer player, Action afterAction = null) {
             waitingPanel.SetActive(true);
+
             playerPanel.Set(player);
             StartCoroutine(AnimationTransit.In(playerPanelTransition));
             StartCoroutine(AnimationTransit.In(waitingWindowTransition));
+
             afterAction?.Invoke();
         }
 
         public void StartByGuest(WaitingPlayer player, WaitingPlayer opponent, Action afterAction = null) {
             waitingPanel.SetActive(true);
+
             playerPanel.Set(player);
-            opponentPanel.Set(opponent);
             StartCoroutine(AnimationTransit.In(playerPanelTransition));
+            opponentPanel.Set(opponent);
             StartCoroutine(AnimationTransit.In(opponentPanelTransition));
+
+            startingCounter.OnZero += onCountZero;
+            startingCounter.Set(30);
+            startingCounter.CountStart();
+            startingCounter.Show();
+
             afterAction?.Invoke();
+        }
+
+        private void onCountZero(object sender, EventArgs args) {
+            SceneController.Instance.LoadScene(SceneName.NetworkBattle, SceneTransition.Duration);
         }
 
         public override void OnJoinedRoom() {
@@ -61,6 +77,11 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
             var waitingPlayer = new WaitingPlayer(player.NickName, record, rating);
             opponentPanel.Set(waitingPlayer);
             StartCoroutine(AnimationTransit.Transition(waitingWindowTransition, opponentPanelTransition));
+
+            startingCounter.OnZero += onCountZero;
+            startingCounter.Set(30);
+            startingCounter.CountStart();
+            startingCounter.Show();
         }
 
         public override void OnPhotonPlayerDisconnected(PhotonPlayer player) {

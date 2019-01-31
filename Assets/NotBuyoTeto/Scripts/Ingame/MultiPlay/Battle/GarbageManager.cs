@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
     public abstract class GarbageManager : MonoBehaviour {
+        [Header("References")]
         [SerializeField]
         private GarbageIndicator indicator;
 

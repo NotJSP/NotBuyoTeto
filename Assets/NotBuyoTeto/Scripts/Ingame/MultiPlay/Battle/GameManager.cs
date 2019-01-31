@@ -24,6 +24,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
         private WinsManager winsManager;
         [SerializeField]
         private MessageWindow messageWindow;
+        [SerializeField]
+        protected PerspectiveManager perspectives;
 
         private PhotonView photonView;
         private double gameOverTime = 0.0;
@@ -43,8 +45,11 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
         }
 
         protected override void OnSceneReady(object sender, EventArgs args) {
-            var playerSideGameMode = GameMode.BuyoBuyo;
-            var opponentSideGameMode = GameMode.Tetrin;
+            var playerSideGameMode = (GameMode)PhotonNetwork.player.CustomProperties["gamemode"];
+            perspectives.Activate(PlayerSide.Player, playerSideGameMode);
+            var opponentSideGameMode = (GameMode)PhotonNetwork.otherPlayers[0].CustomProperties["gamemode"];
+            perspectives.Activate(PlayerSide.Opponent, opponentSideGameMode);
+
             director.SetMode(playerSideGameMode, opponentSideGameMode);
             director.Initialize();
 

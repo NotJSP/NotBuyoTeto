@@ -9,7 +9,6 @@ using Random = UnityEngine.Random;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
     public class GarbageMinoManager : GarbageManager {
-        [Header("References")]
         [SerializeField]
         private Instantiator instantiator;
         [SerializeField]

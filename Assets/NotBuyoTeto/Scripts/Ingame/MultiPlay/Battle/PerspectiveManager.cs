@@ -24,17 +24,21 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
             if (side == PlayerSide.Player) {
                 if (mode == GameMode.Tetrin) {
                     PlayerTetoPerspective.gameObject.SetActive(true);
+                    PlayerBuyoPerspective.gameObject.SetActive(false);
                 }
                 if (mode == GameMode.BuyoBuyo) {
                     PlayerBuyoPerspective.gameObject.SetActive(true);
+                    PlayerTetoPerspective.gameObject.SetActive(false);
                 }
             }
             if (side == PlayerSide.Opponent) {
                 if (mode == GameMode.Tetrin) {
                     OpponentTetoPerspective.gameObject.SetActive(true);
+                    OpponentBuyoPerspective.gameObject.SetActive(false);
                 }
                 if (mode == GameMode.BuyoBuyo) {
                     OpponentBuyoPerspective.gameObject.SetActive(true);
+                    OpponentTetoPerspective.gameObject.SetActive(false);
                 }
             }
         }

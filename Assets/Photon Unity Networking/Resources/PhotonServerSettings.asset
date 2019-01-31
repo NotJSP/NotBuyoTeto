@@ -47,4 +47,6 @@ MonoBehaviour:
   - OnRoundLoseAccepted
   - OnRoundWinAccepted
   - OnUpdateOpponentPing
+  - Clear
+  - Set
   DisableAutoOpenWizard: 1

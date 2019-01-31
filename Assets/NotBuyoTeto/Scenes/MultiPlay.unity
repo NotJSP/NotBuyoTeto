@@ -2460,6 +2460,7 @@ MonoBehaviour:
   playerPanel: {fileID: 466180424}
   opponentPanel: {fileID: 1509239125}
   waitingWindow: {fileID: 1482189323}
+  startingCounter: {fileID: 1853749984}
 --- !u!1 &894204445
 GameObject:
   m_ObjectHideFlags: 0
@@ -5483,7 +5484,7 @@ GameObject:
   - component: {fileID: 1853749981}
   - component: {fileID: 1853749984}
   m_Layer: 5
-  m_Name: Counter
+  m_Name: Starting Counter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
