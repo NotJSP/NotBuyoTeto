@@ -60,6 +60,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
         }
 
         private void onCountZero(object sender, EventArgs args) {
+            PhotonNetwork.isMessageQueueRunning = false;
             SceneController.Instance.LoadScene(SceneName.NetworkBattle, SceneTransition.Duration);
         }
 
@@ -78,6 +79,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
             opponentPanel.Set(waitingPlayer);
             StartCoroutine(AnimationTransit.Transition(waitingWindowTransition, opponentPanelTransition));
 
+            PhotonNetwork.room.IsOpen = false;
+
             startingCounter.OnZero += onCountZero;
             startingCounter.Set(30);
             startingCounter.CountStart();
@@ -86,6 +89,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
 
         public override void OnPhotonPlayerDisconnected(PhotonPlayer player) {
             StartCoroutine(AnimationTransit.Transition(opponentPanelTransition, waitingWindowTransition));
+            PhotonNetwork.room.IsOpen = true;
         }
 
         public void OpenWaitingWindow() {

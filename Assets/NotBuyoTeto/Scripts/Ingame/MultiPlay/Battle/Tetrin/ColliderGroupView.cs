@@ -5,7 +5,7 @@ using NotBuyoTeto.Utility;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
     [RequireComponent(typeof(Renderer))]
-    public class CollidersGroupView : MonoBehaviour {
+    public class ColliderGroupView : MonoBehaviour {
         private new Renderer renderer;
         private Renderer Renderer {
             get {

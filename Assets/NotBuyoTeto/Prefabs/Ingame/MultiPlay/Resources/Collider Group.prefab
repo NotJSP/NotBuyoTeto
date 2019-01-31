@@ -40,8 +40,8 @@ GameObject:
   - component: {fileID: 222831882442975322}
   - component: {fileID: 61305441879010746}
   - component: {fileID: 114284478949191546}
-  - component: {fileID: 114070762691762762}
   - component: {fileID: 114923463323148848}
+  - component: {fileID: 114457208542914536}
   m_Layer: 0
   m_Name: Collider Group
   m_TagString: GroupField
@@ -271,19 +271,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.64}
   m_EdgeRadius: 0
---- !u!114 &114070762691762762
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1157755518294612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39312c118eb41964aa50ed21f25cf78b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  indicatorPrefab: {fileID: 1540179289535824, guid: 01d0e109f84128049a29cc59119677b0,
-    type: 2}
 --- !u!114 &114284478949191546
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -300,6 +287,19 @@ MonoBehaviour:
   Field: {fileID: 1157755518294612}
   DivideNumX: 20
   DivideNumY: 3
+--- !u!114 &114457208542914536
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1157755518294612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b6ac0fc76276ff4386ba4af079b17d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicatorPrefab: {fileID: 1502757523558944, guid: 81fc9f935e133294e980371d1b79df52,
+    type: 2}
 --- !u!114 &114923463323148848
 MonoBehaviour:
   m_ObjectHideFlags: 1
