@@ -15,10 +15,6 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         [SerializeField]
         private BuyoSfxManager sfxManager;
         [SerializeField]
-        private ComboManager comboManager;
-        [SerializeField]
-        private LevelManager levelManager;
-        [SerializeField]
         private Rigidbody2D buyoRigidbody;
         [SerializeField]
         public GameObject buyoparent;
@@ -31,6 +27,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         private float fallSpeed;
 
         public event EventHandler HitBuyo;
+        public event EventHandler<Vector2> DeleteBuyo;
 
         private NextBuyo nextBuyo => perspective.NextBuyo;
 
@@ -107,11 +104,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         }
 
         private void onDeleteBuyo(object sender, Vector2 position) {
-            comboManager.countUp(position);
-            levelManager.DeleteCountUp();
-            int combo = comboManager.Value;
-            int level = levelManager.Value;
-            gameObject.GetComponent<BuyoDeleteScoring>().buyoDeleteScoring(combo,level);
+            DeleteBuyo?.Invoke(this, position);
         }
 
     }

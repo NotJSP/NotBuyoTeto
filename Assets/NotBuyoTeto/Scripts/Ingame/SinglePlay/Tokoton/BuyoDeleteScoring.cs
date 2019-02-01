@@ -4,7 +4,6 @@ using UnityEngine;
 using NotBuyoTeto.Ingame.Buyobuyo;
 
 namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
-    [RequireComponent(typeof(BuyoManager))]
     public class BuyoDeleteScoring : MonoBehaviour {
         [SerializeField]
         private ScoreManager score;

@@ -26,11 +26,14 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
         [SerializeField]
         private LevelManager levelManager;
         [SerializeField]
+        private ComboManager comboManager;
+        [SerializeField]
         private FallSpeedManager fallSpeedManager;
         
         protected override void OnSceneReady(object sender, EventArgs args) {
             base.OnSceneReady(sender, args);
             buyoManager.HitBuyo += onHitBuyo;
+            buyoManager.DeleteBuyo += onDeleteBuyo;
             levelManager.ValueChanged += onLevelChanged;
             loadRanking();
             roundStart();
@@ -102,6 +105,14 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
             var fallSpeed = fallSpeedManager.GetSpeed(level);
             buyoManager.SetFallSpeed(fallSpeed);
             Debug.Log(fallSpeed);
+        }
+
+        private void onDeleteBuyo(object sender, Vector2 position) {
+            comboManager.countUp(position);
+            levelManager.DeleteCountUp();
+            int combo = comboManager.Value;
+            int level = levelManager.Value;
+            gameObject.GetComponent<BuyoDeleteScoring>().buyoDeleteScoring(combo,level);
         }
     }
 }
