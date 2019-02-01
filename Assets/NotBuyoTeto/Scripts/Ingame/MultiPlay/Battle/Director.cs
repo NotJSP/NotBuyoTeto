@@ -2,15 +2,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon;
-using NotBuyoTeto.Ingame.Tetrin;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
-    public abstract class Director : PunBehaviour {
+    [RequireComponent(typeof(PhotonView))]
+    public abstract class Director : MonoBehaviour {
+        protected PhotonView photonView;
+
         public GameMode PlayerSideGameMode { get; private set; }
         public GameMode OpponentSideGameMode { get; private set; }
 
         public abstract bool IsGameOver { get; }
+
+        private void Awake() {
+            photonView = GetComponent<PhotonView>();
+        }
 
         public void SetMode(GameMode playerSideGameMode, GameMode opponentSideGameMode) {
             this.PlayerSideGameMode = playerSideGameMode;

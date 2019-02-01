@@ -52,7 +52,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
             StartCoroutine(AnimationTransit.In(opponentPanelTransition));
 
             startingCounter.OnZero += onCountZero;
-            startingCounter.Set(30);
+            startingCounter.Set(10);
             startingCounter.CountStart();
             startingCounter.Show();
 
@@ -82,7 +82,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
             PhotonNetwork.room.IsOpen = false;
 
             startingCounter.OnZero += onCountZero;
-            startingCounter.Set(30);
+            startingCounter.Set(10);
             startingCounter.CountStart();
             startingCounter.Show();
         }

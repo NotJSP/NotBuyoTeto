@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace NotBuyoTeto.SceneManagement {
     public class SceneBase : MonoBehaviour {
-        protected virtual void Awake() {
+        protected virtual void Start() {
             SceneController.Instance.SceneReady += OnSceneReady;
         }
 

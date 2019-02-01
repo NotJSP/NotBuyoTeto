@@ -36,12 +36,10 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
 
         private static readonly float BackToMatchingSeconds = 3.0f;
 
-        protected override void Awake() {
-            base.Awake();
+        protected void Awake() {
             photonView = GetComponent<PhotonView>();
             PhotonNetwork.sendRate = 15;
             PhotonNetwork.sendRateOnSerialize = 15;
-            PhotonNetwork.isMessageQueueRunning = false;
         }
 
         protected override void OnSceneReady(object sender, EventArgs args) {

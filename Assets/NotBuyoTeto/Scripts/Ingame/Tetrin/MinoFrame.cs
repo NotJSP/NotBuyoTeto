@@ -21,7 +21,8 @@ namespace NotBuyoTeto.Ingame.Tetrin {
         public virtual void Set(MinoType type) {
             Debug.Log(gameObject.path());
             Debug.Log($"MinoFrame::Set({type})");
-            Debug.Log(resolver);
+            Debug.Log("container:" + container);
+            Debug.Log("resolver: " + resolver);
             var mino = resolver.Get(type);
             var minoRenderer = mino.GetComponent<SpriteRenderer>();
             container.sprite = minoRenderer.sprite;

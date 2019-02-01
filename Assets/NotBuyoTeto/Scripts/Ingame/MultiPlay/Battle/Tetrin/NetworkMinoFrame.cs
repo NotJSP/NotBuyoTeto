@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NotBuyoTeto.Ingame.Tetrin;
+using NotBuyoTeto.Utility;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
     public class NetworkMinoFrame : MinoFrame {
