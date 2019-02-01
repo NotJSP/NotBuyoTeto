@@ -1816,6 +1816,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1547014892}
   - component: {fileID: 1547014891}
+  - component: {fileID: 1547014893}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1842,6 +1843,7 @@ MonoBehaviour:
   highScore: {fileID: 273689928}
   ranking: {fileID: 126280533}
   levelManager: {fileID: 1651480629}
+  comboManager: {fileID: 952612658}
   fallSpeedManager: {fileID: 1203762158}
 --- !u!4 &1547014892
 Transform:
@@ -1863,6 +1865,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1547014893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1547014890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51b9d38f95412b74e919f899c5932988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: {fileID: 1429037204}
 --- !u!114 &1563286283 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114929788797670774, guid: 44a4d3ffbfd7fef47b71a5532acf87d2,
@@ -2032,23 +2046,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7755f47df1bc0794a886903ac5a96783, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &1698947533 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1032021498355392, guid: 7755f47df1bc0794a886903ac5a96783,
-    type: 2}
-  m_PrefabInternal: {fileID: 1687544534}
---- !u!114 &1698947534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1698947533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51b9d38f95412b74e919f899c5932988, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  score: {fileID: 1429037204}
 --- !u!1001 &1772981384
 Prefab:
   m_ObjectHideFlags: 0
