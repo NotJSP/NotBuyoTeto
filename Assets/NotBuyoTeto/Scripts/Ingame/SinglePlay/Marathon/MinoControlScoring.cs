@@ -7,7 +7,7 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Tetrin {
     [RequireComponent(typeof(MinoManager))]
     public class MinoControlScoring : MonoBehaviour {
         [SerializeField]
-        private Score score;
+        private ScoreManager score;
         private MinoManager minoManager;
 
         // TODO

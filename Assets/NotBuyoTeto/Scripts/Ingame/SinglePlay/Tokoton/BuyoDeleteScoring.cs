@@ -6,7 +6,7 @@ using NotBuyoTeto.Ingame.Buyobuyo;
 namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
     public class BuyoDeleteScoring : MonoBehaviour {
         [SerializeField]
-        private Score score;
+        private ScoreManager score;
         
         public void buyoDeleteScoring(int combo, int level) {
             var baseScore = 200.0f;

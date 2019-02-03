@@ -36,4 +36,21 @@ MonoBehaviour:
   - PunRespawn
   - RequestForPickupItems
   - RequestForPickupTimes
+  - DecideMode
+  - SelectMode
+  - UnselectMode
+  - OnDeleteBuyoOpponent
+  - OnDeleteMinoOpponent
+  - OnGameoverOpponent
+  - OnGamestartOpponent
+  - OnReadyOpponent
+  - OnRoundLoseAccepted
+  - OnRoundWinAccepted
+  - OnUpdateOpponentPing
+  - Clear
+  - Set
+  - SetValue
+  - OnDeleteLineOpponent
+  - OnGameOverOpponent
+  - OnGameStartOpponent
   DisableAutoOpenWizard: 1

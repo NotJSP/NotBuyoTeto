@@ -1,8 +1,5 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace NotBuyoTeto.Ingame.Buyobuyo {
@@ -10,7 +7,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         [SerializeField]
         private BuyoResolver resolver;
         [SerializeField]
-        private SpriteRenderer[] containers;
+        private SpriteRenderer[] containers = new SpriteRenderer[2];
         
         private void Reset() {
             var containers = GetComponentsInChildren<SpriteRenderer>();
@@ -18,8 +15,8 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             this.containers[1] = containers[1];
         }
 
-        public void Set(BuyoType[] types) {
-            for(int i =0; i < types.Length; i++) { 
+        public virtual void Set(BuyoType[] types) {
+            for (int i = 0; i < types.Length; i++) { 
                 var buyo = resolver.Get(types[i]);
                 var buyoRenderer = buyo.GetComponent<SpriteRenderer>();
                 containers[i].sprite = buyoRenderer.sprite;

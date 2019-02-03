@@ -7,7 +7,7 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Marathon {
     [RequireComponent(typeof(ColliderField))]
     public class LineDeleteScoring : MonoBehaviour {
         [SerializeField]
-        private Score score;
+        private ScoreManager score;
         private ColliderField colliderField;
 
         private void Awake() {

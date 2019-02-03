@@ -14,6 +14,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         private static readonly int CountPerLevel = 7;
 
         private int deleteCount; //ぶよを消した回数
+        private int increaseLevel;
         private int level; //レベル
        
         public int Value {
@@ -30,15 +31,20 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         public void DeleteCountUp() { 
             deleteCount += 1;
 
-            var estimatedLevel = CalculateLevel(deleteCount);
+            var estimatedLevel = CalculateLevel(deleteCount) + increaseLevel;
             if (level != estimatedLevel) {
                 Value = estimatedLevel;
             }
         }
         
+        public void Increase(int amount) {
+            increaseLevel += amount;
+            Value += amount;
+        }
 
-        public void Initialize() {
+        public void Restart() {
             deleteCount = 0;
+            increaseLevel = 0;
             Value = 1;
         }
 

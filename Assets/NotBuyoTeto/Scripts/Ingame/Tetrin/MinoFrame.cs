@@ -1,9 +1,7 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
+using NotBuyoTeto.Utility;
 
 namespace NotBuyoTeto.Ingame.Tetrin {
     public class MinoFrame : MonoBehaviour {
@@ -16,7 +14,11 @@ namespace NotBuyoTeto.Ingame.Tetrin {
             container = GetComponentInChildren<SpriteRenderer>();
         }
 
-        public void Set(MinoType type) {
+        public virtual void Clear() {
+            container.sprite = null;
+        }
+
+        public virtual void Set(MinoType type) {
             var mino = resolver.Get(type);
             var minoRenderer = mino.GetComponent<SpriteRenderer>();
             container.sprite = minoRenderer.sprite;

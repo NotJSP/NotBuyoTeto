@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,11 +9,9 @@ namespace NotBuyoTeto.Ingame.Tetrin {
         [SerializeField]
         private MinoResolver resolver;
 
-        public GameObject Spawn(MinoType type, Ceiling ceiling) {
-            var spawnPosition = ceiling.transform.position;
+        public GameObject Spawn(MinoType type, Vector3 position) {
             var mino = resolver.Get(type);
-            var obj = instantiator.Instantiate(mino.gameObject, spawnPosition, Quaternion.identity);
-            return obj;
+            return instantiator.Instantiate(mino.gameObject, position, Quaternion.identity);
         }
     }
 }

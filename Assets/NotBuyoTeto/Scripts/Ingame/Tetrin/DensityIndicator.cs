@@ -13,9 +13,6 @@ namespace NotBuyoTeto.Ingame.Tetrin {
         private Vector3 defaultPosition;
         private Vector3 scale;
 
-        private void Awake() {
-        }
-
         public void Initialize(GameObject wall) {
             var rateX = wall.size().x / gameObject.size().x;
             maxScaleX = transform.localScale.x * rateX;

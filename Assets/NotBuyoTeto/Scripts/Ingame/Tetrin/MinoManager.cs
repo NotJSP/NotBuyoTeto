@@ -5,16 +5,21 @@ using NotBuyoTeto.Utility;
 
 namespace NotBuyoTeto.Ingame.Tetrin {
     public class MinoManager : MonoBehaviour {
+        [Header("References")]
         [SerializeField]
         private Instantiator instantiator;
         [SerializeField]
-        private TetoDirector director;
+        private TetoPerspective perspective;
         [SerializeField]
         private MinoSpawner spawner;
         [SerializeField]
         private TetoSfxManager sfxManager;
+
+        [Header("Prefabs")]
         [SerializeField]
         private Rigidbody2D minoRigidbody;
+
+        [Header("Properties")]
         [SerializeField]
         private MinoControlSettings controlSettings;
 
@@ -26,8 +31,6 @@ namespace NotBuyoTeto.Ingame.Tetrin {
 
         public event EventHandler HitMino;
 
-        private TetoPerspective perspective => director.Perspective;
-        private TetoField field => perspective.Field;
         private NextMino nextMino => perspective.NextMino;
         private HoldMino holdMino => perspective.HoldMino;
 
@@ -41,7 +44,11 @@ namespace NotBuyoTeto.Ingame.Tetrin {
             }
         }
 
-        public void Initialize(float fallSpeed) {
+        public void Initialize() {
+            perspective.ColliderField.Create();
+        }
+
+        public void Restart(float fallSpeed) {
             controlable = true;
 
             nextMino.Clear();
@@ -55,18 +62,20 @@ namespace NotBuyoTeto.Ingame.Tetrin {
 
         public void Next() {
             var type = nextMino.Pop();
-            set(type);
+            setType(type);
             holdMino.Free();
         }
 
         private void hold() {
-            var holdIndex = holdMino.Type;
-            if (!holdMino.Push(currentType)) { return; }
+            if (holdMino.Locked) { return; }
 
-            Destroy();
+            var holdType = holdMino.Type;
+            holdMino.Set(currentType);
 
-            var type = holdIndex.HasValue ? holdIndex.Value : nextMino.Pop();
-            set(type);
+            if (CurrentMino != null) { DestroyCurrentObject(); }
+
+            var type = holdType.HasValue ? holdType.Value : nextMino.Pop();
+            setType(type);
         }
 
         public void Release() {
@@ -75,17 +84,18 @@ namespace NotBuyoTeto.Ingame.Tetrin {
             Destroy(controller);
         }
 
-        public void Destroy() {
+        public void DestroyCurrentObject() {
             controlable = false;
             instantiator.Destroy(CurrentMino);
             minos.RemoveAt(minos.Count - 1);
         }
 
-        private void set(MinoType type) {
+        private void setType(MinoType type) {
             currentType = type;
             controlable = true;
 
-            var obj = spawner.Spawn(type, field.Ceiling);
+            var position = perspective.Field.Ceiling.transform.position;
+            var obj = spawner.Spawn(type, position);
             obj.AddComponent<Rigidbody2D>().CopyOf(minoRigidbody);
             var controller = obj.AddComponent<MinoController>().Initialize(sfxManager, controlSettings, fallSpeed);
             controller.Hit += onHitMino;

@@ -37,10 +37,13 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             comboCount = 0;
         }
 
-        public void countUp(Vector2 position) {
+        public void CountUp() {
             comboCount++;
-            timeElapsed = 0.0f;
             Debug.Log(comboCount + "Combo");
+        }
+
+        public void Show(Vector2 position) {
+            timeElapsed = 0.0f;
 
             GameObject comboText = new GameObject("comboText");
             comboText.transform.position = position;
@@ -58,6 +61,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
                 f += -0.35f;
                 number.transform.position = tmp;
             }
+
             Destroy(comboText, 1.0f);
         }
     }  

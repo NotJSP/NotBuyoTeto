@@ -18,8 +18,11 @@ namespace NotBuyoTeto.Ingame.Tetrin {
         private Instantiator instantiator;
         private DensityIndicator indicator;
 
-        public int EnteredObjectCount => minos.Count();
         private ParticleSystem MinoDeleteEffect;
+
+        public int EnteredObjectCount => minos.Count();
+        public int EnteredGroupCount => Children.Count(c => c.IsEntered);
+        public bool EnteredAll => Children.All(c => c.IsEntered);
 
         protected virtual void Awake() {
             renderer = GetComponent<Renderer>();
@@ -32,21 +35,21 @@ namespace NotBuyoTeto.Ingame.Tetrin {
             Children = objects.Select(o => o.GetComponent<ColliderBlock>());
         }
 
-        public virtual void Initialize(Instantiator instantiator, GameObject wall) {
+        public virtual void Initialize(Instantiator instantiator, GameObject anchor) {
             this.instantiator = instantiator;
             this.indicator = instantiator.Instantiate(indicatorPrefab, transform.position, Quaternion.identity).GetComponent<DensityIndicator>();
             var rate = gameObject.size().y / indicator.gameObject.size().y;
             var scale = indicator.gameObject.transform.localScale;
             scale.y *= rate;
             indicator.gameObject.transform.localScale = scale;
-            indicator.Initialize(wall);
+            indicator.Initialize(anchor);
 
             var objects = GetComponent<TileCreator>().Create();
             Children = objects.Select(o => o.GetComponent<ColliderBlock>());
         }
 
         protected virtual void Update() {
-            var density = (float)EnterCount / Children.Count();
+            var density = (float)EnteredGroupCount / Children.Count();
             indicator.UpdateDensity(density);
             renderer.enabled = EnteredAll;
         }
@@ -68,9 +71,6 @@ namespace NotBuyoTeto.Ingame.Tetrin {
 
         protected virtual void OnTriggerExit2D(Collider2D collision) {
             minos.Remove(collision.gameObject);
-        }
-        
-        public bool EnteredAll => Children.All(c => c.IsEntered);
-        public int EnterCount => Children.Count(c => c.IsEntered);
+        }        
     }
 }

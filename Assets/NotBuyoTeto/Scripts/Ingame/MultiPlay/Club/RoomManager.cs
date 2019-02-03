@@ -10,6 +10,8 @@ using ExitGames.Client.Photon;
 namespace NotBuyoTeto.Ingame.MultiPlay.Club {
     public class RoomManager : PunBehaviour {
         [SerializeField]
+        private ClubManager clubManager;
+        [SerializeField]
         private Transform container;
         [SerializeField]
         private RulePanel rulePanel;
@@ -19,26 +21,21 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
         [SerializeField]
         private RoomEntry roomPrefab;
 
-        private List<RoomEntry> instancedRoomEntries;
+        private List<RoomEntry> instancedRoomEntries = new List<RoomEntry>();
 
         private void OnEnable() {
             rulePanel.Clear();
         }
 
         private void OnDisable() {
-            if (instancedRoomEntries != null) {
-                for (int i = 0; i < instancedRoomEntries.Count; i++) {
-                    var entry = instancedRoomEntries[i];
-                    Destroy(entry.gameObject);
-                }
-                instancedRoomEntries = null;
-            }
+            removeInstancedRooms();
         }
 
         public void CreateRoom(string name, RoomSettings settings) {
             var properties = new Hashtable();
             properties["WinsCount"] = settings.WinsCount;
             properties["FallSpeed"] = settings.FallSpeed;
+
             var options = new RoomOptions {
                 IsOpen = true,
                 IsVisible = true,
@@ -55,11 +52,21 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
             fetchingPanel.SetActive(true);
         }
 
+        private void removeInstancedRooms() {
+            for (int i = 0; i < instancedRoomEntries.Count; i++) {
+                var entry = instancedRoomEntries[i];
+                Destroy(entry.gameObject);
+            }
+            instancedRoomEntries.Clear();
+        }
+
         public override void OnReceivedRoomListUpdate() {
             var rooms = PhotonNetwork.GetRoomList();
             Debug.Log($"RoomManager::OnReceivedRoomListUpdate [room count: {rooms.Length}]");
 
-            instancedRoomEntries = new List<RoomEntry>(rooms.Length);
+            if (instancedRoomEntries.Count >= 0) {
+                removeInstancedRooms();
+            }
 
             foreach (var room in rooms) {
                 var properties = room.CustomProperties;
@@ -69,7 +76,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
                 settings.FallSpeed = (float)properties["FallSpeed"];
 
                 var entry = Instantiate(roomPrefab, container);
-                entry.SetPanel(rulePanel);
+                entry.SetPanel(clubManager, rulePanel);
                 entry.RoomName = room.Name;
                 entry.Settings = settings;
 

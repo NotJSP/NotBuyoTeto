@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,95 +8,93 @@ using NotBuyoTeto.Ingame.Buyobuyo;
 
 namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
     public class GameManager : SceneBase {
-        [SerializeField]
-        private BuyoDirector director;
+        [Header("References")]
         [SerializeField]
         private BgmManager bgmManager;
         [SerializeField]
         private IngameSfxManager sfxManager;
         [SerializeField]
+        private BuyoPerspective perspective;
+        [SerializeField]
         private BuyoManager buyoManager;
         [SerializeField]
-        private Score score;
+        private ScoreManager scoreManager;
         [SerializeField]
-        private HighScore highScore;
+        private HighScoreManager highScoreManager;
         [SerializeField]
-        private Ranking ranking;
+        private RankingManager rankingManager;
         [SerializeField]
         private LevelManager levelManager;
         [SerializeField]
-        private ComboManager comboManager;
-        [SerializeField]
         private FallSpeedManager fallSpeedManager;
         
-        private BuyoPerspective perspective => director.Perspective;
-        private BuyoField field => perspective.Field;
-
         protected override void OnSceneReady(object sender, EventArgs args) {
             base.OnSceneReady(sender, args);
             buyoManager.HitBuyo += onHitBuyo;
             buyoManager.DeleteBuyo += onDeleteBuyo;
             levelManager.ValueChanged += onLevelChanged;
             loadRanking();
-            roundstart();
+            gameStart();
         }
 
         private void Update() {
             if (Input.GetButtonDown(@"Escape")) {
-                SceneController.Instance.LoadScene(SceneName.Title, 0.7f);
+                SceneController.Instance.LoadScene(SceneName.SinglePlay, SceneTransition.Duration);
             }
             if (Input.GetKeyDown(KeyCode.F12)) {
-                roundstart();
+                gameStart();
             }
         }
 
-        private void reset() {
-            CancelInvoke("roundstart");
-            sfxManager.Stop(IngameSfxType.RoundEnd);
-            score.Initialize();
-            buyoManager.Initialize(fallSpeedManager.DefaultSpeed);
-            levelManager.Initialize();
+        private void restart() {
+            CancelInvoke("gameStart");
+            sfxManager.Stop(IngameSfxType.GameOver);
+            scoreManager.Restart();
+            buyoManager.Restart(fallSpeedManager.DefaultSpeed);
+            levelManager.Restart();
         }
 
-        private void roundstart() {
-            reset();
-            perspective.OnRoundStarted();
+        private void gameStart() {
+            restart();
+            perspective.OnGameStart();
             bgmManager.RandomPlay();
             sfxManager.Play(IngameSfxType.RoundStart);
             buyoManager.Next();
         }
 
-        private void roundend() {
-            perspective.OnRoundEnded();
+        private void gameOver() {
+            perspective.OnGameOver();
             bgmManager.Stop();
-            sfxManager.Play(IngameSfxType.RoundEnd);
+            sfxManager.Play(IngameSfxType.GameOver);
             
-            var updated = highScore.UpdateValue();
+            var updated = highScoreManager.UpdateValue();
             if (updated) {
                 saveRanking();
             }
-            Invoke("roundstart", 9.0f);
+            Invoke("gameStart", 9.0f);
         }
 
         private void loadRanking() {
-            ranking.Fetch(highScore.RankingType);
+            var type = highScoreManager.RankingType;
+            var score = highScoreManager.Value;
+            rankingManager.Fetch(type, score);
         }
 
         private void saveRanking() {
+            var type = highScoreManager.RankingType;
             var name = PlayerPrefs.GetString(PlayerPrefsKey.PlayerName);
-            var score = highScore.Value;
+            var score = highScoreManager.Value;
             var ranker = new Ranker(name, score);
-            ranking.Save(highScore.RankingType, ranker);
+            rankingManager.Save(type, ranker);
         }
 
         private void onHitBuyo(object sender, EventArgs args) {
             buyoManager.Release();
 
-            // 天井に当たったらゲームオーバー
-            if (field.Ceiling.IsHit) {
-                roundend();
+            if (perspective.IsGameOver) {
+                gameOver();
             } else {
-                score.Increase(200 + (50 * levelManager.Value));
+                scoreManager.Increase(200 + (50 * levelManager.Value));
                 buyoManager.Next();
             }
         }
@@ -108,10 +105,9 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
             Debug.Log(fallSpeed);
         }
 
-        private void onDeleteBuyo(object sender, Vector2 position) {
-            comboManager.countUp(position);
+        private void onDeleteBuyo(object sender, DeleteBuyoInfo info) {
             levelManager.DeleteCountUp();
-            int combo = comboManager.Value;
+            int combo = info.ComboCount;
             int level = levelManager.Value;
             gameObject.GetComponent<BuyoDeleteScoring>().buyoDeleteScoring(combo,level);
         }
