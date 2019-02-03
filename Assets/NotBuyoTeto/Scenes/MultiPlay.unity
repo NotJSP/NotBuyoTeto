@@ -1529,7 +1529,8 @@ MonoBehaviour:
 --- !u!1 &591242111
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1911144290047662, guid: b65a1688323341340bb08a62ca3e31ab,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 6
   m_Component:
@@ -1542,7 +1543,7 @@ GameObject:
   - component: {fileID: 591242118}
   - component: {fileID: 591242119}
   m_Layer: 5
-  m_Name: League Button
+  m_Name: Matching Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1551,7 +1552,8 @@ GameObject:
 --- !u!224 &591242112
 RectTransform:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 224581523731612242, guid: b65a1688323341340bb08a62ca3e31ab,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 591242111}
   m_LocalRotation: {x: -0, y: -0, z: -0.17364825, w: 0.9848078}
@@ -1570,7 +1572,8 @@ RectTransform:
 --- !u!114 &591242113
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 114310186029198446, guid: b65a1688323341340bb08a62ca3e31ab,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 591242111}
   m_Enabled: 1
@@ -1622,7 +1625,8 @@ MonoBehaviour:
 --- !u!114 &591242114
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 114256018819047828, guid: b65a1688323341340bb08a62ca3e31ab,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 591242111}
   m_Enabled: 1
@@ -1649,14 +1653,16 @@ MonoBehaviour:
 --- !u!222 &591242115
 CanvasRenderer:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 222385327894122564, guid: b65a1688323341340bb08a62ca3e31ab,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 591242111}
   m_CullTransparentMesh: 0
 --- !u!114 &591242116
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 114000641423477494, guid: b65a1688323341340bb08a62ca3e31ab,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 591242111}
   m_Enabled: 1
@@ -1670,7 +1676,8 @@ MonoBehaviour:
 --- !u!114 &591242117
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 114174494182606474, guid: b65a1688323341340bb08a62ca3e31ab,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 591242111}
   m_Enabled: 1
@@ -1683,7 +1690,8 @@ MonoBehaviour:
 --- !u!114 &591242118
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 114937736130958052, guid: b65a1688323341340bb08a62ca3e31ab,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 591242111}
   m_Enabled: 1
@@ -1698,7 +1706,8 @@ MonoBehaviour:
 --- !u!114 &591242119
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 114173167869967088, guid: b65a1688323341340bb08a62ca3e31ab,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 591242111}
   m_Enabled: 1
@@ -3310,7 +3319,7 @@ GameObject:
   - component: {fileID: 1306701969}
   - component: {fileID: 1306701971}
   m_Layer: 5
-  m_Name: Club Button
+  m_Name: Room Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4254,7 +4263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.147, g: 0.147, b: 0.147, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4274,7 +4283,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 0.9
-  m_Text: "\u30AF\u30E9\u30D6"
+  m_Text: "\u30EB\u30FC\u30E0"
 --- !u!222 &1522568659
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7048,7 +7057,8 @@ AudioSource:
 --- !u!1 &2078217989
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1953098968350752, guid: b65a1688323341340bb08a62ca3e31ab,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 6
   m_Component:
@@ -7065,7 +7075,8 @@ GameObject:
 --- !u!224 &2078217990
 RectTransform:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 224248371246997224, guid: b65a1688323341340bb08a62ca3e31ab,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2078217989}
   m_LocalRotation: {x: -0, y: -0, z: 0.23675334, w: 0.97156984}
@@ -7083,7 +7094,8 @@ RectTransform:
 --- !u!114 &2078217991
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 114655061234770528, guid: b65a1688323341340bb08a62ca3e31ab,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2078217989}
   m_Enabled: 1
@@ -7092,7 +7104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.147, g: 0.147, b: 0.147, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -7112,11 +7124,12 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 0.9
-  m_Text: "\u30EA\u30FC\u30B0\u6226"
+  m_Text: "\u5168\u56FD\u5BFE\u6226"
 --- !u!222 &2078217992
 CanvasRenderer:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 222840882487691858, guid: b65a1688323341340bb08a62ca3e31ab,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2078217989}
   m_CullTransparentMesh: 0
