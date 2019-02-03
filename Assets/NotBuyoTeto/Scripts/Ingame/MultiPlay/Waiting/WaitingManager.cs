@@ -27,10 +27,27 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
         private AnimationTransitEntry opponentPanelTransition;
         private AnimationTransitEntry waitingWindowTransition;
 
+        private bool decidePlayerMode = false;
+        private bool decideOpponentMode = false;
+
         private void Awake() {
             playerPanelTransition = new AnimationTransitEntry(playerPanel.gameObject, "Panel In", "Panel Out");
             opponentPanelTransition = new AnimationTransitEntry(opponentPanel.gameObject, "Panel In", "Panel Out");
             waitingWindowTransition = new AnimationTransitEntry(waitingWindow, "In", "Out");
+        }
+
+        private void OnEnable() {
+            decidePlayerMode = false;
+            decideOpponentMode = false;
+            playerPanel.ModeContainerActivate(false);
+
+            playerPanel.OnDecideMode += onDecidePlayerMode;
+            opponentPanel.OnDecideMode += onDecideOpponentMode;
+        }
+
+        private void OnDisable() {
+            playerPanel.OnDecideMode -= onDecidePlayerMode;
+            opponentPanel.OnDecideMode -= onDecideOpponentMode;
         }
 
         public void StartByHost(WaitingPlayer player, Action afterAction = null) {
@@ -51,12 +68,34 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
             opponentPanel.Set(opponent);
             StartCoroutine(AnimationTransit.In(opponentPanelTransition));
 
-            startingCounter.OnZero += onCountZero;
-            startingCounter.Set(10);
-            startingCounter.CountStart();
-            startingCounter.Show();
+            startModeSelect();
 
             afterAction?.Invoke();
+        }
+
+        private void startModeSelect() {
+            playerPanel.ModeContainerActivate(true);
+
+            startingCounter.OnZero += onCountZero;
+            startingCounter.Set(30);
+            startingCounter.CountStart();
+            startingCounter.Show();
+        }
+
+        private void onDecidePlayerMode(object sender, GameMode mode) {
+            decidePlayerMode = true;
+            if (decideOpponentMode) { onDecideBothMode(); }
+        }
+
+        private void onDecideOpponentMode(object sender, GameMode mode) {
+            decideOpponentMode = true;
+            if (decidePlayerMode) { onDecideBothMode(); }
+        }
+
+        private void onDecideBothMode() {
+            if (startingCounter.Count > 5) {
+                startingCounter.Set(5);
+            }
         }
 
         private void onCountZero(object sender, EventArgs args) {
@@ -73,18 +112,15 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
             // TODO:
             // var record = (FightRecord)player.CustomProperties["FightRecord"];
             // var rating = (int)player.CustomProperties["Rating"];
-            var record = new FightRecord(1234, 768);
-            var rating = 1523;
+            var record = new FightRecord(0, 0);
+            var rating = 1000;
             var waitingPlayer = new WaitingPlayer(player.NickName, record, rating);
             opponentPanel.Set(waitingPlayer);
             StartCoroutine(AnimationTransit.Transition(waitingWindowTransition, opponentPanelTransition));
 
             PhotonNetwork.room.IsOpen = false;
 
-            startingCounter.OnZero += onCountZero;
-            startingCounter.Set(10);
-            startingCounter.CountStart();
-            startingCounter.Show();
+            startModeSelect();
         }
 
         public override void OnPhotonPlayerDisconnected(PhotonPlayer player) {

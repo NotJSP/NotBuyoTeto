@@ -491,6 +491,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &145365597 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114234614487522138, guid: a83ff0fe254ead54ca795404ea99d753,
+    type: 2}
+  m_PrefabInternal: {fileID: 1937166543}
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &148064176
 GameObject:
   m_ObjectHideFlags: 0
@@ -868,6 +874,12 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 246648865}
   m_CullTransparentMesh: 0
+--- !u!114 &275100856 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114069485346567652, guid: a83ff0fe254ead54ca795404ea99d753,
+    type: 2}
+  m_PrefabInternal: {fileID: 1937166543}
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!114 &281324431 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114166410502869234, guid: a83ff0fe254ead54ca795404ea99d753,
@@ -4205,12 +4217,12 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 3
+  synchronization: 0
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 1509239125}
+  - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 1
   instantiationId: 1
@@ -5583,6 +5595,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   label: {fileID: 1853749982}
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  emphasisColor: {r: 1, g: 0.25, b: 0.25, a: 1}
+--- !u!1 &1856419927 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1589252255645926, guid: a83ff0fe254ead54ca795404ea99d753,
+    type: 2}
+  m_PrefabInternal: {fileID: 1937166543}
 --- !u!1 &1863808960
 GameObject:
   m_ObjectHideFlags: 0
@@ -5982,7 +6001,7 @@ Prefab:
     - target: {fileID: 224427422212728794, guid: a83ff0fe254ead54ca795404ea99d753,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -20
+      value: -28
       objectReference: {fileID: 0}
     - target: {fileID: 224427422212728794, guid: a83ff0fe254ead54ca795404ea99d753,
         type: 2}
@@ -6029,6 +6048,25 @@ Prefab:
       propertyPath: photonView
       value: 
       objectReference: {fileID: 1509239127}
+    - target: {fileID: 114847637374693450, guid: a83ff0fe254ead54ca795404ea99d753,
+        type: 2}
+      propertyPath: tetrinButton
+      value: 
+      objectReference: {fileID: 275100856}
+    - target: {fileID: 114847637374693450, guid: a83ff0fe254ead54ca795404ea99d753,
+        type: 2}
+      propertyPath: buyoButton
+      value: 
+      objectReference: {fileID: 145365597}
+    - target: {fileID: 1021950749357858, guid: a83ff0fe254ead54ca795404ea99d753, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114847637374693450, guid: a83ff0fe254ead54ca795404ea99d753,
+        type: 2}
+      propertyPath: modeContainer
+      value: 
+      objectReference: {fileID: 1856419927}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a83ff0fe254ead54ca795404ea99d753, type: 2}
   m_IsPrefabAsset: 0
@@ -6162,7 +6200,7 @@ Prefab:
     - target: {fileID: 224427422212728794, guid: a83ff0fe254ead54ca795404ea99d753,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 224427422212728794, guid: a83ff0fe254ead54ca795404ea99d753,
         type: 2}
