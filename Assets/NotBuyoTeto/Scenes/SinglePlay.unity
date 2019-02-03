@@ -458,6 +458,8 @@ GameObject:
   - component: {fileID: 591242114}
   - component: {fileID: 591242113}
   - component: {fileID: 591242116}
+  - component: {fileID: 591242118}
+  - component: {fileID: 591242117}
   m_Layer: 5
   m_Name: Tetrin Button
   m_TagString: Untagged
@@ -585,6 +587,58 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 8, y: -8}
   m_UseGraphicAlpha: 1
+--- !u!114 &591242117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 591242111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9ef0c3ff87ec2b439b18d69714978da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popupScale: {x: 1.05, y: 1.05}
+  transitTime: 0.35
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.957841
+      outSlope: 2.957841
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.027372263
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &591242118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 591242111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f2b4d07cd51ea04f86630d9cca25fad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 591242113}
+  color1: {r: 1, g: 1, b: 1, a: 1}
+  color2: {r: 1, g: 1, b: 0.5, a: 1}
+  fadeDuration: 0.75
 --- !u!1 &605386083
 GameObject:
   m_ObjectHideFlags: 0
@@ -1331,6 +1385,7 @@ GameObject:
   - component: {fileID: 1306701968}
   - component: {fileID: 1306701967}
   - component: {fileID: 1306701969}
+  - component: {fileID: 1306701970}
   m_Layer: 5
   m_Name: Buyo Button
   m_TagString: Untagged
@@ -1473,6 +1528,43 @@ MonoBehaviour:
   color1: {r: 1, g: 1, b: 1, a: 1}
   color2: {r: 1, g: 1, b: 0.5, a: 1}
   fadeDuration: 0.75
+--- !u!114 &1306701970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1306701963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9ef0c3ff87ec2b439b18d69714978da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popupScale: {x: 1.05, y: 1.05}
+  transitTime: 0.35
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.957841
+      outSlope: 2.957841
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.027372263
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1425283873
 GameObject:
   m_ObjectHideFlags: 0
@@ -1610,7 +1702,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 27.34}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 65, y: -155}
+  m_AnchoredPosition: {x: 50, y: -155}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1522568658
@@ -1625,7 +1717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.15, g: 0.15, b: 0.15, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1635,7 +1727,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 12800000, guid: 8e2bd1a24a7b27246bdbd2e380594d55, type: 3}
     m_FontSize: 128
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 300
@@ -2290,7 +2382,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 27.39}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -80, y: 89}
+  m_AnchoredPosition: {x: -64, y: 89}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2078217991
@@ -2305,7 +2397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.15, g: 0.15, b: 0.15, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2314,7 +2406,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 6e4588c5d25d50f4a803d20530805aab, type: 3}
-    m_FontSize: 128
+    m_FontSize: 132
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
