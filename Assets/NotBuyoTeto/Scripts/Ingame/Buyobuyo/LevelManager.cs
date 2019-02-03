@@ -42,7 +42,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             Value += amount;
         }
 
-        public void Initialize() {
+        public void Restart() {
             deleteCount = 0;
             increaseLevel = 0;
             Value = 1;

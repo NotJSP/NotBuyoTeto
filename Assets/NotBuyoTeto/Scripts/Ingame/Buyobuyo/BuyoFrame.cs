@@ -16,7 +16,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         }
 
         public virtual void Set(BuyoType[] types) {
-            for(int i = 0; i < types.Length; i++) { 
+            for (int i = 0; i < types.Length; i++) { 
                 var buyo = resolver.Get(types[i]);
                 var buyoRenderer = buyo.GetComponent<SpriteRenderer>();
                 containers[i].sprite = buyoRenderer.sprite;

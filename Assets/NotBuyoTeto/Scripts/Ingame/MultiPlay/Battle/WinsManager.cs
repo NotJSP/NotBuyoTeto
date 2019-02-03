@@ -2,7 +2,8 @@
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
     public class WinsManager : MonoBehaviour {
-        [SerializeField] WinsCounter[] counters;
+        [SerializeField]
+        private WinsCounter[] counters;
 
         public bool Finished => (WinIndex != null);
 

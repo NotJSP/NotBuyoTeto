@@ -42,7 +42,7 @@ namespace NotBuyoTeto.Ingame.Tetrin {
             Value += amount;
         }
 
-        public void Initialize() {
+        public void Restart() {
             deleteLines = 0;
             increaseLevel = 0;
             Value = 1;

@@ -44,7 +44,11 @@ namespace NotBuyoTeto.Ingame.Tetrin {
             }
         }
 
-        public void Initialize(float fallSpeed) {
+        public void Initialize() {
+            perspective.ColliderField.Create();
+        }
+
+        public void Restart(float fallSpeed) {
             controlable = true;
 
             nextMino.Clear();
@@ -66,9 +70,9 @@ namespace NotBuyoTeto.Ingame.Tetrin {
             if (holdMino.Locked) { return; }
 
             var holdType = holdMino.Type;
-            holdMino.Push(currentType);
+            holdMino.Set(currentType);
 
-            DestroyCurrentObject();
+            if (CurrentMino != null) { DestroyCurrentObject(); }
 
             var type = holdType.HasValue ? holdType.Value : nextMino.Pop();
             setType(type);

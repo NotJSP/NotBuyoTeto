@@ -26,8 +26,6 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
         [SerializeField]
         private LevelManager levelManager;
         [SerializeField]
-        private ComboManager comboManager;
-        [SerializeField]
         private FallSpeedManager fallSpeedManager;
         
         protected override void OnSceneReady(object sender, EventArgs args) {
@@ -36,35 +34,35 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
             buyoManager.DeleteBuyo += onDeleteBuyo;
             levelManager.ValueChanged += onLevelChanged;
             loadRanking();
-            roundStart();
+            gameStart();
         }
 
         private void Update() {
             if (Input.GetButtonDown(@"Escape")) {
-                SceneController.Instance.LoadScene(SceneName.Title, 0.7f);
+                SceneController.Instance.LoadScene(SceneName.SinglePlay, SceneTransition.Duration);
             }
             if (Input.GetKeyDown(KeyCode.F12)) {
-                roundStart();
+                gameStart();
             }
         }
 
-        private void reset() {
-            CancelInvoke("roundStart");
+        private void restart() {
+            CancelInvoke("gameStart");
             sfxManager.Stop(IngameSfxType.GameOver);
-            scoreManager.Initialize();
-            buyoManager.Initialize(fallSpeedManager.DefaultSpeed);
-            levelManager.Initialize();
+            scoreManager.Restart();
+            buyoManager.Restart(fallSpeedManager.DefaultSpeed);
+            levelManager.Restart();
         }
 
-        private void roundStart() {
-            reset();
-            perspective.OnRoundStart();
+        private void gameStart() {
+            restart();
+            perspective.OnGameStart();
             bgmManager.RandomPlay();
             sfxManager.Play(IngameSfxType.RoundStart);
             buyoManager.Next();
         }
 
-        private void gameover() {
+        private void gameOver() {
             perspective.OnGameOver();
             bgmManager.Stop();
             sfxManager.Play(IngameSfxType.GameOver);
@@ -73,7 +71,7 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
             if (updated) {
                 saveRanking();
             }
-            Invoke("roundStart", 9.0f);
+            Invoke("gameStart", 9.0f);
         }
 
         private void loadRanking() {
@@ -94,7 +92,7 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
             buyoManager.Release();
 
             if (perspective.IsGameOver) {
-                gameover();
+                gameOver();
             } else {
                 scoreManager.Increase(200 + (50 * levelManager.Value));
                 buyoManager.Next();
@@ -107,10 +105,9 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
             Debug.Log(fallSpeed);
         }
 
-        private void onDeleteBuyo(object sender, Vector2 position) {
-            comboManager.countUp(position);
+        private void onDeleteBuyo(object sender, DeleteBuyoInfo info) {
             levelManager.DeleteCountUp();
-            int combo = comboManager.Value;
+            int combo = info.ComboCount;
             int level = levelManager.Value;
             gameObject.GetComponent<BuyoDeleteScoring>().buyoDeleteScoring(combo,level);
         }

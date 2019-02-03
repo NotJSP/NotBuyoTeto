@@ -29,7 +29,7 @@ namespace NotBuyoTeto.Ingame.SinglePlay {
             updateText();
         }
 
-        public void Initialize() {
+        public void Restart() {
             Value = 0;
         }
 

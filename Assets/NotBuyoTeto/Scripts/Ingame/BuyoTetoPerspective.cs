@@ -13,7 +13,7 @@ namespace NotBuyoTeto.Ingame {
 
         public bool IsGameOver => field.Ceiling.IsHit;
 
-        public virtual void OnRoundStart() {
+        public virtual void OnGameStart() {
             Field.Floor.SetActive(true);
             Field.Ceiling.Clear();
             Field.Ceiling.gameObject.SetActive(true);

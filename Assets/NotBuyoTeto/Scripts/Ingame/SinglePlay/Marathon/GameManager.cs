@@ -33,32 +33,33 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Marathon {
             base.OnSceneReady(sender, args);
             colliderField.LineDeleted += onLineDeleted;
             minoManager.HitMino += onHitMino;
+            minoManager.Initialize();
             levelManager.ValueChanged += onLevelChanged;
             loadRanking();
-            roundStart();
+            gameStart();
         }
 
         private void Update() {
             if (Input.GetButtonDown(@"Escape")) {
-                SceneController.Instance.LoadScene(SceneName.Title, 0.7f);
+                SceneController.Instance.LoadScene(SceneName.SinglePlay, SceneTransition.Duration);
             }
             if (Input.GetKeyDown(KeyCode.F12)) {
-                roundStart();
+                gameStart();
             }
         }
 
-        private void reset() {
-            CancelInvoke("roundStart");
+        private void restart() {
+            CancelInvoke("gameStart");
 
             sfxManager.Stop(IngameSfxType.GameOver);
-            scoreManager.Initialize();
-            minoManager.Initialize(fallSpeedManager.DefaultSpeed);
-            levelManager.Initialize();
+            scoreManager.Restart();
+            minoManager.Restart(fallSpeedManager.DefaultSpeed);
+            levelManager.Restart();
         }
 
-        private void roundStart() {
-            reset();
-            perspective.OnRoundStart();
+        private void gameStart() {
+            restart();
+            perspective.OnGameStart();
             bgmManager.RandomPlay();
             sfxManager.Play(IngameSfxType.RoundStart);
             minoManager.Next();
@@ -73,7 +74,7 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Marathon {
             if (updated) {
                 saveRanking();
             }
-            Invoke("roundStart", 9.0f);
+            Invoke("gameStart", 9.0f);
         }
 
         private void loadRanking() {
