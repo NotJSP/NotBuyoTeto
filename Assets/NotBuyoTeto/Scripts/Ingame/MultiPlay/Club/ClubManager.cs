@@ -132,8 +132,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
             waitingManager.gameObject.SetActive(true);
             StartCoroutine(AnimationTransit.Out(createRoomTransit, () => {
                 // TODO:
-                var record = new FightRecord(998, 450);
-                var player = new WaitingPlayer(PhotonNetwork.playerName, record, 1009);
+                var record = new FightRecord(0, 0);
+                var player = new WaitingPlayer(PhotonNetwork.playerName, record, 1000);
                 waitingManager.StartByHost(player, () => backButton.Active());
                 gameObject.SetActive(false);
             }));
@@ -153,13 +153,13 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
             StartCoroutine(AnimationTransit.Out(transit, () => {
                 // TODO:
                 var playerName = PhotonNetwork.playerName;
-                var playerFightRecord = new FightRecord(998, 450);
-                var player = new WaitingPlayer(playerName, playerFightRecord, 1009);
+                var playerFightRecord = new FightRecord(0, 0);
+                var player = new WaitingPlayer(playerName, playerFightRecord, 1000);
 
                 var otherPlayer = PhotonNetwork.otherPlayers[0];
                 var opponentName = otherPlayer.NickName;
-                var opponentFightRecord = new FightRecord(1234, 768);
-                var opponent = new WaitingPlayer(opponentName, opponentFightRecord, 1529);
+                var opponentFightRecord = new FightRecord(0, 0);
+                var opponent = new WaitingPlayer(opponentName, opponentFightRecord, 1000);
 
                 waitingManager.StartByGuest(player, opponent, () => backButton.Active());
                 gameObject.SetActive(false);

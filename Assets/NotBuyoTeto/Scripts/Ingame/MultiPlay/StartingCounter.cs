@@ -10,6 +10,10 @@ namespace NotBuyoTeto.Ingame.MultiPlay {
     public class StartingCounter : MonoBehaviour {
         [SerializeField]
         private Text label;
+        [SerializeField]
+        private Color defaultColor = Color.white;
+        [SerializeField]
+        private Color emphasisColor = Color.red;
 
         private int count;
         public int Count {
@@ -36,6 +40,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay {
                 throw new ArgumentException("カウントが0未満に設定されました。");
             }
             this.Count = count;
+            this.time = 0;
         }
 
         public void CountStart() {
@@ -68,6 +73,12 @@ namespace NotBuyoTeto.Ingame.MultiPlay {
 
         private void updateView() {
             label.text = Count.ToString();
+
+            if (Count > 5) {
+                label.color = defaultColor;
+            } else {
+                label.color = emphasisColor;
+            }
         }
     }
 }

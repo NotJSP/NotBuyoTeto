@@ -9,7 +9,13 @@ namespace NotBuyoTeto.Ingame.MultiPlay {
         public int FightCount { get; private set; }
         public int WinCount { get; private set; }
         public int LoseCount => FightCount - WinCount;
-        public float WinRate => (float)WinCount / FightCount;
+
+        public float WinRate {
+            get {
+                if (WinCount == 0) { return 0f; }
+                return (float)WinCount / FightCount;
+            }
+        }
 
         public FightRecord(int fightCount, int winCount) {
             this.FightCount = fightCount;

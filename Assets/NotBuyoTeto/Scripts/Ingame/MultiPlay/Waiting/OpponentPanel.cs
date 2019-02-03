@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +20,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
         [SerializeField]
         private Color decidedColor = Color.white;
 
+        public event EventHandler<GameMode> OnDecideMode;
+
         private void OnEnable() {
             tetrinImage.color = normalColor;
             buyoImage.color = normalColor;
@@ -32,6 +35,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
         [PunRPC]
         public void DecideMode(GameMode mode) {
             changeColor(mode, decidedColor);
+            OnDecideMode?.Invoke(this, mode);
         }
 
         private void changeColor(GameMode mode, Color color) {
