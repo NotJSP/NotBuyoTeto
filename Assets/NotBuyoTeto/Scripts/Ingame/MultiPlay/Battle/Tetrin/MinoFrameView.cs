@@ -7,14 +7,15 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
     [RequireComponent(typeof(PhotonView))]
     public class MinoFrameView : MonoBehaviour {
         [SerializeField]
+        public PhotonView photonView;
+        [SerializeField]
         private MinoResolver resolver;
         [SerializeField]
         private SpriteRenderer container;
-        [SerializeField]
-        public PhotonView photonView;
 
         private void Reset() {
-            container = GetComponentInChildren<SpriteRenderer>();
+            this.photonView = GetComponent<PhotonView>();
+            this.container = GetComponentInChildren<SpriteRenderer>();
         }
 
         [PunRPC]

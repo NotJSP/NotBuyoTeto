@@ -1,17 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon;
 using NotBuyoTeto.Ingame.Buyobuyo;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle.BuyoBuyo {
-    public class BuyoFrameView : PunBehaviour {
+    [RequireComponent(typeof(PhotonView))]
+    public class BuyoFrameView : MonoBehaviour {
+        [SerializeField]
+        public PhotonView photonView;
         [SerializeField]
         private BuyoResolver resolver;
         [SerializeField]
         private SpriteRenderer[] containers = new SpriteRenderer[2];
 
         private void Reset() {
+            this.photonView = GetComponent<PhotonView>();
+
             var containers = GetComponentsInChildren<SpriteRenderer>();
             this.containers[0] = containers[0];
             this.containers[1] = containers[1];

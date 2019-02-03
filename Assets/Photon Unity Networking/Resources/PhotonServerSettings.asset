@@ -49,4 +49,8 @@ MonoBehaviour:
   - OnUpdateOpponentPing
   - Clear
   - Set
+  - SetValue
+  - OnDeleteLineOpponent
+  - OnGameOverOpponent
+  - OnGameStartOpponent
   DisableAutoOpenWizard: 1

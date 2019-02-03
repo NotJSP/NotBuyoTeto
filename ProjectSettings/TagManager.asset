@@ -12,6 +12,7 @@ TagManager:
   - Buyo
   - Parent
   - Floor
+  - NetworkObject
   layers:
   - Default
   - TransparentFX

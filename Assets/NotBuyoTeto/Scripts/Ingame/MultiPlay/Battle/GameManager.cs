@@ -6,8 +6,6 @@ using UnityEngine;
 using NotBuyoTeto.UI;
 using NotBuyoTeto.Constants;
 using NotBuyoTeto.SceneManagement;
-using NotBuyoTeto.Ingame.Tetrin;
-using NotBuyoTeto.Ingame.Buyobuyo;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
     [RequireComponent(typeof(PhotonView))]
@@ -19,14 +17,17 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
         [SerializeField]
         private UIManager ui;
         [SerializeField]
-        private Director director;
+        protected PerspectiveManager perspectives;
+        [SerializeField]
+        private DirectorManager directorManager;
+        [SerializeField]
+        private GarbageTransfer garbageTransfer;
         [SerializeField]
         private WinsManager winsManager;
         [SerializeField]
         private MessageWindow messageWindow;
-        [SerializeField]
-        protected PerspectiveManager perspectives;
 
+        private Director director;
         private PhotonView photonView;
         private double gameOverTime = 0.0;
         private bool isReady = false;
@@ -43,16 +44,20 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
         }
 
         protected override void OnSceneReady(object sender, EventArgs args) {
-            var playerSideGameMode = (GameMode)PhotonNetwork.player.CustomProperties["gamemode"];
-            perspectives.Activate(PlayerSide.Player, playerSideGameMode);
-            var opponentSideGameMode = (GameMode)PhotonNetwork.otherPlayers[0].CustomProperties["gamemode"];
-            perspectives.Activate(PlayerSide.Opponent, opponentSideGameMode);
+            var playerMode = (GameMode)PhotonNetwork.player.CustomProperties["gamemode"];
+            perspectives.Activate(PlayerSide.Player, playerMode);
+            var opponentMode = (GameMode)PhotonNetwork.otherPlayers[0].CustomProperties["gamemode"];
+            perspectives.Activate(PlayerSide.Opponent, opponentMode);
 
-            director.SetMode(playerSideGameMode, opponentSideGameMode);
+            garbageTransfer.Initialize(playerMode);
+
+            directorManager.SetMode(playerMode);
+            director = directorManager.GetDirector();
+            director.OnGameOver += onGameOver;
             director.Initialize();
 
-//            ui.PlayerNameLabel.text = IdentificationNameUtility.ParseName(PhotonNetwork.player.NickName);
-//            ui.OpponentNameLabel.text = IdentificationNameUtility.ParseName(PhotonNetwork.otherPlayers[0].NickName);
+            ui.PlayerNameLabel.text = IdentificationNameUtility.ParseName(PhotonNetwork.player.NickName);
+            ui.OpponentNameLabel.text = IdentificationNameUtility.ParseName(PhotonNetwork.otherPlayers[0].NickName);
 
             StartCoroutine(updateAndSendPing());
 
@@ -67,20 +72,17 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
         }
 
         private void backToTitle() => exit(SceneName.Title);
-        private void backToMatching() => exit(SceneName.Matching);
+        private void backToMatching() => exit(SceneName.MultiPlay);
 
         private void exit(string scene) {
             quit = true;
             StopAllCoroutines();
 
             // タイトルに戻る場合はネットワークを切断
-            if (scene == SceneName.Title) {
-                if (PhotonNetwork.connected) { PhotonNetwork.Disconnect(); }
-            }
-            // マッチングに戻る場合はルームから退室
-            if (scene == SceneName.Matching) {
-                if (PhotonNetwork.connected) { PhotonNetwork.LeaveRoom(); }
-            }
+            // if (scene == SceneName.Title) {
+            //    if (PhotonNetwork.connected) { PhotonNetwork.Disconnect(); }
+            // }
+            if (PhotonNetwork.connected) { PhotonNetwork.Disconnect(); }
 
             SceneController.Instance.LoadScene(scene, 0.7f);
         }
@@ -103,7 +105,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
         private void clearObjects() {
             Debug.Log(@"GameManager::clearObjects()");
             acceptedResult = false;
-            director.ClearObjects();
+            director.RoundStart();
             sfxManager.Stop(IngameSfxType.GameOver);
         }
 
@@ -115,22 +117,23 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
             photonView.RPC(@"OnReadyOpponent", PhotonTargets.Others);
 
             if (isReadyOpponent) {
-                gamestart();
+                gameStart();
             }
         }
 
-        private void gamestart() {
-            Debug.Log(@"GameManager.gamestart()");
+        private void gameStart() {
+            Debug.Log(@"GameManager::gameStart()");
             clearObjects();
-            photonView.RPC(@"OnGamestartOpponent", PhotonTargets.Others);
+            photonView.RPC(@"OnGameStartOpponent", PhotonTargets.Others);
             sfxManager.Play(IngameSfxType.RoundStart);
             bgmManager.RandomPlay();
-            director.Next();
+            garbageTransfer.GameStart();
+            director.GameStart();
         }
 
-        private void gameover() {
+        private void onGameOver(object sender, EventArgs args) {
             gameOverTime = PhotonNetwork.time;
-            photonView.RPC("OnGameoverOpponent", PhotonTargets.Others, gameOverTime);
+            photonView.RPC("OnGameOverOpponent", PhotonTargets.Others, gameOverTime);
         }
 
         private void win() {
@@ -174,17 +177,17 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
             Debug.Log("OnReadyOpponent");
             isReadyOpponent = true;
             if (isReady) {
-                gamestart();
+                gameStart();
             }
         }
 
         [PunRPC]
-        private void OnGamestartOpponent() {
-            Debug.Log("OnGamestartOpponent");
+        private void OnGameStartOpponent() {
+            Debug.Log("OnGameStartOpponent");
         }
 
         [PunRPC]
-        private void OnGameoverOpponent(double timestamp) {
+        private void OnGameOverOpponent(double timestamp) {
             Debug.Log("OnGameoverOpponent (" + timestamp + ")");
             director.RoundEnd();
 
@@ -202,6 +205,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
             if (acceptedResult) { return; }
             ui.PlayerWinsCounter.Increment();
 
+            director.RoundEnd();
             bgmManager.Stop();
             sfxManager.Play(IngameSfxType.GameOver);
             resetReadyFlags();
@@ -219,8 +223,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
             if (acceptedResult) { return; }
             ui.OpponentWinsCounter.Increment();
 
-            bgmManager.Stop();
             director.GameOver();
+            bgmManager.Stop();
             sfxManager.Play(IngameSfxType.GameOver);
             resetReadyFlags();
 

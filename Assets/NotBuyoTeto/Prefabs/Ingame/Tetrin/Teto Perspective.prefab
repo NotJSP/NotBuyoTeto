@@ -712,8 +712,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4853198203781992}
-  - component: {fileID: 114702596021302572}
   - component: {fileID: 95119346408497664}
+  - component: {fileID: 114702596021302572}
+  - component: {fileID: 114953784248563912}
   m_Layer: 0
   m_Name: Hold Mino
   m_TagString: Untagged
@@ -1243,7 +1244,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1239208626390632}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4465639327671538}
@@ -1616,9 +1617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b26d1464fdf5459d098550e7ce087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sfxManager: {fileID: 0}
-  resolver: {fileID: 0}
-  frame: {fileID: 114386884799886580}
+  view: {fileID: 114953784248563912}
 --- !u!114 &114745287710047536
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1633,6 +1632,19 @@ MonoBehaviour:
   instantiator: {fileID: 0}
   perspective: {fileID: 114643401388493206}
   sfxManager: {fileID: 0}
+--- !u!114 &114953784248563912
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1978201729297490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc8503d17478344b8646a4641fce0aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxManager: {fileID: 0}
+  frame: {fileID: 114386884799886580}
 --- !u!212 &212002367947387392
 SpriteRenderer:
   m_ObjectHideFlags: 1

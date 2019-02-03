@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
     public class GarbageIndicator : MonoBehaviour {
+        [SerializeField]
+        private PhotonView view;
+
         private Vector3 scale;
 
         private void Awake() {
@@ -12,9 +15,15 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
 
         public int Value {
             set {
-                scale.y = 0.2f * value;
-                transform.localScale = scale;
+                SetValue(value);
+                view?.RPC("SetValue", PhotonTargets.OthersBuffered, value);
             }
+        }
+
+        [PunRPC]
+        public void SetValue(int value) {
+            scale.y = 0.2f * value;
+            transform.localScale = scale;
         }
     }
 }

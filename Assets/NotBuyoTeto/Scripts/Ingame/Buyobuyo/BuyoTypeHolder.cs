@@ -25,6 +25,6 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             }
         }
 
-        public int Length => 7;
+        public int Length => 4;
     }
 }

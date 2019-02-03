@@ -10,9 +10,11 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         private BuyoResolver resolver;
 
         public GameObject Spawn(BuyoType type, Vector3 position, int i) {
-            position.y += 0.75f * i;
+            position.y += 0.75f * (i - 0.5f);
             var buyo = resolver.Get(type);
-            return instantiator.Instantiate(buyo.gameObject, position, Quaternion.identity);
+            var obj = instantiator.Instantiate(buyo.gameObject, position, Quaternion.identity);
+            obj.GetComponent<Buyo>().Initialize(instantiator);
+            return obj;
         }
     }
 }

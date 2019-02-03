@@ -96,9 +96,10 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
 
         private void OnCollisionEnter2D(Collision2D other) {
             if (hit) { return; }
-            if (other.collider.CompareTag(@"Wall")) { return; }
-            hit = true;
-            GetComponentInChildren<BuyoController>().BuyoHit(rigidbody);
+            if (other.collider.CompareTag("Buyo") || other.collider.CompareTag("Floor")) {
+                hit = true;
+                GetComponentInChildren<BuyoController>().BuyoHit(rigidbody);
+            }
         }
     }
 }

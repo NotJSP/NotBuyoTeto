@@ -4,11 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using NotBuyoTeto.Utility;
 using NotBuyoTeto.Ingame.Tetrin;
-
 using Random = UnityEngine.Random;
 
-namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
-    public class GarbageMinoManager : GarbageManager {
+namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
+    public class TetoGarbageManager : GarbageManager {
         [SerializeField]
         private Instantiator instantiator;
         [SerializeField]
@@ -16,7 +15,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
         [SerializeField]
         private MinoSpawner spawner;
         [SerializeField]
-        private Ceiling ceiling;
+        private Transform ceiling;
 
         [Header("Prefabs")]
         [SerializeField]
@@ -45,7 +44,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
             for (int i = 0; i < count; i++) {
                 var index = Random.Range(0, resolver.Length);
                 var minoType = (MinoType)index;
-                var ceilingPosition = ceiling.transform.position;
+                var ceilingPosition = ceiling.position;
                 var offset = Random.Range(-OffsetRange, OffsetRange);
                 var spawnPosition = new Vector2(ceilingPosition.x + offset, ceilingPosition.y);
                 var obj = spawner.Spawn(minoType, spawnPosition);
@@ -54,9 +53,9 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
                 rigidbody.AddTorque(torque);
                 rigidbody.AddForce(ForceGarbage);
                 garbages.Add(obj);
-                yield return new WaitForSeconds(0.4f);
+                yield return new WaitForSeconds(0.5f);
             }
-            yield return new WaitForSeconds(0.8f);
+            yield return new WaitForSeconds(1.0f);
             IsFalling = false;
         }
     }

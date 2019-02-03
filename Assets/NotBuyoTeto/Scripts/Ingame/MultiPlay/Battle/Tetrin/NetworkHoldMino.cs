@@ -1,24 +1,21 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using NotBuyoTeto.Ingame.Tetrin;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
-    [RequireComponent(typeof(PhotonView))]
     public class NetworkHoldMino : HoldMino {
+        [SerializeField]
         private PhotonView photonView;
 
-        protected override void Awake() {
-            base.Awake();
-            photonView = GetComponent<PhotonView>();
+        public override void Clear() {
+            base.Clear();
+            photonView.RPC("Clear", PhotonTargets.Others);
         }
 
-        public override void Push(MinoType type) {
-            base.Push(type);
-            photonView.RPC("OnPush", PhotonTargets.OthersBuffered, type);
+        public override void Set(MinoType type) {
+            base.Set(type);
+            photonView.RPC("Set", PhotonTargets.Others, type);
         }
     }
 }

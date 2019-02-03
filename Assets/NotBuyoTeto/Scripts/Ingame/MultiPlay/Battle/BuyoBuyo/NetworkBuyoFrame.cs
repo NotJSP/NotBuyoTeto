@@ -4,6 +4,7 @@ using UnityEngine;
 using NotBuyoTeto.Ingame.Buyobuyo;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle.BuyoBuyo {
+    [RequireComponent(typeof(PhotonView))]
     public class NetworkBuyoFrame : BuyoFrame {
         [SerializeField]
         private BuyoFrameView view;

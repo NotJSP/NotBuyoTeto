@@ -1,8 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-using System;
 
 namespace NotBuyoTeto.Ingame.Buyobuyo {
     [RequireComponent(typeof(SpriteRenderer), typeof(Collider2D))]
@@ -13,10 +13,11 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         [SerializeField]
         private SpriteRenderer glowEffect;
 
+        private Instantiator instantiator;
         private HashSet<Buyo> chainObjects = new HashSet<Buyo>();
         private ParticleSystem BuyoDeleteEffect;
 
-        public event EventHandler<Vector2> DeleteBuyo;
+        public event EventHandler<Tuple<Vector2, int>> DeleteBuyo;
 
         private void Awake() {
             type = GetComponent<Buyo>().Type;
@@ -24,12 +25,17 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             glowEffect.enabled = false;
         }
 
+        public void Initialize(Instantiator instantiator) {
+            this.instantiator = instantiator;
+        }
+
         // Update is called once per frame
         void Update() {
             int chainCount = GetChainCount(null);
             if (chainCount >= 4) {
                 DestroyChain(null);
-                DeleteBuyo?.Invoke(this, transform.position);
+                var tuple = new Tuple<Vector2, int>(transform.position, chainCount);
+                DeleteBuyo?.Invoke(this, tuple);
             }
             if (chainCount < 3) {
                 glowEffect.enabled = false;
@@ -55,7 +61,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
 
             BuyoDeleteEffect.Play();
             gameObject.transform.localScale = Vector3.zero;
-            Destroy(gameObject, 1.5f);
+            instantiator.Destroy(gameObject, 1.5f);
             chainObjects.Clear();
         }
 
@@ -74,28 +80,24 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         }
 
         private void OnCollisionEnter2D(Collision2D collision) {
-            if (collision.collider.CompareTag(@"Wall")) { return; }
-            if (collision.collider.CompareTag(@"Floor")) { return; }
-            if (collision.collider.CompareTag(@"Parent")) { return; }
+            if (collision.collider.CompareTag("Buyo")) {
+                var chainObj = collision.gameObject.GetComponent<Buyo>();
 
-            var chainObj = collision.gameObject.GetComponent<Buyo>();
-
-            if (chainObj.type == this.type) {
-                chainObjects.Add(chainObj);                
+                if (chainObj.type == this.type) {
+                    chainObjects.Add(chainObj);
+                }
             }
         }
 
 
         private void OnCollisionExit2D(Collision2D collision) {
-            if (collision.collider.CompareTag(@"Wall")) { return; }
-            if (collision.collider.CompareTag(@"Floor")) { return; }
-            if (collision.collider.CompareTag(@"Parent")) { return; }
+            if (collision.collider.CompareTag("Buyo")) {
+                var chainObj = collision.gameObject.GetComponent<Buyo>();
 
-            var chainObj = collision.gameObject.GetComponent<Buyo>();
-
-            if (chainObj.type == this.type) {
-                if (chainObjects.Contains(chainObj)) {
-                    chainObjects.Remove(chainObj);
+                if (chainObj.type == this.type) {
+                    if (chainObjects.Contains(chainObj)) {
+                        chainObjects.Remove(chainObj);
+                    }
                 }
             }
         }

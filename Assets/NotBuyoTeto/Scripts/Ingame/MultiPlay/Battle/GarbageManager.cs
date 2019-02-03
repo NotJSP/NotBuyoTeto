@@ -32,7 +32,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
         public abstract void Fall();
 
         private void updateIndicator() {
-//            indicator.Value = readyGarbageCount;
+            indicator.Value = readyGarbageCount;
         }
     }
 }
