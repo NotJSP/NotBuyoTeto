@@ -37,14 +37,14 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
         private float marginCoefficient => 1.0f + 0.25f * (int)(elapsedTime / 60);
 
         public int GetGarbageCount(DeleteMinoInfo info, GameMode transferTo) {
-            // 1.25 * LineCount
-            var lineAmount = 1.25f * info.LineCount;
-            // 0.167 * ObjectCount
-            var objectAmount = 0.167f * info.ObjectCount;
+            // LineCount ^ 1.33
+            var lineAmount = Mathf.Pow(info.LineCount, 1.33f);
+            // 0.12 * ObjectCount
+            var objectAmount = 0.12f * info.ObjectCount;
             var amount = (lineAmount + objectAmount) * marginCoefficient;
 
-            // 対Buyoでは1.5倍
-            if (transferTo == GameMode.BuyoBuyo) { amount *= 1.5f; }
+            // 対Buyoでは1.67倍
+            if (transferTo == GameMode.BuyoBuyo) { amount *= 1.67f; }
             Debug.Log("Total Amount (Garbages): " + amount);
 
             return (int)amount;
