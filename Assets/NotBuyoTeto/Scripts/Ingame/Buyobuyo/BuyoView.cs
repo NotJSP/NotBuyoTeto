@@ -20,17 +20,14 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         }
 
         public virtual void Glow() {
-            Debug.Log("BuyoView::Glow");
             glowEffect.enabled = true;
         }
 
         public virtual void HideGlow() {
-            Debug.Log("BuyoView::HideGlow");
             glowEffect.enabled = false;
         }
 
         public virtual void Destroy() {
-            Debug.Log("BuyoView::Destroy");
             deleteEffect.Play();
         }
     }

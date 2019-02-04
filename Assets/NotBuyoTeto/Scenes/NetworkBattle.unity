@@ -638,6 +638,12 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1037744579}
   m_Script: {fileID: 11500000, guid: b41abc7670f6da64aa7f6701087be662, type: 3}
+--- !u!114 &370693966 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114809121645684066, guid: 9b1850013a79cff4db6965676bc92810,
+    type: 2}
+  m_PrefabInternal: {fileID: 704356824}
+  m_Script: {fileID: 11500000, guid: 2e45aff6b7d8bc54cb47e494c942e60e, type: 3}
 --- !u!1001 &384585016
 Prefab:
   m_ObjectHideFlags: 0
@@ -1213,7 +1219,7 @@ Prefab:
         type: 2}
       propertyPath: comboManager
       value: 
-      objectReference: {fileID: 704356828}
+      objectReference: {fileID: 370693966}
     - target: {fileID: 1869075813396590, guid: 9b1850013a79cff4db6965676bc92810, type: 2}
       propertyPath: m_IsActive
       value: 0
@@ -1241,12 +1247,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 704356824}
   m_Script: {fileID: 11500000, guid: 77f2e9917a0a69e4e8a0afaaa3442941, type: 3}
---- !u!114 &704356828 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114323316622822776, guid: 9b1850013a79cff4db6965676bc92810,
-    type: 2}
-  m_PrefabInternal: {fileID: 704356824}
-  m_Script: {fileID: 11500000, guid: 2e45aff6b7d8bc54cb47e494c942e60e, type: 3}
 --- !u!1001 &795679045
 Prefab:
   m_ObjectHideFlags: 0
