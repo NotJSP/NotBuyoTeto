@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using NotBuyoTeto.Utility;
 
@@ -15,14 +13,16 @@ namespace NotBuyoTeto.Ingame {
 
         private void Awake() {
             audioSource = GetComponent<AudioSource>();
-            shuffleClips = new List<AudioClip>(Clips.Length);
+            shuffleClips = new List<AudioClip>(Clips);
         }
 
         public void Add(AudioClip clip) {
+            if (shuffleClips.Contains(clip)) { return; }
             shuffleClips.Add(clip);
         }
 
         public void Remove(AudioClip clip) {
+            if (!shuffleClips.Contains(clip)) { return; }
             shuffleClips.Remove(clip);
         }
 
