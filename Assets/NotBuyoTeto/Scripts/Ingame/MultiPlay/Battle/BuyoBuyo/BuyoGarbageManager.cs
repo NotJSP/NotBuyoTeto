@@ -19,7 +19,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.BuyoBuyo {
         [SerializeField]
         private Rigidbody2D buyoRigidbody;
 
-        private static float OffsetRange = 0.9f;
+        private static float OffsetRange = 1.0f;
         private static float TorqueRange = 120.0f;
         private static Vector2 ForceGarbage = new Vector2(0, -80.0f);
 
@@ -53,9 +53,9 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.BuyoBuyo {
                 rigidbody.AddTorque(torque);
                 rigidbody.AddForce(ForceGarbage);
                 garbages.Add(obj);
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.45f);
             }
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(0.8f);
             IsFalling = false;
         }
     }

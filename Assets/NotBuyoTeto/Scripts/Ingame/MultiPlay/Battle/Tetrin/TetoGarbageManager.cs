@@ -53,9 +53,9 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
                 rigidbody.AddTorque(torque);
                 rigidbody.AddForce(ForceGarbage);
                 garbages.Add(obj);
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.45f);
             }
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(0.8f);
             IsFalling = false;
         }
     }
