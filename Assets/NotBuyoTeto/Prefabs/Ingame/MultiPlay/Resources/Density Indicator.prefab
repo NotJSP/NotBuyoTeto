@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4236186162020804}
   - component: {fileID: 212398620361984790}
-  - component: {fileID: 114458916714433520}
   - component: {fileID: 114705644081235004}
+  - component: {fileID: 114458916714433520}
   m_Layer: 0
   m_Name: Density Indicator
   m_TagString: Untagged

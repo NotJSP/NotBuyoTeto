@@ -55,8 +55,9 @@ GameObject:
   - component: {fileID: 4900383186158654}
   - component: {fileID: 212172417522317530}
   - component: {fileID: 60641869472926622}
-  - component: {fileID: 114435668379109488}
   - component: {fileID: 114712213624062338}
+  - component: {fileID: 114456989143739708}
+  - component: {fileID: 114512633049016716}
   - component: {fileID: 114302468939394796}
   m_Layer: 9
   m_Name: Buyo_green
@@ -352,7 +353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 7, y: 0, z: 0}
---- !u!114 &114435668379109488
+--- !u!114 &114456989143739708
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -360,11 +361,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 1444556652985344}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b56a849c79900164f89abb7fc6c999ce, type: 3}
+  m_Script: {fileID: 11500000, guid: 40d637631e88ee84b9ae89094e08adbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  glowEffect: {fileID: 212127033628252006}
+  deleteEffect: {fileID: 198634639495301952}
+  photonView: {fileID: 114712213624062338}
+--- !u!114 &114512633049016716
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1444556652985344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e03ae0914dd8c9c4481b5e9cb7ae6217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   type: 2
-  glowEffect: {fileID: 212127033628252006}
+  view: {fileID: 114456989143739708}
 --- !u!114 &114712213624062338
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -27667,7 +27682,7 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1549289751979992}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1

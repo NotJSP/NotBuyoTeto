@@ -5,12 +5,19 @@ using UnityEngine;
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
     [RequireComponent(typeof(SpriteRenderer))]
     public class DensityIndicatorView : MonoBehaviour {
+        [SerializeField]
+        private Vector3 offset;
+
         private new SpriteRenderer renderer;
         private Color color;
 
         private void Awake() {
             renderer = GetComponent<SpriteRenderer>();
             color = renderer.color;
+        }
+
+        private void Start() {
+            transform.position += offset;
         }
 
         private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {

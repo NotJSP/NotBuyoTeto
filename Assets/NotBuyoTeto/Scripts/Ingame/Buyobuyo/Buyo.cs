@@ -5,43 +5,35 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace NotBuyoTeto.Ingame.Buyobuyo {
-    [RequireComponent(typeof(SpriteRenderer), typeof(Collider2D))]
+    [RequireComponent(typeof(SpriteRenderer), typeof(Collider2D), typeof(BuyoView))]
     public class Buyo : MonoBehaviour, IEqualityComparer<Buyo> {
         [SerializeField]
         private BuyoType type;
         public BuyoType Type => type;
         [SerializeField]
-        private SpriteRenderer glowEffect;
+        private BuyoView view;
 
         private Instantiator instantiator;
         private HashSet<Buyo> chainObjects = new HashSet<Buyo>();
-        private ParticleSystem BuyoDeleteEffect;
 
         public event EventHandler<Tuple<Vector2, int>> DeleteBuyo;
-
-        private void Awake() {
-            type = GetComponent<Buyo>().Type;
-            BuyoDeleteEffect = gameObject.GetComponentInChildren<ParticleSystem>();
-            glowEffect.enabled = false;
-        }
 
         public void Initialize(Instantiator instantiator) {
             this.instantiator = instantiator;
         }
 
-        // Update is called once per frame
-        void Update() {
+        protected virtual void Update() {
             int chainCount = GetChainCount(null);
             if (chainCount >= 4) {
                 DestroyChain(null);
                 var tuple = new Tuple<Vector2, int>(transform.position, chainCount);
                 DeleteBuyo?.Invoke(this, tuple);
             }
-            if (chainCount < 3) {
-                glowEffect.enabled = false;
+            if (view.IsGlow && chainCount < 3) {
+                view.HideGlow();
             }
-            if (chainCount >= 3) {
-                glowEffect.enabled = true;
+            if (!view.IsGlow && chainCount >= 3) {
+                view.Glow();
             }
         }
 
@@ -59,7 +51,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             var destroyList = new List<Buyo>(destroyObjects);
             destroyList.ForEach(o => o.DestroyChain(alreadyDestroyed));
 
-            BuyoDeleteEffect.Play();
+            view.Destroy();
             gameObject.transform.localScale = Vector3.zero;
             instantiator.Destroy(gameObject, 1.5f);
             chainObjects.Clear();
@@ -79,7 +71,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             return findObjects.Sum(o => o.GetChainCount(alreadyCounted)) + 1;
         }
 
-        private void OnCollisionEnter2D(Collision2D collision) {
+        protected virtual void OnCollisionEnter2D(Collision2D collision) {
             if (collision.collider.CompareTag("Buyo")) {
                 var chainObj = collision.gameObject.GetComponent<Buyo>();
 
@@ -89,8 +81,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             }
         }
 
-
-        private void OnCollisionExit2D(Collision2D collision) {
+        protected virtual void OnCollisionExit2D(Collision2D collision) {
             if (collision.collider.CompareTag("Buyo")) {
                 var chainObj = collision.gameObject.GetComponent<Buyo>();
 
