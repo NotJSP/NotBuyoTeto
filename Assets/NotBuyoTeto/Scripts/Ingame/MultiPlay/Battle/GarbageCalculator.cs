@@ -27,6 +27,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
             // 対Buyoでは1.8倍
             if (transferTo == GameMode.BuyoBuyo) { amount *= 1.8f; }
 
+            Debug.Log($"Lines: {info.LineCount}, Objects: {info.ObjectCount} ===> Amount: {amount}");
             return (int)amount;
         }
 
@@ -37,11 +38,12 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
             var comboAmount = 0.45f * Mathf.Pow(info.ComboCount, 1.2f);
             var amount = (objectAmount + comboAmount) * marginCoefficient;
 
-            // 対Tetoでは0.89倍
-            if (transferTo == GameMode.Tetrin) { amount *= 0.89f; }
+            // 対Tetoでは0.7倍
+            if (transferTo == GameMode.Tetrin) { amount *= 0.7f; }
             // 対Buyoでは1.5倍
             if (transferTo == GameMode.BuyoBuyo) { amount *= 1.5f; }
 
+            Debug.Log($"Objects: {info.ObjectCount}, Combos: {info.ComboCount} ===> Amount: {amount}");
             return (int)amount;
         }
     }
