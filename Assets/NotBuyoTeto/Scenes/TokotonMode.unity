@@ -433,12 +433,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4446807833182766, guid: 2411daad941b7f344a5ede9608946855,
     type: 2}
   m_PrefabInternal: {fileID: 267590564}
---- !u!114 &452375405 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114323316622822776, guid: 9b1850013a79cff4db6965676bc92810,
-    type: 2}
-  m_PrefabInternal: {fileID: 822102588}
-  m_Script: {fileID: 11500000, guid: 2e45aff6b7d8bc54cb47e494c942e60e, type: 3}
 --- !u!1 &491812657
 GameObject:
   m_ObjectHideFlags: 0
@@ -1160,7 +1154,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4831243353157532, guid: 9abcda7f5d84a124a940fa9b7f7c66db, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114183336886897800, guid: 9abcda7f5d84a124a940fa9b7f7c66db,
         type: 2}
@@ -1789,7 +1783,6 @@ MonoBehaviour:
   highScoreManager: {fileID: 273689928}
   rankingManager: {fileID: 126280533}
   levelManager: {fileID: 1651480629}
-  comboManager: {fileID: 452375405}
   fallSpeedManager: {fileID: 1203762158}
 --- !u!4 &1547014892
 Transform:
@@ -1806,7 +1799,7 @@ Transform:
   - {fileID: 1203762157}
   - {fileID: 822102589}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1547014893
 MonoBehaviour:
