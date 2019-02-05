@@ -1225,6 +1225,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114731371655227448, guid: 9b1850013a79cff4db6965676bc92810,
+        type: 2}
+      propertyPath: sfxManager
+      value: 
+      objectReference: {fileID: 1304838984}
     m_RemovedComponents:
     - {fileID: 114521232771834194, guid: 9b1850013a79cff4db6965676bc92810, type: 2}
     - {fileID: 114923198922023882, guid: 9b1850013a79cff4db6965676bc92810, type: 2}

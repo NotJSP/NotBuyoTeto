@@ -783,6 +783,11 @@ Prefab:
       propertyPath: instantiator
       value: 
       objectReference: {fileID: 360989858}
+    - target: {fileID: 114731371655227448, guid: 9b1850013a79cff4db6965676bc92810,
+        type: 2}
+      propertyPath: sfxManager
+      value: 
+      objectReference: {fileID: 663466171}
     - target: {fileID: 114953514961341592, guid: 9b1850013a79cff4db6965676bc92810,
         type: 2}
       propertyPath: instantiator
