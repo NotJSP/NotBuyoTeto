@@ -225,6 +225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   instantiator: {fileID: 0}
+  sfxManager: {fileID: 0}
   resolver: {fileID: 114419879020786588}
 --- !u!114 &114809121645684066
 MonoBehaviour:
