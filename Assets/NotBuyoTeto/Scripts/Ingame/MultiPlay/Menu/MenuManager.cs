@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 using Photon;
 using NotBuyoTeto.SceneManagement;
 using NotBuyoTeto.Constants;
@@ -22,24 +20,10 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Menu {
 
         [SerializeField]
         private GameObject mainPanel;
-        [SerializeField]
-        private ConnectingPanel connectingPanel;
-
         private AnimationTransitEntry menuTransit;
-        private AnimationTransitEntry connectingTransit;
-
-        private bool connected = false;
 
         private void Awake() {
             this.menuTransit = new AnimationTransitEntry(mainPanel, "Menu In", "Menu Out");
-            this.connectingTransit = new AnimationTransitEntry(connectingPanel.gameObject, "Panel In", "Panel Out");
-        }
-
-        private void Start() {
-#if !DEBUG
-            StartCoroutine(AnimationTransit.In(connectingTransit));
-#endif
-            PhotonNetwork.ConnectUsingSettings("1.0");
         }
 
         private void OnEnable() {
@@ -91,28 +75,6 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Menu {
                 gameObject.SetActive(false);
                 clubManager.OnStart();
             });
-        }
-
-        public override void OnConnectedToMaster() {
-            if (!connected) {
-                Debug.Log("OnConnectedToMaster");
-                connected = true;
-
-                PhotonNetwork.playerName = PlayerPrefs.GetString(PlayerPrefsKey.PlayerName);
-#if !DEBUG
-                StartCoroutine(AnimationTransit.Out(connectingTransit));
-#endif
-            }
-        }
-
-        public override void OnDisconnectedFromPhoton() { 
-            Debug.Log($"MenuManager::OnDisconnectedFromPhoton()");
-            if (connected) {
-                Debug.Log("サーバーから切断されました。");
-            } else {
-                connectingPanel.Text.text = "インターネットに接続できません。\nタイトルに戻ります。";
-                connectingPanel.indicator.SetActive(false);
-            }
         }
     }
 }

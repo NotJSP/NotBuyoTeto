@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace NotBuyoTeto.Ingame.Title {
-    [RequireComponent(typeof(Text))]
-    public class Versions : MonoBehaviour {
-        private Text versionText;
-
-        public string Version {
+namespace NotBuyoTeto.Utility {
+    public static class Versions {
+        public static string Version {
             get {
                 var appVersion = Application.version;
                 var separator_pos = appVersion.IndexOf('#');
@@ -19,7 +12,7 @@ namespace NotBuyoTeto.Ingame.Title {
             }
         }
 
-        public int BuildNumber {
+        public static int BuildNumber {
             get {
                 var appVersion = Application.version;
                 var separator_pos = appVersion.IndexOf('#');
@@ -30,11 +23,6 @@ namespace NotBuyoTeto.Ingame.Title {
                 }
                 return buildNumber;
             }
-        }
-
-        private void Awake() {
-            versionText = GetComponent<Text>();
-            versionText.text = $"Version: {Version}, build: {BuildNumber}";
         }
     }
 }

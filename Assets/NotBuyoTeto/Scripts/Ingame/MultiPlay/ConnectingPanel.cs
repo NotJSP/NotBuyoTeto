@@ -15,6 +15,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay {
 
         private AnimationTransitEntry transit;
 
+        public bool IsShow { get; private set; }
+
         private void Reset() {
             this.text = GetComponentInChildren<Text>();
         }
@@ -24,11 +26,14 @@ namespace NotBuyoTeto.Ingame.MultiPlay {
         }
 
         public void Show() {
-            AnimationTransit.In(transit);
+            gameObject.SetActive(true);
+            IsShow = true;
+            StartCoroutine(AnimationTransit.In(transit));
         }
 
         public void Hide() {
-            AnimationTransit.Out(transit);
+            IsShow = false;
+            StartCoroutine(AnimationTransit.Out(transit, () => gameObject.SetActive(false)));
         }
     }
 }
