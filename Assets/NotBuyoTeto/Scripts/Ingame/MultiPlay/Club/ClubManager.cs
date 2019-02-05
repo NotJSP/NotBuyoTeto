@@ -126,7 +126,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
                 WinsCount = 2,
                 FallSpeed = 1.5f,
             };
-            roomManager.CreateRoom(PhotonNetwork.playerName, settings);
+            roomManager.CreateRoom(settings);
 
             backButton.Inactive();
             waitingManager.gameObject.SetActive(true);
