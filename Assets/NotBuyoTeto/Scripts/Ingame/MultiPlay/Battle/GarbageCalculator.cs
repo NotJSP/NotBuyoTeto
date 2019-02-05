@@ -24,8 +24,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
             var objectAmount = 0.12f * info.ObjectCount;
             var amount = (lineAmount + objectAmount) * marginCoefficient;
 
-            // 対Buyoでは1.67倍
-            if (transferTo == GameMode.BuyoBuyo) { amount *= 1.67f; }
+            // 対Buyoでは1.8倍
+            if (transferTo == GameMode.BuyoBuyo) { amount *= 1.8f; }
 
             return (int)amount;
         }
@@ -33,8 +33,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
         public int Calculate(DeleteBuyoInfo info, GameMode transferTo) {
             // 0.2 * ( ObjectCount ^ 1.5 - 6 )
             var objectAmount = 0.2f * (Mathf.Pow(info.ObjectCount, 1.5f) - 6);
-            // 0.5 * ComboCount ^ 1.2
-            var comboAmount = 0.5f * Mathf.Pow(info.ComboCount, 1.2f);
+            // 0.45 * ComboCount ^ 1.2
+            var comboAmount = 0.45f * Mathf.Pow(info.ComboCount, 1.2f);
             var amount = (objectAmount + comboAmount) * marginCoefficient;
 
             // 対Tetoでは0.89倍
