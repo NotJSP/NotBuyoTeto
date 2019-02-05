@@ -57,6 +57,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
             var comboAmount = 0.5f * Mathf.Pow(info.ComboCount, 1.2f);
             var amount = (objectAmount + comboAmount) * marginCoefficient;
 
+            // 対Tetoでは0.9倍
+            if (transferTo == GameMode.Tetrin) { amount *= 0.9f; }
             // 対Buyoでは1.5倍
             if (transferTo == GameMode.BuyoBuyo) { amount *= 1.5f; }
             Debug.Log("Total Amount (Garbages): " + amount);
