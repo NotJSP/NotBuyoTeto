@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NotBuyoTeto.Ingame.Tetrin;
-using NotBuyoTeto.Ingame.Buyobuyo;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
     public class TetoDirector : Director {
@@ -12,7 +11,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
         [SerializeField]
         private MinoManager minoManager;
         [SerializeField]
-        private TetoGarbageManager garbageManager;
+        private TetoGarbageSpawner garbageSpawner;
 
         private ColliderField colliderField => perspective.ColliderField;
 
@@ -22,12 +21,10 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
 
         private void OnEnable() {
             minoManager.gameObject.SetActive(true);
-            garbageManager.gameObject.SetActive(true);
         }
 
         private void OnDisable() {
             minoManager.gameObject.SetActive(false);
-            garbageManager.gameObject.SetActive(false);
         }
 
         public override void Initialize() {
@@ -38,7 +35,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
 
         public override void RoundStart() {
             minoManager.Restart(DefaultFallSpeed);
-            garbageManager.Clear();
+            garbageSpawner.Clear();
         }
 
         public override void RoundEnd() {
@@ -60,7 +57,11 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
         }
 
         private void onLineDeleted(object sender, DeleteMinoInfo info) {
-            photonView.RPC("OnDeleteLineOpponent", PhotonTargets.Others, info.LineCount, info.ObjectCount);
+            var count = garbageCalculator.Calculate(info, gameManager.OpponentMode);
+            var remain = garbageManager.Subtract(count);
+            if (remain > 0) {
+                garbageTransfer.Send(remain);
+            }
         }
 
         private void onHitMino(object sender, EventArgs args) {
@@ -71,13 +72,17 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
                 GameOver();
             } else {
                 colliderField.DeleteLines();
-                StartCoroutine(fallGarbageAndNext());
+                StartCoroutine(spawnGarbageAndNext());
             }
         }
 
-        private IEnumerator fallGarbageAndNext() {
-            garbageManager.Fall();
-            yield return new WaitWhile(() => garbageManager.IsFalling);
+        private IEnumerator spawnGarbageAndNext() {
+            if (garbageManager.ReadyGarbageCount > 0) {
+                var spawnCount = Math.Min(garbageManager.ReadyGarbageCount, 10);
+                garbageSpawner.Spawn(spawnCount);
+                garbageManager.Subtract(spawnCount);
+                yield return new WaitWhile(() => garbageSpawner.IsSpawning);
+            }
             Next();
         }
     }

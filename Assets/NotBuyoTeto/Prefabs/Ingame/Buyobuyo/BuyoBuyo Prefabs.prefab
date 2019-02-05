@@ -19,7 +19,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4334739333435050}
-  - component: {fileID: 114323316622822776}
+  - component: {fileID: 114097515630540926}
+  - component: {fileID: 114809121645684066}
   m_Layer: 0
   m_Name: Combo Manager
   m_TagString: Untagged
@@ -84,7 +85,6 @@ GameObject:
   - component: {fileID: 4519508617668074}
   - component: {fileID: 114953514961341592}
   - component: {fileID: 114521232771834194}
-  - component: {fileID: 114923198922023882}
   m_Layer: 0
   m_Name: Buyo Manager
   m_TagString: Untagged
@@ -161,7 +161,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114323316622822776
+--- !u!114 &114097515630540926
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -169,10 +169,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1303472193455978}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e45aff6b7d8bc54cb47e494c942e60e, type: 3}
+  m_Script: {fileID: 11500000, guid: e80f16f5867e84d45b2125c13f0a8bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  setTime: 2
   comboSprite: {fileID: 1982584047277050, guid: c61c58661286aee4e92887c67fb6001d,
     type: 2}
   numberSprites:
@@ -227,18 +226,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instantiator: {fileID: 0}
   resolver: {fileID: 114419879020786588}
---- !u!114 &114923198922023882
+--- !u!114 &114809121645684066
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1869075813396590}
+  m_GameObject: {fileID: 1303472193455978}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51b9d38f95412b74e919f899c5932988, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e45aff6b7d8bc54cb47e494c942e60e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: {fileID: 0}
+  view: {fileID: 114097515630540926}
+  resetTime: 2
 --- !u!114 &114953514961341592
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -254,8 +254,7 @@ MonoBehaviour:
   perspective: {fileID: 0}
   spawner: {fileID: 114731371655227448}
   sfxManager: {fileID: 0}
-  comboManager: {fileID: 114323316622822776}
-  levelManager: {fileID: 0}
+  comboManager: {fileID: 114809121645684066}
   buyoRigidbody: {fileID: 50785185717546436, guid: b6b55003f246f744d9a658a493ad9887,
     type: 2}
   buyoparent: {fileID: 1625084702774590, guid: 784b91cba0a0f684bbba1ab1d47fb813, type: 2}

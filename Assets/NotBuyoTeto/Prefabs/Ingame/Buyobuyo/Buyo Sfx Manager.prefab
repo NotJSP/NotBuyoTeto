@@ -54,25 +54,25 @@ MonoBehaviour:
   entries:
     BuyoMove:
       channel: 0
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 387607c5ddaf15f4a8939692c3cc4338, type: 3}
       parameter:
         Volume: 1
         Pitch: 1
     BuyoRotate:
       channel: 0
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 6a0d13896c31ab44792661657309b8d3, type: 3}
       parameter:
         Volume: 1
         Pitch: 1
     BuyoHit:
       channel: 0
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 3c064b9424eff604b867da50814016b2, type: 3}
       parameter:
         Volume: 1
         Pitch: 1
     BuyoDelete:
       channel: 0
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: d01a5baf866fbf84b82ae47f41c89bca, type: 3}
       parameter:
         Volume: 1
         Pitch: 1

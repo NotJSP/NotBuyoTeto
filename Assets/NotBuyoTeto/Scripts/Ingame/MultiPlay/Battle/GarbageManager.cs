@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
-    public abstract class GarbageManager : MonoBehaviour {
+    public class GarbageManager : MonoBehaviour {
         [Header("References")]
         [SerializeField]
         private GarbageIndicator indicator;
@@ -19,9 +21,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
             }
         }
 
-        public bool IsFalling { get; protected set; }
-
-        public virtual void Clear() {
+        public void Restart() {
             ReadyGarbageCount = 0;
         }
 
@@ -29,7 +29,16 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
             ReadyGarbageCount += amount;
         }
 
-        public abstract void Fall();
+        public int Subtract(int remain) {
+            if (ReadyGarbageCount >= remain) {
+                ReadyGarbageCount -= remain;
+                remain = 0;
+            } else {
+                remain -= ReadyGarbageCount;
+                ReadyGarbageCount = 0;
+            }
+            return remain;
+        }
 
         private void updateIndicator() {
             indicator.Value = readyGarbageCount;

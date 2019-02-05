@@ -1,13 +1,11 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using NotBuyoTeto.Utility;
 using NotBuyoTeto.Ingame.Buyobuyo;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle.BuyoBuyo {
-    public class BuyoGarbageManager : GarbageManager {
+    public class BuyoGarbageSpawner : GarbageSpawner {
         [SerializeField]
-        private Instantiator instantiator;
+        private BuyoManager buyoManager;
         [SerializeField]
         private BuyoResolver resolver;
         [SerializeField]
@@ -15,27 +13,16 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.BuyoBuyo {
         [SerializeField]
         private Transform ceiling;
 
-        [Header("Prefabs")]
-        [SerializeField]
-        private Rigidbody2D buyoRigidbody;
-
-        private static float OffsetRange = 0.9f;
+        private static float OffsetRange = 1.0f;
         private static float TorqueRange = 120.0f;
         private static Vector2 ForceGarbage = new Vector2(0, -80.0f);
 
-        private List<GameObject> garbages = new List<GameObject>();
-
         public override void Clear() {
-            base.Clear();
-            garbages.ForEach(instantiator.Destroy);
         }
 
-        public override void Fall() {
-            if (ReadyGarbageCount == 0) { return; }
-            IsFalling = true;
-            var fallCount = Mathf.Min(ReadyGarbageCount, 10);
-            StartCoroutine(fallCoroutine(fallCount));
-            ReadyGarbageCount -= fallCount;
+        public override void Spawn(int count) {
+            IsSpawning = true;
+            StartCoroutine(fallCoroutine(count));
         }
 
         private IEnumerator fallCoroutine(int count) {
@@ -46,17 +33,17 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.BuyoBuyo {
                 var offset = Random.Range(-OffsetRange, OffsetRange);
                 var spawnPosition = new Vector2(ceilingPosition.x + offset, ceilingPosition.y);
                 var obj = spawner.Spawn(buyoType, spawnPosition, 0);
-                var rigidbody = obj.AddComponent<Rigidbody2D>().CopyOf(buyoRigidbody);
-                var torque = Random.Range(-TorqueRange, TorqueRange);
                 obj.layer = LayerMask.NameToLayer("Default");
+                buyoManager.Add(obj);
+                var rigidbody = obj.GetComponent<Rigidbody2D>();
+                var torque = Random.Range(-TorqueRange, TorqueRange);
                 rigidbody.isKinematic = false;
                 rigidbody.AddTorque(torque);
                 rigidbody.AddForce(ForceGarbage);
-                garbages.Add(obj);
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.45f);
             }
-            yield return new WaitForSeconds(1.0f);
-            IsFalling = false;
+            yield return new WaitForSeconds(0.8f);
+            IsSpawning = false;
         }
     }
 }

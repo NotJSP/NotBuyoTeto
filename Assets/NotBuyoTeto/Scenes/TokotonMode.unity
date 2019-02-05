@@ -216,10 +216,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1193175570414210, guid: 2411daad941b7f344a5ede9608946855, type: 2}
-      propertyPath: m_Name
-      value: Bgm Manager
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2411daad941b7f344a5ede9608946855, type: 2}
   m_IsPrefabAsset: 0
@@ -777,21 +773,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114731371655227448, guid: 9b1850013a79cff4db6965676bc92810,
-        type: 2}
-      propertyPath: instantiator
-      value: 
-      objectReference: {fileID: 360989858}
     - target: {fileID: 114521232771834194, guid: 9b1850013a79cff4db6965676bc92810,
         type: 2}
       propertyPath: score
       value: 
       objectReference: {fileID: 1429037204}
-    - target: {fileID: 114923198922023882, guid: 9b1850013a79cff4db6965676bc92810,
+    - target: {fileID: 114731371655227448, guid: 9b1850013a79cff4db6965676bc92810,
         type: 2}
-      propertyPath: score
+      propertyPath: instantiator
       value: 
-      objectReference: {fileID: 1429037204}
+      objectReference: {fileID: 360989858}
     - target: {fileID: 114953514961341592, guid: 9b1850013a79cff4db6965676bc92810,
         type: 2}
       propertyPath: instantiator
@@ -807,13 +798,7 @@ Prefab:
       propertyPath: sfxManager
       value: 
       objectReference: {fileID: 663466171}
-    - target: {fileID: 114953514961341592, guid: 9b1850013a79cff4db6965676bc92810,
-        type: 2}
-      propertyPath: levelManager
-      value: 
-      objectReference: {fileID: 1651480629}
-    m_RemovedComponents:
-    - {fileID: 114923198922023882, guid: 9b1850013a79cff4db6965676bc92810, type: 2}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b1850013a79cff4db6965676bc92810, type: 2}
   m_IsPrefabAsset: 0
 --- !u!4 &822102589 stripped

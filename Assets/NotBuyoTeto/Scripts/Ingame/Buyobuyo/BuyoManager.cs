@@ -84,11 +84,11 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
 
             // 子オブジェクト(ぶよ)作成
             var obj0 = spawner.Spawn(types[0], position, 0);
-            obj0.GetComponent<Buyo>().DeleteBuyo += onDeleteBuyo;         
-            obj0.AddComponent<Rigidbody2D>().CopyOf(buyoRigidbody);
             var obj1 = spawner.Spawn(types[1], position, 1);
-            obj1.GetComponent<Buyo>().DeleteBuyo += onDeleteBuyo;
-            obj1.AddComponent<Rigidbody2D>().CopyOf(buyoRigidbody);
+
+            // オブジェクトリストに追加
+            Add(obj0);
+            Add(obj1);
 
             // parentを親にする
             obj0.transform.parent = parent.transform;
@@ -100,10 +100,13 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             var controller2 = obj1.AddComponent<BuyoController>().Initialize(sfxManager, obj0);
             controller2.Hit += onHitBuyo;
             
-            buyos.Add(obj0);
-            buyos.Add(obj1);
-
             controlable = true;
+        }
+
+        public void Add(GameObject obj) {
+            obj.GetComponent<Buyo>().DeleteBuyo += onDeleteBuyo;
+            obj.AddComponent<Rigidbody2D>().CopyOf(buyoRigidbody);
+            buyos.Add(obj);
         }
 
         private void onHitBuyo(object sender, EventArgs args) {

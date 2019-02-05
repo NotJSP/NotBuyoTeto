@@ -1,68 +1,42 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace NotBuyoTeto.Ingame.Buyobuyo {
+    [RequireComponent(typeof(ComboView))]
     public class ComboManager : MonoBehaviour {
-        public float setTime;
-        public GameObject comboSprite;
-        public GameObject[] numberSprites;
-        private float timeElapsed;
-        private int comboCount = 0;
+        [SerializeField]
+        private ComboView view;
 
-        public int Value {
-            get {
-                return comboCount;
-            }
-        }
+        public float resetTime;
+        private float elapsedTime;
 
-        // Use this for initialization
-        void Start() {
-
-        }
-
-        // Update is called once per frame
-        void Update() {
-            if (comboCount > 0) {
-                timeElapsed += Time.deltaTime;
-            }
-            if (timeElapsed > setTime) {
-                Reset();
-            }
-        }
+        public int Value { get; private set; }
 
         private void Reset() {
-            timeElapsed = 0.0f;
-            comboCount = 0;
+            view = GetComponent<ComboView>();
+        }
+
+        private void Update() {
+            if (Value > 0) {
+                elapsedTime += Time.deltaTime;
+                if (elapsedTime > resetTime) { ResetValue(); }
+            }
+        }
+
+        private void ResetValue() {
+            elapsedTime = 0.0f;
+            Value = 0;
         }
 
         public void CountUp() {
-            comboCount++;
-            Debug.Log(comboCount + "Combo");
+            elapsedTime = 0.0f;
+            Value++;
+            Debug.Log(Value + "Combo");
         }
 
         public void Show(Vector2 position) {
-            timeElapsed = 0.0f;
-
-            GameObject comboText = new GameObject("comboText");
-            comboText.transform.position = position;
-            GameObject combo = Instantiate(comboSprite) as GameObject;
-            combo.transform.SetParent(comboText.transform, false);
-
-            string count = string.Join("", comboCount.ToString().Reverse());
-            float f = -1.0f;
-            foreach (char c in count) {
-                int i = int.Parse(c.ToString());
-                GameObject number = Instantiate(numberSprites[i]) as GameObject;
-                number.transform.SetParent(comboText.transform, false);
-                Vector2 tmp = number.transform.position;
-                tmp.x += f;
-                f += -0.35f;
-                number.transform.position = tmp;
-            }
-
-            Destroy(comboText, 1.0f);
+            view.Show(position, Value);
         }
     }  
 }

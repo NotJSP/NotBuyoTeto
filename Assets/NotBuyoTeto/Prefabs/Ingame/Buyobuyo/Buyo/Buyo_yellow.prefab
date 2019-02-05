@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 4613675550786072}
   - component: {fileID: 212429900199192434}
   - component: {fileID: 60736722818295056}
+  - component: {fileID: 114902891741150622}
   - component: {fileID: 114323936003360712}
   m_Layer: 9
   m_Name: Buyo_yellow
@@ -350,7 +351,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
+  view: {fileID: 114902891741150622}
+--- !u!114 &114902891741150622
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1174649829956764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7da3d19e98973a54b813423237d33b3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   glowEffect: {fileID: 212004970804657956}
+  deleteEffect: {fileID: 198589341685488944}
 --- !u!198 &198254352105764760
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -27627,7 +27641,7 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1095263511090562}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
