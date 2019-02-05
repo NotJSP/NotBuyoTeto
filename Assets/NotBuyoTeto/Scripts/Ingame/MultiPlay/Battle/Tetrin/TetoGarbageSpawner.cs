@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NotBuyoTeto.Utility;
 using NotBuyoTeto.Ingame.Tetrin;
-using Random = UnityEngine.Random;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
-    public class TetoGarbageManager : GarbageManager {
+    public class TetoGarbageSpawner : GarbageSpawner {
         [SerializeField]
         private Instantiator instantiator;
         [SerializeField]
@@ -28,16 +26,12 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
         private List<GameObject> garbages = new List<GameObject>();
 
         public override void Clear() {
-            base.Clear();
             garbages.ForEach(instantiator.Destroy);
         }
 
-        public override void Fall() {
-            if (ReadyGarbageCount == 0) { return; }
-            IsFalling = true;
-            var fallCount = Mathf.Min(ReadyGarbageCount, 10);
-            StartCoroutine(fallCoroutine(fallCount));
-            ReadyGarbageCount -= fallCount;
+        public override void Spawn(int count) {
+            IsSpawning = true;
+            StartCoroutine(fallCoroutine(count));
         }
 
         private IEnumerator fallCoroutine(int count) {
@@ -56,7 +50,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
                 yield return new WaitForSeconds(0.45f);
             }
             yield return new WaitForSeconds(0.8f);
-            IsFalling = false;
+            IsSpawning = false;
         }
     }
 }

@@ -6,7 +6,13 @@ using UnityEngine;
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
     public abstract class Director : MonoBehaviour {
         [SerializeField]
-        protected PhotonView photonView;
+        protected GameManager gameManager;
+        [SerializeField]
+        protected GarbageManager garbageManager;
+        [SerializeField]
+        protected GarbageCalculator garbageCalculator;
+        [SerializeField]
+        protected GarbageTransfer garbageTransfer;
 
         public event EventHandler OnGameOver;
 

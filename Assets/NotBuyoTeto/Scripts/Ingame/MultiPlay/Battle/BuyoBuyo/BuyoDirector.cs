@@ -12,9 +12,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.BuyoBuyo {
         [SerializeField]
         private BuyoManager buyoManager;
         [SerializeField]
-        private BuyoGarbageManager garbageManager;
-        [SerializeField]
-        private GarbageTransfer garbageTransfer;
+        private BuyoGarbageSpawner garbageSpawner;
 
         private static readonly float DefaultFallSpeed = 1.0f;
 
@@ -22,12 +20,12 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.BuyoBuyo {
 
         private void OnEnable() {            
             buyoManager.gameObject.SetActive(true);
-            garbageManager.gameObject.SetActive(true);
+            garbageSpawner.gameObject.SetActive(true);
         }
 
         private void OnDisable() {
             buyoManager.gameObject.SetActive(false);
-            garbageManager.gameObject.SetActive(false);
+            garbageSpawner.gameObject.SetActive(false);
         }
 
         public override void Initialize() {
@@ -37,7 +35,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.BuyoBuyo {
 
         public override void RoundStart() {
             buyoManager.Restart(DefaultFallSpeed);
-            garbageManager.Clear();
+            garbageSpawner.Clear();
         }
 
         public override void RoundEnd() {
@@ -70,12 +68,20 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.BuyoBuyo {
         }
 
         private void onDeleteBuyo(object sender, DeleteBuyoInfo info) {
-            photonView.RPC("OnDeleteBuyoOpponent", PhotonTargets.Others, info.ObjectCount, info.ComboCount);
+            var count = garbageCalculator.Calculate(info, gameManager.OpponentMode);
+            var remain = garbageManager.Subtract(count);
+            if (remain > 0) {
+                garbageTransfer.Send(remain);
+            }
         }
 
         private IEnumerator fallGarbageAndNext() {
-            garbageManager.Fall();
-            yield return new WaitWhile(() => garbageManager.IsFalling);
+            if (garbageManager.ReadyGarbageCount > 0) {
+                var spawnCount = Math.Min(garbageManager.ReadyGarbageCount, 10);
+                garbageSpawner.Spawn(spawnCount);
+                garbageManager.Subtract(spawnCount);
+                yield return new WaitWhile(() => garbageSpawner.IsSpawning);
+            }
             Next();
         }
     }

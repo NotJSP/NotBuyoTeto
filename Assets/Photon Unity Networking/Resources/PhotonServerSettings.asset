@@ -52,4 +52,5 @@ MonoBehaviour:
   - SelectMode
   - Set
   - SetValue
+  - recieveGarbage
   DisableAutoOpenWizard: 1

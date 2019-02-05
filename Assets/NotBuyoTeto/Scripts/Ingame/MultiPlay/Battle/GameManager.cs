@@ -21,11 +21,16 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
         [SerializeField]
         private DirectorManager directorManager;
         [SerializeField]
-        private GarbageTransfer garbageTransfer;
+        private GarbageManager garbageManager;
+        [SerializeField]
+        private GarbageCalculator garbageCalculator;
         [SerializeField]
         private WinsManager winsManager;
         [SerializeField]
         private MessageWindow messageWindow;
+
+        public GameMode PlayerMode { get; private set; }
+        public GameMode OpponentMode { get; private set; }
 
         private Director director;
         private PhotonView photonView;
@@ -44,14 +49,13 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
         }
 
         protected override void OnSceneReady(object sender, EventArgs args) {
-            var playerMode = (GameMode)PhotonNetwork.player.CustomProperties["gamemode"];
-            perspectives.Activate(PlayerSide.Player, playerMode);
-            var opponentMode = (GameMode)PhotonNetwork.otherPlayers[0].CustomProperties["gamemode"];
-            perspectives.Activate(PlayerSide.Opponent, opponentMode);
+            this.PlayerMode = (GameMode)PhotonNetwork.player.CustomProperties["gamemode"];
+            this.OpponentMode = (GameMode)PhotonNetwork.otherPlayers[0].CustomProperties["gamemode"];
 
-            garbageTransfer.Initialize(playerMode);
+            perspectives.Activate(PlayerSide.Player, PlayerMode);
+            perspectives.Activate(PlayerSide.Opponent, OpponentMode);
 
-            directorManager.SetMode(playerMode);
+            directorManager.SetMode(PlayerMode);
             director = directorManager.GetDirector();
             director.OnGameOver += onGameOver;
             director.Initialize();
@@ -127,7 +131,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
             photonView.RPC(@"OnGameStartOpponent", PhotonTargets.Others);
             sfxManager.Play(IngameSfxType.RoundStart);
             bgmManager.RandomPlay();
-            garbageTransfer.GameStart();
+            garbageManager.Restart();
+            garbageCalculator.Restart();
             director.GameStart();
         }
 

@@ -1,11 +1,9 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using NotBuyoTeto.Utility;
 using NotBuyoTeto.Ingame.Buyobuyo;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle.BuyoBuyo {
-    public class BuyoGarbageManager : GarbageManager {
+    public class BuyoGarbageSpawner : GarbageSpawner {
         [SerializeField]
         private BuyoManager buyoManager;
         [SerializeField]
@@ -19,12 +17,12 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.BuyoBuyo {
         private static float TorqueRange = 120.0f;
         private static Vector2 ForceGarbage = new Vector2(0, -80.0f);
 
-        public override void Fall() {
-            if (ReadyGarbageCount == 0) { return; }
-            IsFalling = true;
-            var fallCount = Mathf.Min(ReadyGarbageCount, 10);
-            StartCoroutine(fallCoroutine(fallCount));
-            ReadyGarbageCount -= fallCount;
+        public override void Clear() {
+        }
+
+        public override void Spawn(int count) {
+            IsSpawning = true;
+            StartCoroutine(fallCoroutine(count));
         }
 
         private IEnumerator fallCoroutine(int count) {
@@ -45,7 +43,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.BuyoBuyo {
                 yield return new WaitForSeconds(0.45f);
             }
             yield return new WaitForSeconds(0.8f);
-            IsFalling = false;
+            IsSpawning = false;
         }
     }
 }
