@@ -20,6 +20,5 @@ namespace NotBuyoTeto.Ingame.MultiPlay {
         private LeagueManager leagueManager;
         [SerializeField]
         private ClubManager clubManager;
-
     }
 }
