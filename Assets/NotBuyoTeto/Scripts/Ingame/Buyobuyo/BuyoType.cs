@@ -5,5 +5,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         blue,
         green,
         yellow,
+        purple,
+        black,
     }
 }
