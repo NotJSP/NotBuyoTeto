@@ -14,12 +14,14 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         private BuyoView view;
 
         private Instantiator instantiator;
+        private BuyoSfxManager sfxManager;
         private HashSet<Buyo> chainObjects = new HashSet<Buyo>();
 
         public event EventHandler<Tuple<Vector2, int>> DeleteBuyo;
 
-        public void Initialize(Instantiator instantiator) {
+        public void Initialize(Instantiator instantiator , BuyoSfxManager sfxManager) {
             this.instantiator = instantiator;
+            this.sfxManager = sfxManager;
         }
 
         protected virtual void Update() {
@@ -28,6 +30,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
                 DestroyChain(null);
                 var tuple = new Tuple<Vector2, int>(transform.position, chainCount);
                 DeleteBuyo?.Invoke(this, tuple);
+                sfxManager.Play(BuyoSfxType.Delete);
             }
             if (view.IsGlow && chainCount < 3) {
                 view.HideGlow();
