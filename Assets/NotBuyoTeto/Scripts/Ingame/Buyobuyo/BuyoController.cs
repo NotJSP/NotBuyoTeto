@@ -30,7 +30,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             if (parent != null) {
                 Destroy(parent.gameObject);
             }
-            sfxManager.Play(BuyoSfxType.BuyoHit);
+            sfxManager.Play(BuyoSfxType.Hit);
             
             Destroy(this);
             

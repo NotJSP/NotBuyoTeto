@@ -39,7 +39,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.BuyoBuyo {
         }
 
         public override void RoundEnd() {
-            buyoManager.Destroy();
+            buyoManager.DestroyCurrentObject();
         }
 
         public override void Next() {

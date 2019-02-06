@@ -43,7 +43,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
 
             var horizontal = Input.GetAxis(@"Horizontal");
             if (prevHorizontal <= 0 && horizontal > 0 || prevHorizontal >= 0 && horizontal < 0) {
-                sfxManager.Play(BuyoSfxType.BuyoMove);
+                sfxManager.Play(BuyoSfxType.Move);
             }
             if (horizontal < 0) {
                 velocity.x -= settings.HorizontalVelocity * Time.deltaTime;
@@ -76,7 +76,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             }
 
             if (Input.GetButtonDown(@"Rotate Left") || Input.GetButtonDown(@"Rotate Right")) {
-                sfxManager.Play(BuyoSfxType.BuyoRotate);
+                sfxManager.Play(BuyoSfxType.Rotate);
             }
             if (Input.GetButton(@"Rotate Left")) {
                 torque += settings.AngularVelocity * Time.deltaTime;

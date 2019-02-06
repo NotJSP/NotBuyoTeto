@@ -1,9 +1,10 @@
 ﻿
 namespace NotBuyoTeto.Ingame.Buyobuyo {
     public enum BuyoSfxType {
-        BuyoMove,
-        BuyoRotate,
-        BuyoHit,
-        BuyoDelete,
+        Move,
+        Rotate,
+        Hit,
+        Delete,
+        Hold,
     }
 }
