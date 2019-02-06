@@ -803,6 +803,12 @@ Prefab:
       propertyPath: sfxManager
       value: 
       objectReference: {fileID: 663466171}
+    - target: {fileID: 114419879020786588, guid: 9b1850013a79cff4db6965676bc92810,
+        type: 2}
+      propertyPath: buyos.purple
+      value: 
+      objectReference: {fileID: 114952469332944756, guid: 156df582b911a8d47971817ab47eff75,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b1850013a79cff4db6965676bc92810, type: 2}
   m_IsPrefabAsset: 0
