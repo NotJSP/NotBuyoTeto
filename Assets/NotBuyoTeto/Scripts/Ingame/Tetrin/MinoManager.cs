@@ -81,7 +81,7 @@ namespace NotBuyoTeto.Ingame.Tetrin {
         public void Release() {
             controlable = false;
             var controller = CurrentMino.GetComponent<MinoController>();
-            Destroy(controller);
+            if (controller != null) { Destroy(controller); }
         }
 
         public void DestroyCurrentObject() {

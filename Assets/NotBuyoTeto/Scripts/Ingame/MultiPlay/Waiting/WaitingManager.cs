@@ -19,7 +19,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
         private BackButton backButton;
 
         [SerializeField]
-        private GameObject waitingPanel;
+        private GameObject mainPanel;
         [SerializeField]
         private PlayerPanel playerPanel;
         [SerializeField]
@@ -30,7 +30,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
         private StartingCounter startingCounter;
 
         private MatchingType matchingType;
-        
+        private Coroutine startCoroutine;
+
         private AnimationTransitEntry playerPanelTransition;
         private AnimationTransitEntry opponentPanelTransition;
         private AnimationTransitEntry waitingWindowTransition;
@@ -39,8 +40,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
         private bool isInOpponentPanel = false;
         private bool isInWaitingWindow = false;
 
-        private bool decidePlayerMode = false;
-        private bool decideOpponentMode = false;
+        private bool isDecidePlayerMode = false;
+        private bool isDecideOpponentMode = false;
 
         private void Awake() {
             playerPanelTransition = new AnimationTransitEntry(playerPanel.gameObject, "Panel In", "Panel Out");
@@ -49,20 +50,16 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
         }
 
         private void OnEnable() {
-            decidePlayerMode = false;
-            decideOpponentMode = false;
+            backButton.OnPressed += back;
+
+            mainPanel.SetActive(true);
             playerPanel.ModeContainerActivate(false);
 
-            playerPanel.OnDecideMode += onDecidePlayerMode;
-            opponentPanel.OnDecideMode += onDecideOpponentMode;
-
-            backButton.OnPressed += back;
+            isDecidePlayerMode = false;
+            isDecideOpponentMode = false;
         }
 
         private void OnDisable() {
-            playerPanel.OnDecideMode -= onDecidePlayerMode;
-            opponentPanel.OnDecideMode -= onDecideOpponentMode;
-
             backButton.OnPressed -= back;
         }
 
@@ -80,6 +77,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
             if (isInOpponentPanel) { outOpponentPanel(); }
             if (isInWaitingWindow) { outWaitingWindow(); }
             yield return new WaitForSecondsRealtime(0.75f);
+            mainPanel.SetActive(false);
             afterAction?.Invoke();
         }
 
@@ -109,7 +107,6 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
 
         public void StartByHost(MatchingType type, WaitingPlayer player, Action afterAction = null) {
             matchingType = type;
-            waitingPanel.SetActive(true);
 
             playerPanel.Set(player);
             inPlayerPanel();
@@ -120,7 +117,6 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
 
         public void StartByGuest(MatchingType type, WaitingPlayer player, WaitingPlayer opponent, Action afterAction = null) {
             matchingType = type;
-            waitingPanel.SetActive(true);
 
             playerPanel.Set(player);
             opponentPanel.Set(opponent);
@@ -135,8 +131,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
         private void startModeSelect() {
             backButton.Inactive();
 
-            decidePlayerMode = false;
-            decideOpponentMode = false;
+            isDecidePlayerMode = false;
+            isDecideOpponentMode = false;
 
             startModeSelectTransition();
             playerPanel.ModeContainerActivate(true);
@@ -156,31 +152,65 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
             startingCounter.OnZero -= onCountZero;
             startingCounter.Stop();
             startingCounter.Hide();
-        }
 
-        private void onDecidePlayerMode(object sender, GameMode mode) {
-            decidePlayerMode = true;
-            if (decideOpponentMode) { onDecideBothMode(); }
-        }
-
-        private void onDecideOpponentMode(object sender, GameMode mode) {
-            decideOpponentMode = true;
-            if (decidePlayerMode) { onDecideBothMode(); }
-        }
-
-        private void onDecideBothMode() {
-            if (startingCounter.Count > 5) {
-                startingCounter.Set(5);
+            if (startCoroutine != null) {
+                StopCoroutine(startCoroutine);
+                startCoroutine = null;
             }
         }
 
+        private void onDecidePlayerMode(GameMode mode) {
+            isDecidePlayerMode = true;
+            if (isDecideOpponentMode) { onDecideBothMode(); }
+        }
+
+        private void onDecideOpponentMode(GameMode mode) {
+            isDecideOpponentMode = true;
+            if (isDecidePlayerMode) { onDecideBothMode(); }
+        }
+
+        private void onDecideBothMode() {
+            if (startingCounter.Count > 3) { startingCounter.Set(3); }
+        }
+
         private void onCountZero(object sender, EventArgs args) {
+            startCoroutine = StartCoroutine(startBattle());
+        }
+
+        private IEnumerator startBattle() {
+            if (!isDecidePlayerMode) {
+                playerPanel.DecideRandomMode();
+                playerPanel.DecideMode();
+            }
+
+            yield return new WaitUntil(() => isDecidePlayerMode);
+            yield return new WaitUntil(() => isDecideOpponentMode);
+
             PhotonNetwork.isMessageQueueRunning = false;
+            yield return new WaitForSecondsRealtime(1.5f);
+
             SceneController.Instance.LoadScene(SceneName.NetworkBattle, SceneTransition.Duration);
         }
 
         public override void OnJoinedRoom() {
             Debug.Log("WaitingManager::OnJoinedRoom");
+        }
+
+        public override void OnPhotonPlayerPropertiesChanged(object[] playerAndUpdatedProps) {
+            Debug.Log("WaitingManager::OnPhotonPlayerPropertiesChanged");
+
+            var player = playerAndUpdatedProps[0] as PhotonPlayer;
+            var properties = playerAndUpdatedProps[1] as Hashtable;
+
+            object value;
+            if (properties.TryGetValue("gamemode", out value)) {
+                var mode = (GameMode)value;
+                if (player.Equals(PhotonNetwork.player)) {
+                    onDecidePlayerMode(mode);
+                } else {
+                    onDecideOpponentMode(mode);
+                }
+            }
         }
 
         public override void OnPhotonPlayerConnected(PhotonPlayer player) {

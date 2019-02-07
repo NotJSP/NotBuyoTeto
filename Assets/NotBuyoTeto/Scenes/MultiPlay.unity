@@ -491,12 +491,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &145365597 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114234614487522138, guid: a83ff0fe254ead54ca795404ea99d753,
-    type: 2}
-  m_PrefabInternal: {fileID: 1937166543}
-  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &148064176
 GameObject:
   m_ObjectHideFlags: 0
@@ -874,12 +868,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 246648865}
   m_CullTransparentMesh: 0
---- !u!114 &275100856 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114069485346567652, guid: a83ff0fe254ead54ca795404ea99d753,
-    type: 2}
-  m_PrefabInternal: {fileID: 1937166543}
-  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!114 &281324431 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114166410502869234, guid: a83ff0fe254ead54ca795404ea99d753,
@@ -2533,7 +2521,7 @@ MonoBehaviour:
   leagueManager: {fileID: 629124359}
   clubManager: {fileID: 71351907}
   backButton: {fileID: 894204452}
-  waitingPanel: {fileID: 1205568615}
+  mainPanel: {fileID: 1205568615}
   playerPanel: {fileID: 466180424}
   opponentPanel: {fileID: 1509239125}
   waitingWindow: {fileID: 1482189323}
@@ -6107,12 +6095,12 @@ Prefab:
         type: 2}
       propertyPath: tetrinButton
       value: 
-      objectReference: {fileID: 275100856}
+      objectReference: {fileID: 1937166545}
     - target: {fileID: 114847637374693450, guid: a83ff0fe254ead54ca795404ea99d753,
         type: 2}
       propertyPath: buyoButton
       value: 
-      objectReference: {fileID: 145365597}
+      objectReference: {fileID: 1937166544}
     - target: {fileID: 1021950749357858, guid: a83ff0fe254ead54ca795404ea99d753, type: 2}
       propertyPath: m_IsActive
       value: 0
@@ -6125,6 +6113,18 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a83ff0fe254ead54ca795404ea99d753, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &1937166544 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114576031933609020, guid: a83ff0fe254ead54ca795404ea99d753,
+    type: 2}
+  m_PrefabInternal: {fileID: 1937166543}
+  m_Script: {fileID: 11500000, guid: 12635d99f12b5ff498f75a8d35931c67, type: 3}
+--- !u!114 &1937166545 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114043434291336104, guid: a83ff0fe254ead54ca795404ea99d753,
+    type: 2}
+  m_PrefabInternal: {fileID: 1937166543}
+  m_Script: {fileID: 11500000, guid: 12635d99f12b5ff498f75a8d35931c67, type: 3}
 --- !u!1 &1945819662
 GameObject:
   m_ObjectHideFlags: 0
