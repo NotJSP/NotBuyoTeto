@@ -2530,7 +2530,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94b87c8f9ff61004ca5c42eb3f97e266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  counter: {fileID: 1853749984}
+  leagueManager: {fileID: 629124359}
+  clubManager: {fileID: 71351907}
+  backButton: {fileID: 894204452}
   waitingPanel: {fileID: 1205568615}
   playerPanel: {fileID: 466180424}
   opponentPanel: {fileID: 1509239125}

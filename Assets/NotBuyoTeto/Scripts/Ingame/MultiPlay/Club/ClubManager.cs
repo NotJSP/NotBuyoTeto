@@ -64,7 +64,9 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
         }
 
         public void InMenu(Action afterAction = null) {
+            state = State.Menu;
             StartCoroutine(AnimationTransit.In(transit, afterAction));
+            OnStart();
         }
 
         public void OutMenu(Action afterAction = null) {
@@ -73,7 +75,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
 
         public void OnStart() {
             Debug.Log("ClubManager::OnStart");
-            PhotonNetwork.JoinLobby(Lobby);
+            if (!PhotonNetwork.insideLobby) { PhotonNetwork.JoinLobby(Lobby); }
             roomManager.Fetch();
         }
 
@@ -134,7 +136,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
                 // TODO:
                 var record = new FightRecord(0, 0);
                 var player = new WaitingPlayer(PhotonNetwork.playerName, record, 1000);
-                waitingManager.StartByHost(player, () => backButton.Active());
+                waitingManager.StartByHost(MatchingType.Club, player, () => backButton.Active());
                 gameObject.SetActive(false);
             }));
         }
@@ -161,7 +163,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
                 var opponentFightRecord = new FightRecord(0, 0);
                 var opponent = new WaitingPlayer(opponentName, opponentFightRecord, 1000);
 
-                waitingManager.StartByGuest(player, opponent, () => backButton.Active());
+                waitingManager.StartByGuest(MatchingType.Club, player, opponent, () => backButton.Active());
                 gameObject.SetActive(false);
             }));
         }

@@ -63,7 +63,6 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Menu {
                 leagueManager.gameObject.SetActive(true);
                 leagueManager.InMenu(() => backButton.Active());
                 gameObject.SetActive(false);
-                leagueManager.OnStart();
             });
         }
 
@@ -73,7 +72,6 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Menu {
                 clubManager.gameObject.SetActive(true);
                 clubManager.InMenu(() => backButton.Active());
                 gameObject.SetActive(false);
-                clubManager.OnStart();
             });
         }
     }

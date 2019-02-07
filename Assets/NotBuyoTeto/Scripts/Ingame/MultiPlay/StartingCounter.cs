@@ -47,6 +47,10 @@ namespace NotBuyoTeto.Ingame.MultiPlay {
             IsCounting = true;
         }
 
+        public void Stop() {
+            IsCounting = false;
+        }
+
         public void Show() {
             gameObject.SetActive(true);
         }

@@ -5,12 +5,18 @@ using UnityEngine;
 using Photon;
 using NotBuyoTeto.SceneManagement;
 using NotBuyoTeto.Constants;
+using NotBuyoTeto.Ingame.MultiPlay.League;
+using NotBuyoTeto.Ingame.MultiPlay.Club;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
     public class WaitingManager : PunBehaviour {
         [SerializeField]
-        private StartingCounter counter;
+        private LeagueManager leagueManager;
+        [SerializeField]
+        private ClubManager clubManager;
+        [SerializeField]
+        private BackButton backButton;
 
         [SerializeField]
         private GameObject waitingPanel;
@@ -23,9 +29,15 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
         [SerializeField]
         private StartingCounter startingCounter;
 
+        private MatchingType matchingType;
+        
         private AnimationTransitEntry playerPanelTransition;
         private AnimationTransitEntry opponentPanelTransition;
         private AnimationTransitEntry waitingWindowTransition;
+
+        private bool isInPlayerPanel = false;
+        private bool isInOpponentPanel = false;
+        private bool isInWaitingWindow = false;
 
         private bool decidePlayerMode = false;
         private bool decideOpponentMode = false;
@@ -43,43 +55,107 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
 
             playerPanel.OnDecideMode += onDecidePlayerMode;
             opponentPanel.OnDecideMode += onDecideOpponentMode;
+
+            backButton.OnPressed += back;
         }
 
         private void OnDisable() {
             playerPanel.OnDecideMode -= onDecidePlayerMode;
             opponentPanel.OnDecideMode -= onDecideOpponentMode;
+
+            backButton.OnPressed -= back;
         }
 
-        public void StartByHost(WaitingPlayer player, Action afterAction = null) {
+        private void Update() {
+            if (AnimationTransit.IsAnimating) { return; }
+
+            if (backButton.IsActive && Input.GetKeyDown(KeyCode.Escape)) {
+                back(this, EventArgs.Empty);
+            }
+        }
+
+        // 適当
+        public IEnumerator OutMenu(Action afterAction = null) {
+            if (isInPlayerPanel) { outPlayerPanel(); }
+            if (isInOpponentPanel) { outOpponentPanel(); }
+            if (isInWaitingWindow) { outWaitingWindow(); }
+            yield return new WaitForSecondsRealtime(0.75f);
+            afterAction?.Invoke();
+        }
+
+        private void back(object sender, EventArgs args) {
+            if (PhotonNetwork.inRoom) {
+                PhotonNetwork.LeaveRoom();
+            }
+
+            backButton.Inactive();
+
+            if (matchingType == MatchingType.League) {
+                StartCoroutine(OutMenu(() => {
+                    leagueManager.gameObject.SetActive(true);
+                    leagueManager.InMenu(() => backButton.Active());
+                    gameObject.SetActive(false);
+                }));
+            }
+
+            if (matchingType == MatchingType.Club) {
+                StartCoroutine(OutMenu(() => {
+                    clubManager.gameObject.SetActive(true);
+                    clubManager.InMenu(() => backButton.Active());
+                    gameObject.SetActive(false);
+                }));
+            }
+        }
+
+        public void StartByHost(MatchingType type, WaitingPlayer player, Action afterAction = null) {
+            matchingType = type;
             waitingPanel.SetActive(true);
 
             playerPanel.Set(player);
-            StartCoroutine(AnimationTransit.In(playerPanelTransition));
-            StartCoroutine(AnimationTransit.In(waitingWindowTransition));
+            inPlayerPanel();
+            inWaitingWindow();
 
             afterAction?.Invoke();
         }
 
-        public void StartByGuest(WaitingPlayer player, WaitingPlayer opponent, Action afterAction = null) {
+        public void StartByGuest(MatchingType type, WaitingPlayer player, WaitingPlayer opponent, Action afterAction = null) {
+            matchingType = type;
             waitingPanel.SetActive(true);
 
             playerPanel.Set(player);
-            StartCoroutine(AnimationTransit.In(playerPanelTransition));
             opponentPanel.Set(opponent);
-            StartCoroutine(AnimationTransit.In(opponentPanelTransition));
+            inPlayerPanel();
+            inOpponentPanel();
+
+            afterAction?.Invoke();
 
             startModeSelect();
-
-            afterAction?.Invoke();
         }
 
         private void startModeSelect() {
+            backButton.Inactive();
+
+            decidePlayerMode = false;
+            decideOpponentMode = false;
+
+            startModeSelectTransition();
             playerPanel.ModeContainerActivate(true);
 
             startingCounter.OnZero += onCountZero;
             startingCounter.Set(30);
             startingCounter.CountStart();
             startingCounter.Show();
+        }
+
+        private void cancelModeSelect() {
+            backButton.Active();
+
+            cancelModeSelectTransition();
+            playerPanel.ModeContainerActivate(false);
+
+            startingCounter.OnZero -= onCountZero;
+            startingCounter.Stop();
+            startingCounter.Hide();
         }
 
         private void onDecidePlayerMode(object sender, GameMode mode) {
@@ -116,40 +192,56 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
             var rating = 1000;
             var waitingPlayer = new WaitingPlayer(player.NickName, record, rating);
             opponentPanel.Set(waitingPlayer);
-            StartCoroutine(AnimationTransit.Transition(waitingWindowTransition, opponentPanelTransition));
 
             PhotonNetwork.room.IsOpen = false;
-
             startModeSelect();
         }
 
         public override void OnPhotonPlayerDisconnected(PhotonPlayer player) {
-            StartCoroutine(AnimationTransit.Transition(opponentPanelTransition, waitingWindowTransition));
             PhotonNetwork.room.IsOpen = true;
+            cancelModeSelect();
         }
 
-        public void OpenWaitingWindow() {
-            StartCoroutine(AnimationTransit.In(waitingWindowTransition));
-        }
-
-        public void CloseWaitingWindow() {
-            StartCoroutine(AnimationTransit.Out(waitingWindowTransition));
-        }
-
-        public void InPlayerPanel() {
+        private void inPlayerPanel() {
+            isInPlayerPanel = true;
             StartCoroutine(AnimationTransit.In(playerPanelTransition));
         }
 
-        public void OutPlayerPanel() {
+        private void outPlayerPanel() {
+            isInPlayerPanel = false;
             StartCoroutine(AnimationTransit.Out(playerPanelTransition));
         }
 
-        public void InOpponentPanel() {
+        private void inOpponentPanel() {
+            isInOpponentPanel = true;
             StartCoroutine(AnimationTransit.In(opponentPanelTransition));
         }
 
-        public void OutOpponentPanel() {
+        private void outOpponentPanel() {
+            isInOpponentPanel = false;
             StartCoroutine(AnimationTransit.Out(opponentPanelTransition));
+        }
+
+        private void inWaitingWindow() {
+            isInWaitingWindow = true;
+            StartCoroutine(AnimationTransit.In(waitingWindowTransition));
+        }
+
+        private void outWaitingWindow() {
+            isInWaitingWindow = false;
+            StartCoroutine(AnimationTransit.Out(waitingWindowTransition));
+        }
+
+        private void startModeSelectTransition() {
+            isInWaitingWindow = false;
+            isInOpponentPanel = true;
+            StartCoroutine(AnimationTransit.Transition(waitingWindowTransition, opponentPanelTransition));
+        }
+
+        private void cancelModeSelectTransition() {
+            isInOpponentPanel = false;
+            isInWaitingWindow = true;
+            StartCoroutine(AnimationTransit.Transition(opponentPanelTransition, waitingWindowTransition));
         }
     }
 }
