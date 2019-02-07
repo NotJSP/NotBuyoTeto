@@ -23,7 +23,6 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         private BuyoControlSettings controlSettings;
         
         private List<GameObject> buyos = new List<GameObject>();
-        private Tuple<BuyoType, BuyoType> currentTypes;
         private GameObject parent;
         private bool controlable = true;
         private float fallSpeed;
@@ -75,8 +74,6 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         }
 
         private void set(Tuple<BuyoType, BuyoType> types) {
-            currentTypes = types;
-
             // 位置取得
             var position = perspective.Field.Ceiling.transform.position;
             position.y += 0.75f;

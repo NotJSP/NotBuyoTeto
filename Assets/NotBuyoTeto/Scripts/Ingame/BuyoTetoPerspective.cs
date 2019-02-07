@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 namespace NotBuyoTeto.Ingame {
-    public class BuyoTetoPerspective : MonoBehaviour, IBuyoTetoPerspective {
+    public class BuyoTetoPerspective : MonoBehaviour {
         [SerializeField]
         private Field field;
         public virtual Field Field => field;
