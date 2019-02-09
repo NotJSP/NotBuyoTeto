@@ -20,14 +20,14 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
         [SerializeField]
         private MenuManager menuManager;
         [SerializeField]
+        private WaitingManager waitingManager;
+        [SerializeField]
         private BackButton backButton;
 
         [SerializeField]
         private GameObject mainPanel;
         [SerializeField]
         private RoomManager roomManager;
-        [SerializeField]
-        private WaitingManager waitingManager;
 
         private AnimationTransitEntry transit;
         private AnimationTransitEntry createRoomTransit;
