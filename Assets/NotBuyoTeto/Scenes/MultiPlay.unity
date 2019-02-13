@@ -210,13 +210,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 71351905}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 653778563}
-  m_Father: {fileID: 2052506870}
-  m_RootOrder: 3
+  m_Father: {fileID: 2129635005}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &71351907
 MonoBehaviour:
@@ -230,10 +230,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuManager: {fileID: 926532958}
+  waitingManager: {fileID: 873253069}
   backButton: {fileID: 894204452}
   mainPanel: {fileID: 831743568}
   roomManager: {fileID: 653778564}
-  waitingManager: {fileID: 873253069}
 --- !u!1 &118138017
 GameObject:
   m_ObjectHideFlags: 0
@@ -1841,8 +1841,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 2052506870}
-  m_RootOrder: 2
+  m_Father: {fileID: 2129635005}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &629124359
 MonoBehaviour:
@@ -1857,6 +1857,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuManager: {fileID: 926532958}
+  waitingManager: {fileID: 873253069}
   backButton: {fileID: 894204452}
   mainPanel: {fileID: 1145865650}
   messageLabel: {fileID: 487813780}
@@ -2500,12 +2501,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 873253067}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 2052506870}
-  m_RootOrder: 4
+  m_Father: {fileID: 2129635005}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &873253069
 MonoBehaviour:
@@ -2761,12 +2762,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 926532957}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 2052506870}
-  m_RootOrder: 1
+  m_Father: {fileID: 2129635005}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &948222228
 Prefab:
@@ -7033,10 +7034,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 647006934}
-  - {fileID: 926532959}
-  - {fileID: 629124357}
-  - {fileID: 71351906}
-  - {fileID: 873253068}
+  - {fileID: 2129635005}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7214,6 +7212,55 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2078217989}
   m_CullTransparentMesh: 0
+--- !u!1 &2129635004
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2129635005}
+  - component: {fileID: 2129635006}
+  m_Layer: 0
+  m_Name: Transit Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2129635005
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2129635004}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 926532959}
+  - {fileID: 629124357}
+  - {fileID: 71351906}
+  - {fileID: 873253068}
+  m_Father: {fileID: 2052506870}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2129635006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2129635004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a0dfc76a6e6abe4da7f01d355ee4d69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuManager: {fileID: 926532958}
+  leagueManager: {fileID: 629124359}
+  clubManager: {fileID: 71351907}
+  waitingManager: {fileID: 873253069}
+  backButton: {fileID: 894204452}
 --- !u!1 &2130723395
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,14 +9,6 @@ using NotBuyoTeto.Ingame.MultiPlay.Waiting;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Club {
     public class ClubManager : PunBehaviour {
-        private enum State {
-            Menu,
-            CreateRoom,
-        }
-        private State state;
-
-        public static readonly TypedLobby Lobby = new TypedLobby("ClubLobby", LobbyType.Default);
-
         [SerializeField]
         private MenuManager menuManager;
         [SerializeField]
@@ -29,9 +21,15 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
         [SerializeField]
         private RoomManager roomManager;
 
+        private enum State {
+            Menu,
+            CreateRoom,
+        }
+        private State state;
+        private bool guest = false;
+
         private AnimationTransitEntry transit;
         private AnimationTransitEntry createRoomTransit;
-        private bool guest = false;
 
         private void Awake() {
             this.transit = new AnimationTransitEntry(mainPanel, "In Menu", "Out Menu");
@@ -39,10 +37,12 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
         }
 
         private void OnEnable() {
+            mainPanel.SetActive(true);
             backButton.OnPressed += back;
         }
 
         private void OnDisable() {
+            mainPanel?.SetActive(false);
             backButton.OnPressed -= back;
         }
 
@@ -75,7 +75,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
 
         public void OnStart() {
             Debug.Log("ClubManager::OnStart");
-            if (!PhotonNetwork.insideLobby) { PhotonNetwork.JoinLobby(Lobby); }
+            if (!PhotonNetwork.insideLobby) { PhotonNetwork.JoinLobby(LobbyManager.ClubLobby); }
             roomManager.Fetch();
         }
 
@@ -131,12 +131,9 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
             roomManager.CreateRoom(settings);
 
             backButton.Inactive();
-            waitingManager.gameObject.SetActive(true);
             StartCoroutine(AnimationTransit.Out(createRoomTransit, () => {
-                // TODO:
-                var record = new FightRecord(0, 0);
-                var player = new WaitingPlayer(PhotonNetwork.playerName, record, 1000);
-                waitingManager.StartByHost(MatchingType.Club, player, () => backButton.Active());
+                waitingManager.gameObject.SetActive(true);
+                waitingManager.InMenu(() => backButton.Active());
                 gameObject.SetActive(false);
             }));
         }
@@ -150,22 +147,11 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
             if (!guest) { return; }
 
             backButton.Inactive();
-            waitingManager.gameObject.SetActive(true);
-
-            StartCoroutine(AnimationTransit.Out(transit, () => {
-                // TODO:
-                var playerName = PhotonNetwork.playerName;
-                var playerFightRecord = new FightRecord(0, 0);
-                var player = new WaitingPlayer(playerName, playerFightRecord, 1000);
-
-                var otherPlayer = PhotonNetwork.otherPlayers[0];
-                var opponentName = otherPlayer.NickName;
-                var opponentFightRecord = new FightRecord(0, 0);
-                var opponent = new WaitingPlayer(opponentName, opponentFightRecord, 1000);
-
-                waitingManager.StartByGuest(MatchingType.Club, player, opponent, () => backButton.Active());
+            OutMenu(() => {
+                waitingManager.gameObject.SetActive(true);
+                waitingManager.InMenu(() => backButton.Active());
                 gameObject.SetActive(false);
-            }));
+            });
         }
     }
 }

@@ -27,10 +27,12 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Menu {
         }
 
         private void OnEnable() {
+            mainPanel.SetActive(true);
             backButton.OnPressed += back;
         }
 
         private void OnDisable() {
+            mainPanel?.SetActive(false);
             backButton.OnPressed -= back;
         }
 

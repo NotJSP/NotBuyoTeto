@@ -11,8 +11,6 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.League {
     public class LeagueManager : PunBehaviour {
-        public static readonly TypedLobby Lobby = new TypedLobby("LeagueLobby", LobbyType.Default);
-
         [SerializeField]
         private MenuManager menuManager;
         [SerializeField]
@@ -34,10 +32,12 @@ namespace NotBuyoTeto.Ingame.MultiPlay.League {
         }
 
         private void OnEnable() {
+            mainPanel.SetActive(true);
             backButton.OnPressed += back;
         }
 
         private void OnDisable() {
+            mainPanel?.SetActive(false);
             backButton.OnPressed -= back;
         }
 
@@ -64,7 +64,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.League {
 
         public void OnStart() {
             Debug.Log(@"LeagueManager::OnStart");
-            PhotonNetwork.JoinLobby(Lobby);
+            PhotonNetwork.JoinLobby(LobbyManager.LeagueLobby);
         }
 
         public void OnCancel() {
@@ -103,20 +103,9 @@ namespace NotBuyoTeto.Ingame.MultiPlay.League {
 
         private void onMatchingSucceeded() {
             backButton.Inactive();
-            waitingManager.gameObject.SetActive(true);
-
             StartCoroutine(AnimationTransit.Out(transit, () => {
-                // TODO:
-                var playerName = PhotonNetwork.playerName;
-                var playerFightRecord = new FightRecord(0, 0);
-                var player = new WaitingPlayer(playerName, playerFightRecord, 1000);
-
-                var otherPlayer = PhotonNetwork.otherPlayers[0];
-                var opponentName = otherPlayer.NickName;
-                var opponentFightRecord = new FightRecord(0, 0);
-                var opponent = new WaitingPlayer(opponentName, opponentFightRecord, 1000);
-
-                waitingManager.StartByGuest(MatchingType.League, player, opponent);
+                waitingManager.gameObject.SetActive(true);
+                waitingManager.InMenu();
                 gameObject.SetActive(false);
             }));
         }
@@ -133,17 +122,18 @@ namespace NotBuyoTeto.Ingame.MultiPlay.League {
             Debug.Log("LeagueManager::OnPhotonRandomJoinFailed");
 
             var properties = new Hashtable();
-            properties["WinsCount"] = 2;
-            properties["FallSpeed"] = 1.0f;
+            properties["wins"] = 2;         // Win数
+            properties["speed"] = 1.0f;     // 落下速度
+            properties["type"] = MatchingType.League;   // マッチングの種類
 
             var options = new RoomOptions {
                 IsOpen = true,
                 IsVisible = true,
                 MaxPlayers = 2,
                 CustomRoomProperties = properties,
-                CustomRoomPropertiesForLobby = new string[] { "WinsCount", "FallSpeed" },
+                CustomRoomPropertiesForLobby = new string[] { "wins", "speed", "type" },
             };
-            PhotonNetwork.CreateRoom("", options, Lobby);
+            PhotonNetwork.CreateRoom("", options, LobbyManager.LeagueLobby);
         }
 
         public override void OnCreatedRoom() {

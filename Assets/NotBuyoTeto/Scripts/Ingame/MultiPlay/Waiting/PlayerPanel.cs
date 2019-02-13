@@ -46,7 +46,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
 
         protected void setProperties(GameMode mode) {
             var properties = new Hashtable();
-            properties["gamemode"] = mode;
+            properties["mode"] = mode;
             PhotonNetwork.player.SetCustomProperties(properties);
         }
 
