@@ -83,10 +83,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
             StopAllCoroutines();
 
             if (PhotonNetwork.inRoom) {
-                var matchingType = (MatchingType)PhotonNetwork.room.CustomProperties["type"];
-                if (matchingType == MatchingType.League) {
-                    PhotonNetwork.LeaveRoom();
-                }
+//                var matchingType = (MatchingType)PhotonNetwork.room.CustomProperties["type"];
+                PhotonNetwork.LeaveRoom();
             }
             
             // タイトルに戻る場合はネットワークを切断

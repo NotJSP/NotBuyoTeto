@@ -27,11 +27,12 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
             removeInstancedRooms();
         }
 
-        public void CreateRoom(RoomSettings settings) {
+        public void CreateRoom(string name, RoomSettings settings) {
             var properties = new Hashtable();
             properties["wins"] = settings.WinsCount;
             properties["speed"] = settings.FallSpeed;
             properties["type"] = MatchingType.Club;
+
             var options = new RoomOptions {
                 IsOpen = true,
                 IsVisible = true,
@@ -40,7 +41,6 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
                 CustomRoomPropertiesForLobby = new string[] { "wins", "speed", "type" },
             };
 
-            var name = IdentificationNameUtility.Create(PhotonNetwork.playerName, PhotonNetwork.AuthValues.UserId);
             PhotonNetwork.CreateRoom(name, options, LobbyManager.ClubLobby);
         }
 

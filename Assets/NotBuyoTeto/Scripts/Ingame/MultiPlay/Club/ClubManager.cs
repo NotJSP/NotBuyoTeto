@@ -128,7 +128,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
                 WinsCount = 2,
                 FallSpeed = 1.5f,
             };
-            roomManager.CreateRoom(settings);
+            var name = IdentificationNameUtility.Create(PhotonNetwork.playerName, PhotonNetwork.AuthValues.UserId);
+            roomManager.CreateRoom(name, settings);
 
             backButton.Inactive();
             StartCoroutine(AnimationTransit.Out(createRoomTransit, () => {
