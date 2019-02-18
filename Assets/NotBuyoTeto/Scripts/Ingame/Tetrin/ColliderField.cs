@@ -39,7 +39,7 @@ namespace NotBuyoTeto.Ingame.Tetrin {
             Debug.Log($"lines: {info.LineCount}, objects: {info.ObjectCount}");
             LineDeleted?.Invoke(this, info);
 
-            sfxManager.Play(TetoSfxType.MinoDelete);
+            sfxManager.Play(TetoSfxType.Delete);
         }
     }
 }

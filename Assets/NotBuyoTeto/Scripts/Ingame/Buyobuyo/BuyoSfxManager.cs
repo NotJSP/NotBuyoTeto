@@ -14,10 +14,11 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         private BuyoSfxAudioEntryHolder entries;
 
         private void Awake() {
-            Set(BuyoSfxType.BuyoMove, entries[BuyoSfxType.BuyoMove]);
-            Set(BuyoSfxType.BuyoRotate, entries[BuyoSfxType.BuyoRotate]);
-            Set(BuyoSfxType.BuyoHit, entries[BuyoSfxType.BuyoHit]);
-            Set(BuyoSfxType.BuyoDelete, entries[BuyoSfxType.BuyoDelete]);
+            Set(BuyoSfxType.Move, entries[BuyoSfxType.Move]);
+            Set(BuyoSfxType.Rotate, entries[BuyoSfxType.Rotate]);
+            Set(BuyoSfxType.Hit, entries[BuyoSfxType.Hit]);
+            Set(BuyoSfxType.Delete, entries[BuyoSfxType.Delete]);
+            Set(BuyoSfxType.Hold, entries[BuyoSfxType.Hold]);
         }
     }
 }

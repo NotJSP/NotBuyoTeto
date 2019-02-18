@@ -1,19 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace NotBuyoTeto.Ingame.Tetrin {
+namespace NotBuyoTeto.Ingame.Buyobuyo {
     [RequireComponent(typeof(Animator))]
-    public class HoldMinoView : MonoBehaviour {
+    public class HoldBuyoView : MonoBehaviour {
         [SerializeField]
-        private TetoSfxManager sfxManager;
+        private BuyoSfxManager sfxManager;
         [SerializeField]
-        private MinoFrame frame;
+        private BuyoFrame frame;
 
         private Animator animator;
 
         protected void Reset() {
-            frame = GetComponentInChildren<MinoFrame>();
+            frame = GetComponentInChildren<BuyoFrame>();
         }
 
         protected void Awake() {
@@ -24,9 +25,9 @@ namespace NotBuyoTeto.Ingame.Tetrin {
             frame.Clear();
         }
 
-        public void Set(MinoType type) {
-            frame.Set(type);
-            sfxManager.Play(TetoSfxType.Hold);
+        public void Set(Tuple<BuyoType, BuyoType> types) {
+            frame.Set(types);
+            sfxManager.Play(BuyoSfxType.Hold);
             animator.Play(@"HoldAnimation", 0, 0.0f);
         }
     }

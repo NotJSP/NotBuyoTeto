@@ -52,7 +52,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
         }
 
         private void updateView() {
-            GetComponentInChildren<Text>().text = RoomName;
+            GetComponentInChildren<Text>().text = IdentificationNameUtility.ParseName(RoomName);
         }
     }
 }

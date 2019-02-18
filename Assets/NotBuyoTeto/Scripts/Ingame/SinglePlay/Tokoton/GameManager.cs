@@ -107,9 +107,8 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
 
         private void onDeleteBuyo(object sender, DeleteBuyoInfo info) {
             levelManager.DeleteCountUp();
-            int combo = info.ComboCount;
             int level = levelManager.Value;
-            gameObject.GetComponent<BuyoDeleteScoring>().buyoDeleteScoring(combo,level);
+            gameObject.GetComponent<BuyoDeleteScoring>().buyoDeleteScoring(level, info);
         }
     }
 }

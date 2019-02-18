@@ -1,33 +1,22 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NotBuyoTeto.Ingame.Buyobuyo;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle.BuyoBuyo {
-    [RequireComponent(typeof(PhotonView))]
+    [RequireComponent(typeof(PhotonView), typeof(BuyoFrame))]
     public class BuyoFrameView : MonoBehaviour {
-        [SerializeField]
-        public PhotonView photonView;
-        [SerializeField]
-        private BuyoResolver resolver;
-        [SerializeField]
-        private SpriteRenderer[] containers = new SpriteRenderer[2];
+        private BuyoFrame frame;
 
-        private void Reset() {
-            this.photonView = GetComponent<PhotonView>();
-
-            var containers = GetComponentsInChildren<SpriteRenderer>();
-            this.containers[0] = containers[0];
-            this.containers[1] = containers[1];
+        private void Awake() {
+            this.frame = GetComponent<BuyoFrame>();
         }
 
         [PunRPC]
-        public virtual void Set(BuyoType[] types) {
-            for (int i = 0; i < types.Length; i++) {
-                var buyo = resolver.Get(types[i]);
-                var buyoRenderer = buyo.GetComponent<SpriteRenderer>();
-                containers[i].sprite = buyoRenderer.sprite;
-            }
+        public virtual void Set(BuyoType type1, BuyoType type2) {
+            var types = new Tuple<BuyoType, BuyoType>(type1, type2);
+            frame.Set(types);
         }
     }
 }

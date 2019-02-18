@@ -8,18 +8,21 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         public E BuyoRotate;
         public E BuyoHit;
         public E BuyoDelete;
+        public E BuyoHold;
 
         public E this[BuyoSfxType type] { 
             get {
                 switch (type) {
-                    case BuyoSfxType.BuyoMove:
+                    case BuyoSfxType.Move:
                         return BuyoMove;
-                    case BuyoSfxType.BuyoRotate:
+                    case BuyoSfxType.Rotate:
                         return BuyoRotate;
-                    case BuyoSfxType.BuyoHit:
+                    case BuyoSfxType.Hit:
                         return BuyoHit;
-                    case BuyoSfxType.BuyoDelete:
+                    case BuyoSfxType.Delete:
                         return BuyoDelete;
+                    case BuyoSfxType.Hold:
+                        return BuyoHold;
                 }
                 throw new ArgumentOutOfRangeException("Invalid type was specified.");
             }

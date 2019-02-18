@@ -1,13 +1,10 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace NotBuyoTeto.Ingame {
+namespace NotBuyoTeto.Ingame.UI {
     [RequireComponent(typeof(Button))]
     public class HighlightButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
         [SerializeField]

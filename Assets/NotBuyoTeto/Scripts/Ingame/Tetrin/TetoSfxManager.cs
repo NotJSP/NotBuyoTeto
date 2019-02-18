@@ -14,11 +14,11 @@ namespace NotBuyoTeto.Ingame.Tetrin {
         private TetoSfxAudioEntryHolder entries;
 
         private void Awake() {
-            Set(TetoSfxType.MinoMove, entries[TetoSfxType.MinoMove]);
-            Set(TetoSfxType.MinoRotate, entries[TetoSfxType.MinoRotate]);
-            Set(TetoSfxType.MinoHold, entries[TetoSfxType.MinoHold]);
-            Set(TetoSfxType.MinoHit, entries[TetoSfxType.MinoHit]);
-            Set(TetoSfxType.MinoDelete, entries[TetoSfxType.MinoDelete]);
+            Set(TetoSfxType.Move, entries[TetoSfxType.Move]);
+            Set(TetoSfxType.Rotate, entries[TetoSfxType.Rotate]);
+            Set(TetoSfxType.Hold, entries[TetoSfxType.Hold]);
+            Set(TetoSfxType.Hit, entries[TetoSfxType.Hit]);
+            Set(TetoSfxType.Delete, entries[TetoSfxType.Delete]);
         }
     }
 }

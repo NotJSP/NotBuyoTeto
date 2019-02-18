@@ -76,3 +76,9 @@ MonoBehaviour:
       parameter:
         Volume: 1
         Pitch: 1
+    BuyoHold:
+      channel: 0
+      clip: {fileID: 8300000, guid: fda883631f8d32445a4ce65aa0274d48, type: 3}
+      parameter:
+        Volume: 1
+        Pitch: 1

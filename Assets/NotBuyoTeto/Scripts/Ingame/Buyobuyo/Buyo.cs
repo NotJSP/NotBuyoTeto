@@ -30,7 +30,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
                 DestroyChain(null);
                 var tuple = new Tuple<Vector2, int>(transform.position, chainCount);
                 DeleteBuyo?.Invoke(this, tuple);
-                sfxManager.Play(BuyoSfxType.BuyoDelete);
+                sfxManager.Play(BuyoSfxType.Delete);
             }
             if (view.IsGlow && chainCount < 3) {
                 view.HideGlow();

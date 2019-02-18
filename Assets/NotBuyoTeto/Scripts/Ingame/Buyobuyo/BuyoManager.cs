@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NotBuyoTeto.Utility;
-using NotBuyoTeto.Ingame.SinglePlay.Tokoton;
 
 namespace NotBuyoTeto.Ingame.Buyobuyo {
     public class BuyoManager : MonoBehaviour {
@@ -64,8 +63,9 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             Destroy(controller);
         }
 
-        public void Destroy() {
+        public void DestroyCurrentObject() {
             controlable = false;
+
             if (CurrentBuyo != null) {
                 instantiator.Destroy(CurrentBuyo);
                 buyos.RemoveAt(buyos.Count - 1);
@@ -73,7 +73,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             }
         }
 
-        private void set(BuyoType[] types) {
+        private void set(Tuple<BuyoType, BuyoType> types) {
             // 位置取得
             var position = perspective.Field.Ceiling.transform.position;
             position.y += 0.75f;
@@ -83,8 +83,8 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
             parent.AddComponent<Parent>().Initialize(sfxManager, controlSettings, fallSpeed);
 
             // 子オブジェクト(ぶよ)作成
-            var obj0 = spawner.Spawn(types[0], position, 0);
-            var obj1 = spawner.Spawn(types[1], position, 1);
+            var obj0 = spawner.Spawn(types.Item1, position, 0);
+            var obj1 = spawner.Spawn(types.Item2, position, 1);
 
             // オブジェクトリストに追加
             Add(obj0);

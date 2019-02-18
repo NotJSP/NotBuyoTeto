@@ -4,30 +4,23 @@ using UnityEngine;
 using NotBuyoTeto.Ingame.Tetrin;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
-    [RequireComponent(typeof(PhotonView))]
+    [RequireComponent(typeof(PhotonView), typeof(MinoFrame))]
     public class MinoFrameView : MonoBehaviour {
         [SerializeField]
-        public PhotonView photonView;
-        [SerializeField]
-        private MinoResolver resolver;
-        [SerializeField]
-        private SpriteRenderer container;
+        private MinoFrame frame;
 
-        private void Reset() {
-            this.photonView = GetComponent<PhotonView>();
-            this.container = GetComponentInChildren<SpriteRenderer>();
+        private void Awake() {
+            frame = GetComponent<MinoFrame>();
         }
 
         [PunRPC]
         public void Clear() {
-            container.sprite = null;
+            frame.Clear();
         }
 
         [PunRPC]
         public void Set(MinoType type) {
-            var mino = resolver.Get(type);
-            var minoRenderer = mino.GetComponent<SpriteRenderer>();
-            container.sprite = minoRenderer.sprite;
+            frame.Set(type);
         }
     }
 }
