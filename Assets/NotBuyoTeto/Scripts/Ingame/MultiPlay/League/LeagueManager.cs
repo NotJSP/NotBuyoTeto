@@ -70,12 +70,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.League {
         public void OnCancel() {
             Debug.Log(@"LeagueManager::OnCancel");
 
-            if (PhotonNetwork.inRoom) {
-                PhotonNetwork.LeaveRoom();
-            }
-            if (PhotonNetwork.connectionStateDetailed == ClientState.Authenticating || PhotonNetwork.connectionStateDetailed == ClientState.ConnectingToGameserver) { 
-                PhotonNetwork.LeaveLobby();
-            }
+            PhotonNetwork.LeaveLobby();
+            PhotonNetwork.lobby = null;
 
             backButton.Inactive();
             OutMenu(() => {

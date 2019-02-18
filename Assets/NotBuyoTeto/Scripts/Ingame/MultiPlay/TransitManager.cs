@@ -30,18 +30,18 @@ namespace NotBuyoTeto.Ingame.MultiPlay {
                 Debug.Log("PhotonNetwork.inRoom");
                 backButton.Inactive();
                 waitingManager.gameObject.SetActive(true);
-                waitingManager.InMenu();
+                waitingManager.InMenu(() => backButton.Active());
                 return;
             }
 
-            if (PhotonNetwork.lobby.Equals(LobbyManager.LeagueLobby)) {
+            if (LobbyManager.LeagueLobby.Equals(PhotonNetwork.lobby)) {
                 backButton.Inactive();
                 leagueManager.gameObject.SetActive(true);
                 leagueManager.InMenu(() => backButton.Active());
                 return;
             }
 
-            if (PhotonNetwork.lobby.Equals(LobbyManager.ClubLobby)) {
+            if (LobbyManager.ClubLobby.Equals(PhotonNetwork.lobby)) {
                 backButton.Inactive();
                 clubManager.gameObject.SetActive(true);
                 clubManager.InMenu(() => backButton.Active());

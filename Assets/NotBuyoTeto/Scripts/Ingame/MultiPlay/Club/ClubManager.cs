@@ -82,12 +82,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
         public void OnCancel() {
             Debug.Log("ClubManager::OnCancel");
 
-            if (PhotonNetwork.inRoom) {
-                PhotonNetwork.LeaveRoom();
-            }
-            if (PhotonNetwork.connectionStateDetailed == ClientState.Authenticating || PhotonNetwork.connectionStateDetailed == ClientState.ConnectingToGameserver) {
-                PhotonNetwork.LeaveLobby();
-            }
+            PhotonNetwork.LeaveLobby();
+            PhotonNetwork.lobby = null;
 
             backButton.Inactive();
             OutMenu(() => {
