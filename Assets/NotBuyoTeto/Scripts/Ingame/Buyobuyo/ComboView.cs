@@ -10,7 +10,7 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         [SerializeField]
         public GameObject[] numberSprites = new GameObject[10];
 
-        public void Show(Vector2 position, int value) {
+        public virtual void Show(Vector2 position, int value) {
             GameObject comboText = new GameObject("comboText");
             comboText.transform.position = position;
             GameObject combo = Instantiate(comboSprite) as GameObject;

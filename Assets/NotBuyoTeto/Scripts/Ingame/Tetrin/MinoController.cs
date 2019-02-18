@@ -43,7 +43,7 @@ namespace NotBuyoTeto.Ingame.Tetrin {
 
             var horizontal = Input.GetAxis(@"Horizontal");
             if (prevHorizontal <= 0 && horizontal > 0 || prevHorizontal >= 0 && horizontal < 0) {
-                sfxManager.Play(TetoSfxType.MinoMove);
+                sfxManager.Play(TetoSfxType.Move);
             }
             if (horizontal < 0) {
                 velocity.x -= settings.HorizontalVelocity * Time.deltaTime;
@@ -75,7 +75,7 @@ namespace NotBuyoTeto.Ingame.Tetrin {
             }
 
             if (Input.GetButtonDown(@"Rotate Left") || Input.GetButtonDown(@"Rotate Right")) {
-                sfxManager.Play(TetoSfxType.MinoRotate);
+                sfxManager.Play(TetoSfxType.Rotate);
             }
             if (Input.GetButton(@"Rotate Left")) {
                 torque += settings.AngularVelocity * Time.deltaTime;
@@ -98,7 +98,7 @@ namespace NotBuyoTeto.Ingame.Tetrin {
             if (other.collider.CompareTag(@"Wall")) { return; }
 
             hit = true;
-            sfxManager.Play(TetoSfxType.MinoHit);
+            sfxManager.Play(TetoSfxType.Hit);
 
 //            dropEffect.Stop();
 //            Destroy(dropEffect.gameObject, 1.0f);

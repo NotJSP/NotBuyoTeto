@@ -32,8 +32,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
         public GameMode PlayerMode { get; private set; }
         public GameMode OpponentMode { get; private set; }
 
-        private Director director;
         private PhotonView photonView;
+        private Director director;
         private double gameOverTime = 0.0;
         private bool isReady = false;
         private bool isReadyOpponent = false;
@@ -49,8 +49,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
         }
 
         protected override void OnSceneReady(object sender, EventArgs args) {
-            this.PlayerMode = (GameMode)PhotonNetwork.player.CustomProperties["gamemode"];
-            this.OpponentMode = (GameMode)PhotonNetwork.otherPlayers[0].CustomProperties["gamemode"];
+            this.PlayerMode = (GameMode)PhotonNetwork.player.CustomProperties["mode"];
+            this.OpponentMode = (GameMode)PhotonNetwork.otherPlayers[0].CustomProperties["mode"];
 
             perspectives.Activate(PlayerSide.Player, PlayerMode);
             perspectives.Activate(PlayerSide.Opponent, OpponentMode);
@@ -82,13 +82,21 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
             quit = true;
             StopAllCoroutines();
 
+            if (PhotonNetwork.inRoom) {
+//                var matchingType = (MatchingType)PhotonNetwork.room.CustomProperties["type"];
+                PhotonNetwork.LeaveRoom();
+            }
+            
             // タイトルに戻る場合はネットワークを切断
-            // if (scene == SceneName.Title) {
-            //    if (PhotonNetwork.connected) { PhotonNetwork.Disconnect(); }
-            // }
-            if (PhotonNetwork.connected) { PhotonNetwork.Disconnect(); }
+            if (scene == SceneName.Title) {
+                if (PhotonNetwork.connected) { PhotonNetwork.Disconnect(); }
+            }
 
-            SceneController.Instance.LoadScene(scene, 0.7f);
+            SceneController.Instance.LoadScene(scene, SceneTransition.Duration);
+        }
+
+        private void OnLeftLobby() {
+            Debug.Log("GameManager::OnLeftLobby");
         }
 
         private IEnumerator updateAndSendPing() {

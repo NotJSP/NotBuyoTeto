@@ -6,13 +6,15 @@ using UnityEngine.UI;
 using Photon;
 using NotBuyoTeto.SceneManagement;
 using NotBuyoTeto.Ingame.MultiPlay.Menu;
+using NotBuyoTeto.Ingame.MultiPlay.Waiting;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.League {
     public class LeagueManager : PunBehaviour {
-        public static readonly TypedLobby Lobby = new TypedLobby("LeagueLobby", LobbyType.Default);
-
         [SerializeField]
         private MenuManager menuManager;
+        [SerializeField]
+        private WaitingManager waitingManager;
         [SerializeField]
         private BackButton backButton;
 
@@ -25,17 +27,17 @@ namespace NotBuyoTeto.Ingame.MultiPlay.League {
 
         private AnimationTransitEntry transit;
 
-        private bool joinedLobby = false;
-
         private void Awake() {
             transit = new AnimationTransitEntry(mainPanel, "Open Window", "Close Window");
         }
 
         private void OnEnable() {
+            mainPanel.SetActive(true);
             backButton.OnPressed += back;
         }
 
         private void OnDisable() {
+            mainPanel?.SetActive(false);
             backButton.OnPressed -= back;
         }
 
@@ -49,6 +51,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.League {
 
         public void InMenu(Action afterAction = null) {
             StartCoroutine(AnimationTransit.In(transit, afterAction));
+            OnStart();
         }
 
         public void OutMenu(Action afterAction = null) {
@@ -56,6 +59,20 @@ namespace NotBuyoTeto.Ingame.MultiPlay.League {
         }
 
         private void back(object sender, EventArgs args) {
+            OnCancel();
+        }
+
+        public void OnStart() {
+            Debug.Log(@"LeagueManager::OnStart");
+            PhotonNetwork.JoinLobby(LobbyManager.LeagueLobby);
+        }
+
+        public void OnCancel() {
+            Debug.Log(@"LeagueManager::OnCancel");
+
+            PhotonNetwork.LeaveLobby();
+            PhotonNetwork.lobby = null;
+
             backButton.Inactive();
             OutMenu(() => {
                 menuManager.gameObject.SetActive(true);
@@ -64,30 +81,29 @@ namespace NotBuyoTeto.Ingame.MultiPlay.League {
             });
         }
 
-        public void OnStart() {
-            Debug.Log(@"LeagueManager::OnStart");
-            PhotonNetwork.JoinLobby(Lobby);
-        }
-
-        public void OnCancel() {
-            Debug.Log(@"LeagueManager::OnCancel");
-            if (PhotonNetwork.inRoom) {
-                PhotonNetwork.LeaveRoom();
-            }
-            if (PhotonNetwork.connectionStateDetailed == ClientState.Authenticating || PhotonNetwork.connectionStateDetailed == ClientState.ConnectingToGameserver) { 
-                PhotonNetwork.LeaveLobby();
-            }
-            joinedLobby = false;
-        }
-
         public override void OnJoinedLobby() {
-            // Photonのバグ?でOnJoinedLobbyのコールバックが多重登録されるので対策
-            if (!joinedLobby) {
-                Debug.Log("LeagueManager::OnJoinedLobby");
-                statusLabel.text = $"あなた: {PhotonNetwork.playerName}";
-                PhotonNetwork.JoinRandomRoom();
-                joinedLobby = true;
+            Debug.Log("LeagueManager::OnJoinedLobby");
+            statusLabel.text = $"あなた: {PhotonNetwork.playerName}";
+            PhotonNetwork.JoinRandomRoom();
+        }
+
+        public override void OnJoinedRoom() {
+            if (PhotonNetwork.otherPlayers.Length != 0) {
+                onMatchingSucceeded();
             }
+        }
+
+        public override void OnPhotonPlayerConnected(PhotonPlayer player) {
+            onMatchingSucceeded();
+        }
+
+        private void onMatchingSucceeded() {
+            backButton.Inactive();
+            StartCoroutine(AnimationTransit.Out(transit, () => {
+                waitingManager.gameObject.SetActive(true);
+                waitingManager.InMenu();
+                gameObject.SetActive(false);
+            }));
         }
 
         public override void OnLeftRoom() {
@@ -100,8 +116,20 @@ namespace NotBuyoTeto.Ingame.MultiPlay.League {
 
         public override void OnPhotonRandomJoinFailed(object[] codeAndMsg) {
             Debug.Log("LeagueManager::OnPhotonRandomJoinFailed");
-            var options = new RoomOptions { MaxPlayers = 2 };
-            PhotonNetwork.CreateRoom("", options, Lobby);
+
+            var properties = new Hashtable();
+            properties["wins"] = 2;         // Win数
+            properties["speed"] = 1.0f;     // 落下速度
+            properties["type"] = MatchingType.League;   // マッチングの種類
+
+            var options = new RoomOptions {
+                IsOpen = true,
+                IsVisible = true,
+                MaxPlayers = 2,
+                CustomRoomProperties = properties,
+                CustomRoomPropertiesForLobby = new string[] { "wins", "speed", "type" },
+            };
+            PhotonNetwork.CreateRoom("", options, LobbyManager.LeagueLobby);
         }
 
         public override void OnCreatedRoom() {

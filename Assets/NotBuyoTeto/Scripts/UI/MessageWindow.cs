@@ -1,16 +1,15 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace NotBuyoTeto.UI {
     [RequireComponent(typeof(Animator))]
     public class MessageWindow : MonoBehaviour {
-        [SerializeField] Text messageText;
-        [SerializeField] Text statusText;
+        [SerializeField]
+        private Text messageText;
+        [SerializeField]
+        private Text statusText;
 
         public string Message {
             get {
@@ -38,11 +37,11 @@ namespace NotBuyoTeto.UI {
 
         public void Show() {
             enableObject();
-            animator.Play(@"OpenWindow", 0);
+            animator.Play(@"In", 0);
         }
 
         public void Hide() {
-            animator.Play(@"CloseWindow", 0);
+            animator.Play(@"Out", 0);
             var state = animator.GetCurrentAnimatorStateInfo(0);
             Invoke(@"disableObject", state.length);
         }

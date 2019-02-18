@@ -9,16 +9,10 @@ using NotBuyoTeto.Ingame.MultiPlay.Waiting;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Club {
     public class ClubManager : PunBehaviour {
-        private enum State {
-            Menu,
-            CreateRoom,
-        }
-        private State state;
-
-        public static readonly TypedLobby Lobby = new TypedLobby("ClubLobby", LobbyType.Default);
-
         [SerializeField]
         private MenuManager menuManager;
+        [SerializeField]
+        private WaitingManager waitingManager;
         [SerializeField]
         private BackButton backButton;
 
@@ -26,12 +20,16 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
         private GameObject mainPanel;
         [SerializeField]
         private RoomManager roomManager;
-        [SerializeField]
-        private WaitingManager waitingManager;
+
+        private enum State {
+            Menu,
+            CreateRoom,
+        }
+        private State state;
+        private bool guest = false;
 
         private AnimationTransitEntry transit;
         private AnimationTransitEntry createRoomTransit;
-        private bool guest = false;
 
         private void Awake() {
             this.transit = new AnimationTransitEntry(mainPanel, "In Menu", "Out Menu");
@@ -39,10 +37,12 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
         }
 
         private void OnEnable() {
+            mainPanel.SetActive(true);
             backButton.OnPressed += back;
         }
 
         private void OnDisable() {
+            mainPanel?.SetActive(false);
             backButton.OnPressed -= back;
         }
 
@@ -64,7 +64,9 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
         }
 
         public void InMenu(Action afterAction = null) {
+            state = State.Menu;
             StartCoroutine(AnimationTransit.In(transit, afterAction));
+            OnStart();
         }
 
         public void OutMenu(Action afterAction = null) {
@@ -73,19 +75,15 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
 
         public void OnStart() {
             Debug.Log("ClubManager::OnStart");
-            PhotonNetwork.JoinLobby(Lobby);
+            if (!PhotonNetwork.insideLobby) { PhotonNetwork.JoinLobby(LobbyManager.ClubLobby); }
             roomManager.Fetch();
         }
 
         public void OnCancel() {
             Debug.Log("ClubManager::OnCancel");
 
-            if (PhotonNetwork.inRoom) {
-                PhotonNetwork.LeaveRoom();
-            }
-            if (PhotonNetwork.connectionStateDetailed == ClientState.Authenticating || PhotonNetwork.connectionStateDetailed == ClientState.ConnectingToGameserver) {
-                PhotonNetwork.LeaveLobby();
-            }
+            PhotonNetwork.LeaveLobby();
+            PhotonNetwork.lobby = null;
 
             backButton.Inactive();
             OutMenu(() => {
@@ -126,15 +124,13 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
                 WinsCount = 2,
                 FallSpeed = 1.5f,
             };
-            roomManager.CreateRoom(PhotonNetwork.playerName, settings);
+            var name = IdentificationNameUtility.Create(PhotonNetwork.playerName, PhotonNetwork.AuthValues.UserId);
+            roomManager.CreateRoom(name, settings);
 
             backButton.Inactive();
-            waitingManager.gameObject.SetActive(true);
             StartCoroutine(AnimationTransit.Out(createRoomTransit, () => {
-                // TODO:
-                var record = new FightRecord(0, 0);
-                var player = new WaitingPlayer(PhotonNetwork.playerName, record, 1000);
-                waitingManager.StartByHost(player, () => backButton.Active());
+                waitingManager.gameObject.SetActive(true);
+                waitingManager.InMenu(() => backButton.Active());
                 gameObject.SetActive(false);
             }));
         }
@@ -148,22 +144,11 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
             if (!guest) { return; }
 
             backButton.Inactive();
-            waitingManager.gameObject.SetActive(true);
-
-            StartCoroutine(AnimationTransit.Out(transit, () => {
-                // TODO:
-                var playerName = PhotonNetwork.playerName;
-                var playerFightRecord = new FightRecord(0, 0);
-                var player = new WaitingPlayer(playerName, playerFightRecord, 1000);
-
-                var otherPlayer = PhotonNetwork.otherPlayers[0];
-                var opponentName = otherPlayer.NickName;
-                var opponentFightRecord = new FightRecord(0, 0);
-                var opponent = new WaitingPlayer(opponentName, opponentFightRecord, 1000);
-
-                waitingManager.StartByGuest(player, opponent, () => backButton.Active());
+            OutMenu(() => {
+                waitingManager.gameObject.SetActive(true);
+                waitingManager.InMenu(() => backButton.Active());
                 gameObject.SetActive(false);
-            }));
+            });
         }
     }
 }

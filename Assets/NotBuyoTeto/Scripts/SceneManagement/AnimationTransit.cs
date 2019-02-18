@@ -12,6 +12,9 @@ namespace NotBuyoTeto.SceneManagement {
         public AnimationTransitEntry(GameObject obj, string inState, string outState) {
             this.Object = obj;
             this.Animator = obj.GetComponent<Animator>();
+            if (Animator == null) {
+                Debug.LogError($"GameObject({obj.name})にAnimatorが設定されていません。");
+            }
             this.InState = inState;
             this.OutState = outState;
         }

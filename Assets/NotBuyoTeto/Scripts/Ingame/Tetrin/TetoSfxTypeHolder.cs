@@ -13,15 +13,15 @@ namespace NotBuyoTeto.Ingame.Tetrin {
         public E this[TetoSfxType type] { 
             get {
                 switch (type) {
-                    case TetoSfxType.MinoMove:
+                    case TetoSfxType.Move:
                         return MinoMove;
-                    case TetoSfxType.MinoRotate:
+                    case TetoSfxType.Rotate:
                         return MinoRotate;
-                    case TetoSfxType.MinoHit:
+                    case TetoSfxType.Hit:
                         return MinoHit;
-                    case TetoSfxType.MinoHold:
+                    case TetoSfxType.Hold:
                         return MinoHold;
-                    case TetoSfxType.MinoDelete:
+                    case TetoSfxType.Delete:
                         return MinoDelete;
                 }
                 throw new ArgumentOutOfRangeException("Invalid type was specified.");

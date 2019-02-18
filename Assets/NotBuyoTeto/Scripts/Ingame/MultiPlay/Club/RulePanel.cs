@@ -29,7 +29,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
                 return;
             }
 
-            opponentName.text = entry.RoomName;
+            opponentName.text = IdentificationNameUtility.ParseName(entry.RoomName);
             winsCount.text = $"{entry.Settings.WinsCount}";
             fallSpeed.text = $"{entry.Settings.FallSpeed} m/s";
         }

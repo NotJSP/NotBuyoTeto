@@ -13,9 +13,9 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.BuyoBuyo {
         [SerializeField]
         private Transform ceiling;
 
-        private static float OffsetRange = 1.0f;
-        private static float TorqueRange = 120.0f;
-        private static Vector2 ForceGarbage = new Vector2(0, -80.0f);
+        private static float OffsetRange = 1.5f;
+        private static float TorqueRange = 60.0f;
+        private static Vector2 ForceGarbage = new Vector2(0, -10.0f);
 
         public override void Clear() {
         }

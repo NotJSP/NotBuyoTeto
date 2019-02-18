@@ -54,28 +54,33 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
             fadeTime += Time.fixedDeltaTime;
         }
 
-        public void OnPointerEnter(PointerEventData data) {
-            if (!button.interactable) { return; }
-            panel.SelectMode(gameMode);
+        public void Select() {
             pairButton.Unselect();
             fadeTo(selectedColor);
         }
 
         public void Unselect() {
-            fromColor = button.image.color;
             fadeTo(normalColor);
         }
 
-        public void OnPressedButton() {
-            panel.DecideMode(gameMode);
-            button.interactable = false;
+        public void Decide() {
             pairButton.Deactivate();
+            button.interactable = false;
             fadeTo(decidedColor);
         }
 
         public void Deactivate() {
             button.interactable = false;
             fadeTo(disabledColor);
+        }
+
+        public void OnPointerEnter(PointerEventData data) {
+            if (!button.interactable) { return; }
+            panel.SelectMode(gameMode);
+        }
+
+        public void OnPressedButton() {
+            panel.DecideMode();
         }
 
         private void fadeTo(Color toColor) {

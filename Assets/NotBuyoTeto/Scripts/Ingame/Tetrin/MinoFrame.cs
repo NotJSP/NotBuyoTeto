@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using NotBuyoTeto.Utility;
 
 namespace NotBuyoTeto.Ingame.Tetrin {
     public class MinoFrame : MonoBehaviour {
