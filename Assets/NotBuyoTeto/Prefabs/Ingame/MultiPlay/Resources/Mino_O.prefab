@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 60162295236730270}
   - component: {fileID: 114335048996326402}
   - component: {fileID: 114941542680650720}
-  - component: {fileID: 114677040832717570}
+  - component: {fileID: 114423202889242342}
   m_Layer: 0
   m_Name: Mino_O
   m_TagString: Mino
@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
---- !u!114 &114677040832717570
+--- !u!114 &114423202889242342
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,7 +116,7 @@ MonoBehaviour:
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 114677040832717570}
+  - {fileID: 114423202889242342}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1

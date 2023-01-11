@@ -17,6 +17,8 @@ namespace NotBuyoTeto.Ingame.Title {
 
             if (PlayerPrefs.HasKey(PlayerPrefsKey.PlayerName)) {
                 nameField.text = PlayerPrefs.GetString(PlayerPrefsKey.PlayerName);
+            } else {
+                PlayerPrefs.SetString(PlayerPrefsKey.PlayerName, "プレイヤー");
             }
             nameField.onValueChanged.AddListener(onNameFieldTextChanged);
         }

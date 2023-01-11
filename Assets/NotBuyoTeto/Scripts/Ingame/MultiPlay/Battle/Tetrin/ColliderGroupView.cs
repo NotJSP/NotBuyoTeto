@@ -6,9 +6,6 @@ using NotBuyoTeto.Utility;
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
     [RequireComponent(typeof(Renderer))]
     public class ColliderGroupView : MonoBehaviour {
-        [SerializeField]
-        private Vector3 offset;
-
         private new Renderer renderer;
         private Renderer Renderer {
             get {
@@ -17,11 +14,6 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
                 }
                 return renderer;
             }
-        }
-
-        private void Start() {
-            var parent = GameObject.Find(@"Perspectives/Opponent Side/Teto Perspective/Collider Field").transform;
-            transform.SetParent(parent);
         }
 
         private bool firstRead = true;
@@ -44,10 +36,10 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
         }
 
         private void serializeFirst(PhotonStream stream, PhotonMessageInfo info) {
+            stream.SendNext(transform.localPosition);
             stream.SendNext(transform.localScale);
             firstWrite = false;
         }
-
 
         private void deserialize(PhotonStream stream, PhotonMessageInfo info) {
             if (firstRead) {
@@ -58,6 +50,10 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
         }
 
         private void deserializeFirst(PhotonStream stream, PhotonMessageInfo info) {
+            var parent = GameObject.Find(@"Perspectives/Opponent Side/Teto Perspective/Collider Field").transform;
+            transform.SetParent(parent);
+
+            transform.localPosition = (Vector3)stream.ReceiveNext();
             transform.localScale = (Vector3)stream.ReceiveNext();
             firstRead = false;
         }

@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 60173800565803328}
   - component: {fileID: 114748003957819978}
   - component: {fileID: 114630861978953144}
-  - component: {fileID: 114181254522698452}
+  - component: {fileID: 114499672429049356}
   m_Layer: 0
   m_Name: Mino_S
   m_TagString: Mino
@@ -76,7 +76,7 @@ PolygonCollider2D:
       - {x: 0.3, y: 0.02}
       - {x: 0.94, y: 0.02}
       - {x: 0.94, y: 0.62}
---- !u!114 &114181254522698452
+--- !u!114 &114499672429049356
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,7 +108,7 @@ MonoBehaviour:
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 114181254522698452}
+  - {fileID: 114499672429049356}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1

@@ -29,11 +29,17 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
         }
 
         private void serialize(PhotonStream stream, PhotonMessageInfo info) {
+            stream.SendNext(transform.localPosition + offset);
+            stream.SendNext(transform.localScale);
+
             var alpha = renderer.color.a;
             stream.SendNext(alpha);
         }
 
         private void deserialize(PhotonStream stream, PhotonMessageInfo info) {
+            transform.localPosition = (Vector3)stream.ReceiveNext();
+            transform.localScale = (Vector3)stream.ReceiveNext();
+
             var alpha = (float)stream.ReceiveNext();
             color.a = alpha;
             renderer.color = color;

@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 60600816280603876}
   - component: {fileID: 114930150082541186}
   - component: {fileID: 114055467128005026}
-  - component: {fileID: 114148051438056320}
+  - component: {fileID: 114018914613699014}
   m_Layer: 0
   m_Name: Mino_Z
   m_TagString: Mino
@@ -76,6 +76,18 @@ PolygonCollider2D:
       - {x: 0.94, y: -0.02}
       - {x: 0.3, y: -0.02}
       - {x: 0.3, y: 0.62}
+--- !u!114 &114018914613699014
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1583707158192152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c19bc2e28e89cd499067bcc38453010, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 7, y: 0, z: 0}
 --- !u!114 &114055467128005026
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -96,24 +108,12 @@ MonoBehaviour:
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 114148051438056320}
+  - {fileID: 114018914613699014}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
---- !u!114 &114148051438056320
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1583707158192152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c19bc2e28e89cd499067bcc38453010, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offset: {x: 7, y: 0, z: 0}
 --- !u!114 &114930150082541186
 MonoBehaviour:
   m_ObjectHideFlags: 1

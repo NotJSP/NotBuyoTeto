@@ -877,6 +877,10 @@ Prefab:
       propertyPath: m_LocalPosition.y
       value: -0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 1441381631453556, guid: dd64d7cbb418c404fb41b2057d89b5de, type: 2}
+      propertyPath: m_Name
+      value: Collider Field
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114104557750694904, guid: dd64d7cbb418c404fb41b2057d89b5de, type: 2}
     - {fileID: 114702596021302572, guid: dd64d7cbb418c404fb41b2057d89b5de, type: 2}
