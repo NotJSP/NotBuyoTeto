@@ -1,6 +1,6 @@
 ﻿/*******
- Copyright 2017-2018 FUJITSU CLOUD TECHNOLOGIES LIMITED All Rights Reserved.
- 
+ Copyright 2017-2023 FUJITSU CLOUD TECHNOLOGIES LIMITED All Rights Reserved.
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
@@ -41,6 +41,7 @@ using NCMB.Internal;
 using System.Runtime.CompilerServices;
 
 [assembly:InternalsVisibleTo ("Assembly-CSharp-Editor")]
+[assembly:InternalsVisibleTo ("Tests")]
 namespace NCMB.Internal
 {
 	public class NCMBConnection
@@ -177,7 +178,7 @@ namespace NCMB.Internal
 			}
 			return sb.ToString ();
 		}
-			
+
 		// ファイルデータ設定
 		private UnityWebRequest _setUploadHandlerForFile (UnityWebRequest req)
 		{
@@ -185,7 +186,7 @@ namespace NCMB.Internal
 			string boundary = "_NCMBBoundary";
 			string formData = "--" + boundary + newLine;
 			byte[] endBoundary = Encoding.Default.GetBytes (newLine + "--" + boundary + "--");
-			
+
 			formData += "Content-Disposition: form-data; name=\"file\"; filename=" + Uri.EscapeUriString (_file.FileName) + newLine;
 			formData += "Content-Type: " + MimeTypeMap.GetMimeType (System.IO.Path.GetExtension (_file.FileName)) + newLine + newLine;
 			byte[] fileFormData = Encoding.Default.GetBytes (formData);
@@ -194,7 +195,7 @@ namespace NCMB.Internal
 			if (_file.FileData != null) {
 				fileFormData = Enumerable.Concat (fileFormData, _file.FileData).ToArray ();
 			}
-			
+
 			// ACL更新処理
 			if (_file.ACL != null && _file.ACL._toJSONObject ().Count > 0) {
 				string aclString = Json.Serialize (_file.ACL._toJSONObject ());
@@ -361,7 +362,7 @@ namespace NCMB.Internal
 		/// セッショントークン有効稼働かの処理を行う
 		/// </summary>
 		internal void _checkResponseSignature (string code, string responseData, UnityWebRequest req, ref NCMBException error)
-		{		
+		{
 			//レスポンスシグネチャのチェック
 			if (NCMBSettings._responseValidationFlag && req.error == null && error == null && req.GetResponseHeader (RESPONSE_SIGNATURE) != null) {
 				string responseSignature = req.GetResponseHeader (RESPONSE_SIGNATURE).ToString ();
@@ -399,13 +400,13 @@ namespace NCMB.Internal
 			while (!req.isDone) {
 				//elapsedTime += Time.deltaTime;
 				elapsedTime += waitTime;
-				if (elapsedTime >= REQUEST_TIME_OUT) { 
+				if (elapsedTime >= REQUEST_TIME_OUT) {
 					req.Abort ();
 					error = new NCMBException ();
 					break;
 				}
 				//yield return new WaitForEndOfFrame ();
-				yield return new WaitForSeconds (waitTime);
+				yield return new WaitForSecondsRealtime (waitTime);
 			}
 
 			// 通信結果判定
@@ -413,11 +414,15 @@ namespace NCMB.Internal
 				// タイムアウト
 				error.ErrorCode = "408";
 				error.ErrorMessage = "Request Timeout.";
+			#if UNITY_2020_2_OR_NEWER
+			} else if (req.result == UnityWebRequest.Result.ConnectionError) {
+			#else
 				#if UNITY_2017_1_OR_NEWER
 			} else if (req.isNetworkError) {
-				#else 
+				#else
 			} else if (req.isError) {
 				#endif
+			#endif
 				// 通信エラー
 				error = new NCMBException ();
 				error.ErrorCode = req.responseCode.ToString ();
@@ -439,7 +444,7 @@ namespace NCMB.Internal
 				connection._checkInvalidSessionToken (error.ErrorCode);
 			}
 
-			// check response signature 
+			// check response signature
 			if (callback != null && !(callback is NCMBExecuteScriptCallback)) {
 				// スクリプト機能はレスポンスシグネチャ検証外
 				responseCode = req.responseCode.ToString ();
@@ -460,6 +465,8 @@ namespace NCMB.Internal
 					((HttpClientFileDataCallback)callback) ((int)req.responseCode, byteData, error);
 				}
 			}
+
+			req.Dispose();
 
 		}
 	}

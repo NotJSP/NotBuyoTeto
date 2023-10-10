@@ -2,14 +2,14 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using Photon;
+using Photon.Pun;
 using NotBuyoTeto.SceneManagement;
 using NotBuyoTeto.Constants;
 using NotBuyoTeto.Ingame.MultiPlay.League;
 using NotBuyoTeto.Ingame.MultiPlay.Club;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Menu {
-    public class MenuManager : PunBehaviour {
+    public class MenuManager : MonoBehaviourPunCallbacks {
         [SerializeField]
         private BackButton backButton;
 
@@ -22,21 +22,23 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Menu {
         private GameObject mainPanel;
         private AnimationTransitEntry menuTransit;
 
-        private void Awake() {
+        public void Awake() {
             this.menuTransit = new AnimationTransitEntry(mainPanel, "Menu In", "Menu Out");
         }
 
-        private void OnEnable() {
+        public override void OnEnable() {
+            base.OnEnable();
             mainPanel.SetActive(true);
             backButton.OnPressed += back;
         }
 
-        private void OnDisable() {
-            mainPanel?.SetActive(false);
+        public override void OnDisable() {
+            base.OnDisable();
+//            mainPanel?.SetActive(false);
             backButton.OnPressed -= back;
         }
 
-        private void Update() {
+        public void Update() {
             if (AnimationTransit.IsAnimating) { return; }
 
             if (backButton.IsActive && Input.GetKeyDown(KeyCode.Escape)) {
@@ -53,7 +55,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Menu {
         }
 
         public void back(object sender, EventArgs args) {
-            if (PhotonNetwork.connected) {
+            if (PhotonNetwork.IsConnected) {
                 PhotonNetwork.Disconnect();
             }
             SceneController.Instance.LoadScene(SceneName.Title, SceneTransition.Duration);

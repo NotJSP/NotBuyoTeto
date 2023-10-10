@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using Photon;
+using Photon.Pun;
+using Photon.Realtime;
 using ExitGames.Client.Photon;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Club {
-    public class RoomManager : PunBehaviour {
+    public class RoomManager : MonoBehaviourPunCallbacks {
         [SerializeField]
         private ClubManager clubManager;
         [SerializeField]
@@ -19,11 +20,13 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
 
         private List<RoomEntry> instancedRoomEntries = new List<RoomEntry>();
 
-        private void OnEnable() {
+        public override void OnEnable() {
+            base.OnEnable();
             rulePanel.Clear();
         }
 
-        private void OnDisable() {
+        public override void OnDisable() {
+            base.OnDisable();
             removeInstancedRooms();
         }
 
@@ -57,21 +60,23 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
             instancedRoomEntries.Clear();
         }
 
-        public override void OnReceivedRoomListUpdate() {
-            var rooms = PhotonNetwork.GetRoomList();
-            Debug.Log($"RoomManager::OnReceivedRoomListUpdate [room count: {rooms.Length}]");
+        public override void OnRoomListUpdate(List<RoomInfo> roominfos) {
+            Debug.Log($"RoomManager::OnRoomListUpdate [room count: {roominfos.Count}]");
 
             if (instancedRoomEntries.Count >= 0) {
                 removeInstancedRooms();
             }
 
-            foreach (var room in rooms) {
+            foreach (var room in roominfos) {
+                if (room == null) { continue; }
                 if (!room.IsOpen) { continue; }
 
                 var properties = room.CustomProperties;
 
                 var settings = new RoomSettings();
+                if (!properties.ContainsKey("wins")) { continue; }
                 settings.WinsCount = (int)properties["wins"];
+                if (!properties.ContainsKey("speed")) { continue; }
                 settings.FallSpeed = (float)properties["speed"];
 
                 var entry = Instantiate(roomPrefab, container);

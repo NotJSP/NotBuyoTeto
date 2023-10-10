@@ -13,8 +13,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
         [SerializeField]
         private Text ratingField;
 
-        public static string FormatRecord(FightRecord record) {
-            return $"{record.FightCount:0000}戦 {record.WinCount:0000}勝 {record.LoseCount:0000}敗 (勝率: {record.WinRate * 100:00.0}%)";
+        public static string FormatRecord(PlayerStats record) {
+            return $"{record.BattleCount:0000}戦 {record.WinCount:0000}勝 {record.LoseCount:0000}敗 (勝率: {record.WinRate * 100:00.0}%)";
         }
 
         public static string FormatRating(int rating) {
@@ -23,8 +23,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
 
         public void Set(WaitingPlayer player) {
             nameField.text = player.Name;
-            recordField.text = FormatRecord(player.FightRecord);
-            ratingField.text = FormatRating(player.Rating);
+            recordField.text = FormatRecord(player.Stats);
+            ratingField.text = FormatRating(player.Stats.Rating);
         }
     }
 }

@@ -2,15 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon;
+using Photon.Pun;
+using Photon.Realtime;
+using NCMB;
 using NotBuyoTeto.SceneManagement;
 using NotBuyoTeto.Constants;
 using NotBuyoTeto.Ingame.MultiPlay.League;
 using NotBuyoTeto.Ingame.MultiPlay.Club;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using NotBuyoTeto.Utility;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
-    public class WaitingManager : PunBehaviour {
+    public class WaitingManager : MonoBehaviourPunCallbacks {
         [SerializeField]
         private LeagueManager leagueManager;
         [SerializeField]
@@ -49,7 +52,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
             waitingWindowTransition = new AnimationTransitEntry(waitingWindow, "In", "Out");
         }
 
-        private void OnEnable() {
+        public override void OnEnable() {
+            base.OnEnable();
             mainPanel.SetActive(true);
             playerPanel.ModeContainerActivate(false);
 
@@ -59,7 +63,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
             backButton.OnPressed += back;
         }
 
-        private void OnDisable() {
+        public override void OnDisable() {
+            base.OnDisable();
             mainPanel?.SetActive(false);
             backButton.OnPressed -= back;
         }
@@ -72,6 +77,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
             }
         }
 
+        private bool readyToBattle => isInPlayerPanel && isInOpponentPanel;
+
         // 適当
         public IEnumerator OutMenu(Action afterAction = null) {
             if (isInPlayerPanel) { outPlayerPanel(); }
@@ -83,7 +90,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
         }
 
         private void back(object sender, EventArgs args) {
-            if (PhotonNetwork.inRoom) {
+            if (PhotonNetwork.InRoom) {
                 PhotonNetwork.LeaveRoom();
             }
 
@@ -112,25 +119,31 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
         }
 
         public void OnStart() {
-            matchingType = PhotonNetwork.lobby.Equals(LobbyManager.LeagueLobby) ? MatchingType.League : MatchingType.Club;
+            matchingType = PhotonNetwork.CurrentLobby.Equals(LobbyManager.LeagueLobby) ? MatchingType.League : MatchingType.Club;
 
-            var playerName = PhotonNetwork.playerName;
-            var playerFightRecord = new FightRecord(0, 0);
-            var player = new WaitingPlayer(playerName, playerFightRecord, 1000);
-            playerPanel.Set(player);
+            var player = PhotonNetwork.LocalPlayer;
+            var playerStats = getPlayerStatsFromProps(player);
+            playerPanel.Set(new WaitingPlayer(player.NickName, playerStats));
             inPlayerPanel();
 
-            if (PhotonNetwork.otherPlayers.Length > 0) {
-                var otherPlayer = PhotonNetwork.otherPlayers[0];
-                var opponentName = otherPlayer.NickName;
-                var opponentFightRecord = new FightRecord(0, 0);
-                var opponent = new WaitingPlayer(opponentName, opponentFightRecord, 1000);
-                opponentPanel.Set(opponent);
+            // 既に他の人がいる場合
+            if (PhotonNetwork.PlayerListOthers.Length > 0) {
+                var opponent = PhotonNetwork.PlayerListOthers[0];
+                var opponentStats = getPlayerStatsFromProps(opponent);
+                opponentPanel.Set(new WaitingPlayer(opponent.NickName, opponentStats));
                 inOpponentPanel();
                 startModeSelect();
             } else {
                 inWaitingWindow();
             }
+        }
+
+        private PlayerStats getPlayerStatsFromProps(Player player) {
+            var props = player.CustomProperties;
+            var rating = (int)props["rating"];
+            var battleCount = (int)props["battleCount"];
+            var winCount = (int)props["winCount"];
+            return new PlayerStats(rating, battleCount, winCount);
         }
 
         private void startModeSelect() {
@@ -197,7 +210,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
             yield return new WaitUntil(() => isDecidePlayerMode);
             yield return new WaitUntil(() => isDecideOpponentMode);
 
-            PhotonNetwork.isMessageQueueRunning = false;
+            PhotonNetwork.IsMessageQueueRunning = false;
             yield return new WaitForSecondsRealtime(2.5f);
 
             SceneController.Instance.LoadScene(SceneName.NetworkBattle, SceneTransition.Duration);
@@ -207,16 +220,13 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
             Debug.Log("WaitingManager::OnJoinedRoom");
         }
 
-        public override void OnPhotonPlayerPropertiesChanged(object[] playerAndUpdatedProps) {
+        public override void OnPlayerPropertiesUpdate(Player player, Hashtable updatedProps) {
             Debug.Log("WaitingManager::OnPhotonPlayerPropertiesChanged");
 
-            var player = playerAndUpdatedProps[0] as PhotonPlayer;
-            var properties = playerAndUpdatedProps[1] as Hashtable;
-
             object value;
-            if (properties.TryGetValue("mode", out value)) {
+            if (updatedProps.TryGetValue("mode", out value)) {
                 var mode = (GameMode)value;
-                if (player.Equals(PhotonNetwork.player)) {
+                if (player.Equals(PhotonNetwork.LocalPlayer)) {
                     onDecidePlayerMode(mode);
                 } else {
                     onDecideOpponentMode(mode);
@@ -224,23 +234,20 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
             }
         }
 
-        public override void OnPhotonPlayerConnected(PhotonPlayer player) {
-            Debug.Log("WaitingManager::OnPhotonPlayerConnected");
-            // TODO:
+        public override void OnPlayerEnteredRoom(Player player) {
+            Debug.Log("WaitingManager::OnPlayerEnteredRoom");
             // var record = (FightRecord)player.CustomProperties["FightRecord"];
             // var rating = (int)player.CustomProperties["Rating"];
-            var record = new FightRecord(0, 0);
-            var rating = 1000;
-            var waitingPlayer = new WaitingPlayer(player.NickName, record, rating);
-            opponentPanel.Set(waitingPlayer);
+            var stats = getPlayerStatsFromProps(player);
+            opponentPanel.Set(new WaitingPlayer(player.NickName, stats));
             startModeSelectTransition();
 
-            PhotonNetwork.room.IsOpen = false;
+            PhotonNetwork.CurrentRoom.IsOpen = false;
             startModeSelect();
         }
 
-        public override void OnPhotonPlayerDisconnected(PhotonPlayer player) {
-            PhotonNetwork.room.IsOpen = true;
+        public override void OnPlayerLeftRoom(Player player) {
+            PhotonNetwork.CurrentRoom.IsOpen = true;
             cancelModeSelect();
         }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 using NotBuyoTeto.Ingame.Buyobuyo;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle.BuyoBuyo {
@@ -17,7 +18,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.BuyoBuyo {
 
         public override void Show(Vector2 position, int value) {
             base.Show(position, value);
-            photonView.RPC("ShowRPC", PhotonTargets.Others, position, value);
+            photonView.RPC("ShowRPC", RpcTarget.Others, position, value);
         }
 
         [PunRPC]

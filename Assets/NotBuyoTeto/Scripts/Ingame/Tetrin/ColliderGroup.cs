@@ -24,7 +24,7 @@ namespace NotBuyoTeto.Ingame.Tetrin {
         public int EnteredGroupCount => Children.Count(c => c.IsEntered);
         public bool EnteredAll => Children.All(c => c.IsEntered);
 
-        protected virtual void Awake() {
+        public virtual void Awake() {
             renderer = GetComponent<Renderer>();
             MinoDeleteEffect = GetComponentInChildren<ParticleSystem>();
         }
@@ -48,7 +48,7 @@ namespace NotBuyoTeto.Ingame.Tetrin {
             Children = objects.Select(o => o.GetComponent<ColliderBlock>());
         }
 
-        protected virtual void Update() {
+        public virtual void Update() {
             var density = (float)EnteredGroupCount / Children.Count();
             indicator.UpdateDensity(density);
             renderer.enabled = EnteredAll;

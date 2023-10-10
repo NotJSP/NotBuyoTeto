@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using NCMB;
 using NotBuyoTeto.Constants;
+using NotBuyoTeto.Utility;
+using System;
+using NotBuyoTeto.Ingame.SinglePlay;
 
 namespace NotBuyoTeto.Ingame.Title {
     public class TitleManager : MonoBehaviour {
@@ -11,16 +15,18 @@ namespace NotBuyoTeto.Ingame.Title {
         [SerializeField]
         private CanvasGroup buttonGroup;
 
+        private Coroutine nameSavingCoroutine;
+
         private void Awake() {
             // アプリケーションのFPSを60に固定
             Application.targetFrameRate = 60;
 
-            if (PlayerPrefs.HasKey(PlayerPrefsKey.PlayerName)) {
-                nameField.text = PlayerPrefs.GetString(PlayerPrefsKey.PlayerName);
-            } else {
-                PlayerPrefs.SetString(PlayerPrefsKey.PlayerName, "プレイヤー");
+            if (!PlayerPrefs.HasKey(PlayerPrefsKey.PlayerId)) {
+                initializePlayerData();
             }
+            nameField.text = PlayerPrefs.GetString(PlayerPrefsKey.PlayerName);
             nameField.onValueChanged.AddListener(onNameFieldTextChanged);
+            nameField.onEndEdit.AddListener(onNameFieldEndEdit);
         }
 
         private void Update() {
@@ -29,19 +35,66 @@ namespace NotBuyoTeto.Ingame.Title {
             }
             // デバッグ用 (Ctrl+F12)
             if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.F12)) {
-                PlayerPrefs.DeleteAll();
+                initializePlayerData();
                 Debug.Log(@"ローカルデータを削除しました。");
             }
         }
-        
-        private void onNameFieldTextChanged(string text) {
-            if (string.IsNullOrWhiteSpace(text)) {
+
+        private void initializePlayerData() {
+            PlayerPrefs.DeleteAll();
+            nameField.text = "Player";
+            this.onNameFieldEndEdit("Player");
+        }
+
+        private void onNameFieldEndEdit(string name) {
+            if (this.nameSavingCoroutine != null) {
+                StopCoroutine(this.nameSavingCoroutine);
+            }
+
+            try {
+                this.nameSavingCoroutine = StartCoroutine(savePlayerName(name));
+            } catch (Exception e) {
+                Debug.LogError(e.Message);
+            } finally {
+                this.nameSavingCoroutine = null;
+            }
+
+            PlayerPrefs.SetString(PlayerPrefsKey.PlayerName, name);
+        }
+
+        private void onNameFieldTextChanged(string name) {
+            if (string.IsNullOrWhiteSpace(name)) {
                 buttonGroup.interactable = false;
                 return;
             }
-
-            PlayerPrefs.SetString(PlayerPrefsKey.PlayerName, text);
             buttonGroup.interactable = true;
+        }
+
+        private IEnumerator savePlayerName(string name) {
+            var ncmbObj = new NCMBObject(NCMBClassName.Users);
+            ncmbObj[@"name"] = name;
+
+            if (PlayerPrefs.HasKey(PlayerPrefsKey.PlayerId)) {
+                ncmbObj.ObjectId = PlayerPrefs.GetString(PlayerPrefsKey.PlayerId);
+            }
+
+            var watcher = new ASyncValue<bool, NCMBException>();
+
+            while (true) {
+                ncmbObj.SaveAsync(e => {
+                    if (e != null) {
+                        Debug.LogError(e);
+                        watcher.Exception = e;
+                        return;
+                    }
+                    watcher.Value = true;
+                    PlayerPrefs.SetString(PlayerPrefsKey.PlayerId, ncmbObj.ObjectId);
+                });
+                yield return new WaitUntil(watcher.TakeOrFailure);
+
+                if (!watcher.Failure) { break; }
+                yield return new WaitForSeconds(3.0f);
+            }
         }
     }
 }

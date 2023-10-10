@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using Photon.Pun;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
@@ -34,20 +32,20 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
         public void SelectMode(GameMode mode) {
             buttons[mode].Select();
             SelectedMode = mode;
-            photonView.RPC("SelectMode", PhotonTargets.OthersBuffered, mode);
+            photonView.RPC("SelectMode", RpcTarget.OthersBuffered, mode);
         }
 
         public void DecideMode() {
             var mode = SelectedMode.Value;
             buttons[mode].Decide();
             setProperties(mode);
-            photonView.RPC("DecideMode", PhotonTargets.OthersBuffered, mode);
+            photonView.RPC("DecideMode", RpcTarget.OthersBuffered, mode);
         }
 
         protected void setProperties(GameMode mode) {
             var properties = new Hashtable();
             properties["mode"] = mode;
-            PhotonNetwork.player.SetCustomProperties(properties);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
         }
 
         public void ModeContainerActivate(bool active) {

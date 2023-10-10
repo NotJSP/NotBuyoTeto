@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 using NotBuyoTeto.Ingame.Buyobuyo;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle.BuyoBuyo {
@@ -13,17 +14,17 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.BuyoBuyo {
         }
 
         protected override void Update() {
-            if (!photonView.isMine) { return; }
+            if (!photonView.IsMine) { return; }
             base.Update();
         }
 
         protected override void OnCollisionEnter2D(Collision2D collision) {
-            if (!photonView.isMine) { return; }
+            if (!photonView.IsMine) { return; }
             base.OnCollisionEnter2D(collision);
         }
 
         protected override void OnCollisionExit2D(Collision2D collision) {
-            if (!photonView.isMine) { return; }
+            if (!photonView.IsMine) { return; }
             base.OnCollisionExit2D(collision);
         }
     }

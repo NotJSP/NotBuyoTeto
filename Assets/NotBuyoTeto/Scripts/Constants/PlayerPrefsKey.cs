@@ -7,6 +7,7 @@ using NotBuyoTeto.Ingame.SinglePlay;
 
 namespace NotBuyoTeto.Constants {
     public static class PlayerPrefsKey {
+        public static readonly string PlayerId = @"player_id";
         public static readonly string PlayerName = @"player_name";
 
         public static Dictionary<RankingType, string> HighScore = new Dictionary<RankingType, string>() {

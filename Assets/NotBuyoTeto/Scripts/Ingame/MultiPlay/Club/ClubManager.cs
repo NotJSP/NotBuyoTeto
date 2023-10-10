@@ -2,13 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon;
+using Photon.Pun;
+using ExitGames.Client.Photon;
 using NotBuyoTeto.SceneManagement;
 using NotBuyoTeto.Ingame.MultiPlay.Menu;
 using NotBuyoTeto.Ingame.MultiPlay.Waiting;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Club {
-    public class ClubManager : PunBehaviour {
+    public class ClubManager : MonoBehaviourPunCallbacks {
         [SerializeField]
         private MenuManager menuManager;
         [SerializeField]
@@ -31,22 +32,24 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
         private AnimationTransitEntry transit;
         private AnimationTransitEntry createRoomTransit;
 
-        private void Awake() {
+        public void Awake() {
             this.transit = new AnimationTransitEntry(mainPanel, "In Menu", "Out Menu");
             this.createRoomTransit = new AnimationTransitEntry(mainPanel, "In CreateRoom", "Out CreateRoom");
         }
 
-        private void OnEnable() {
+        public override void OnEnable() {
+            base.OnEnable();
             mainPanel.SetActive(true);
             backButton.OnPressed += back;
         }
 
-        private void OnDisable() {
+        public override void OnDisable() {
+            base.OnDisable();
             mainPanel?.SetActive(false);
             backButton.OnPressed -= back;
         }
 
-        private void Update() {
+        public void Update() {
             if (AnimationTransit.IsAnimating) { return; }
 
             if (backButton.IsActive && Input.GetKeyDown(KeyCode.Escape)) {
@@ -75,7 +78,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
 
         public void OnStart() {
             Debug.Log("ClubManager::OnStart");
-            if (!PhotonNetwork.insideLobby) { PhotonNetwork.JoinLobby(LobbyManager.ClubLobby); }
+            if (!PhotonNetwork.InLobby) { PhotonNetwork.JoinLobby(LobbyManager.ClubLobby); }
             roomManager.Fetch();
         }
 
@@ -83,7 +86,6 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
             Debug.Log("ClubManager::OnCancel");
 
             PhotonNetwork.LeaveLobby();
-            PhotonNetwork.lobby = null;
 
             backButton.Inactive();
             OutMenu(() => {
@@ -124,7 +126,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Club {
                 WinsCount = 2,
                 FallSpeed = 1.5f,
             };
-            var name = IdentificationNameUtility.Create(PhotonNetwork.playerName, PhotonNetwork.AuthValues.UserId);
+            var name = IdentificationNameUtility.Create(PhotonNetwork.NickName, PhotonNetwork.AuthValues.UserId);
             roomManager.CreateRoom(name, settings);
 
             backButton.Inactive();

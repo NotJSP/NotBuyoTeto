@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using UnityEngine;
-using Photon;
+using Photon.Pun;
 
 namespace NotBuyoTeto.Network {
-    public class NetworkConditionChecker : PunBehaviour {
+    public class NetworkConditionChecker : MonoBehaviourPun {
         [SerializeField]
         private NetworkConditionIndicator indicator;
 
@@ -13,7 +13,7 @@ namespace NotBuyoTeto.Network {
 
         private IEnumerator startCheck() {
             while (true) {
-                if (PhotonNetwork.connected) {
+                if (PhotonNetwork.IsConnected) {
                     var ping = PhotonNetwork.GetPing();
                     Debug.Log($"Ping: {ping}");
                     updateIndicator(ping);

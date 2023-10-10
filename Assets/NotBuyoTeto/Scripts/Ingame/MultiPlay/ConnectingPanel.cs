@@ -26,14 +26,14 @@ namespace NotBuyoTeto.Ingame.MultiPlay {
         }
 
         public void Show() {
-            gameObject.SetActive(true);
+            gameObject?.SetActive(true);
             IsShow = true;
             StartCoroutine(AnimationTransit.In(transit));
         }
 
         public void Hide() {
             IsShow = false;
-            StartCoroutine(AnimationTransit.Out(transit, () => gameObject.SetActive(false)));
+            StartCoroutine(AnimationTransit.Out(transit, () => gameObject?.SetActive(false)));
         }
     }
 }

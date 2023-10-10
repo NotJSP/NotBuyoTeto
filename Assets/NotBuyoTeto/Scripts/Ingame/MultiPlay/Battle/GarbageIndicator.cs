@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
     public class GarbageIndicator : MonoBehaviour {
@@ -16,7 +17,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
         public int Value {
             set {
                 SetValue(value);
-                view?.RPC("SetValue", PhotonTargets.OthersBuffered, value);
+                view?.RPC("SetValue", RpcTarget.OthersBuffered, value);
             }
         }
 

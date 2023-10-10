@@ -21,6 +21,8 @@ namespace NotBuyoTeto.Ingame.Buyobuyo {
         public GameObject buyoparent;
         [SerializeField]
         private BuyoControlSettings controlSettings;
+
+        private BuyoStats stats = new BuyoStats();
         
         private List<GameObject> buyos = new List<GameObject>();
         private GameObject parent;

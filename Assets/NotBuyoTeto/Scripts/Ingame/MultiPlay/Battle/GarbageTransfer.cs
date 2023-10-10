@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
     [RequireComponent(typeof(PhotonView))]
@@ -15,7 +16,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
         }
 
         public void Send(int count) {
-            photonView.RPC("recieveGarbage", PhotonTargets.Others, count);
+            photonView.RPC("recieveGarbage", RpcTarget.Others, count);
         }
 
         [PunRPC]

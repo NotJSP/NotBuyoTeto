@@ -1,0 +1,664 @@
+Using pre-set license
+Built from '2022.3/staging' branch; Version is '2022.3.10f1 (ff3792e53c62) revision 16725906'; Using compiler version '192829333'; Build Type 'Release'
+OS: 'Windows 11  (10.0.22621) 64bit Core' Language: 'ja' Physical Memory: 32508 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2022.3.10f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker7
+-projectPath
+C:/Users/blueapple25130/Documents/Git/NotBuyoTeto
+-logFile
+Logs/AssetImportWorker7.log
+-srvPort
+51292
+Successfully changed project path to: C:/Users/blueapple25130/Documents/Git/NotBuyoTeto
+C:/Users/blueapple25130/Documents/Git/NotBuyoTeto
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Player connection [61612] Host "[IP] 192.168.157.1 [Port] 0 [Flags] 2 [Guid] 748610164 [EditorId] 748610164 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-05CVTPV) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+
+Player connection [61612] Host "[IP] 192.168.157.1 [Port] 0 [Flags] 2 [Guid] 748610164 [EditorId] 748610164 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-05CVTPV) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+
+[Physics::Module] Initialized MultithreadedJobDispatcher with 31 workers.
+Refreshing native plugins compatible for Editor in 5.38 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2022.3.10f1 (ff3792e53c62)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2022.3.10f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/blueapple25130/Documents/Git/NotBuyoTeto/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce RTX 4090 (ID=0x2684)
+    Vendor:   NVIDIA
+    VRAM:     24156 MB
+    Driver:   31.0.15.3713
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2022.3.10f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2022.3.10f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2022.3.10f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56736
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.10f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.002974 seconds.
+- Loaded All Assemblies, in  0.203 seconds
+Native extension for WindowsStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.156 seconds
+Domain Reload Profiling: 359ms
+	BeginReloadAssembly (69ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (0ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (0ms)
+	RebuildCommonClasses (20ms)
+	RebuildNativeTypeToScriptingClass (8ms)
+	initialDomainReloadingComplete (34ms)
+	LoadAllAssembliesAndSetupDomain (73ms)
+		LoadAssemblies (68ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (72ms)
+			TypeCache.Refresh (71ms)
+				TypeCache.ScanAssembly (63ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (0ms)
+	FinalizeReload (156ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (124ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (5ms)
+			SetLoadedEditorAssemblies (4ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (1ms)
+			ProcessInitializeOnLoadAttributes (84ms)
+			ProcessInitializeOnLoadMethodAttributes (30ms)
+			AfterProcessingInitializeOnLoad (0ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (0ms)
+========================================================================
+Worker process is ready to serve import requests
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in  0.363 seconds
+Refreshing native plugins compatible for Editor in 1.91 ms, found 2 plugins.
+Native extension for WindowsStandalone target not found
+Package Manager log level set to [2]
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.362 seconds
+Domain Reload Profiling: 724ms
+	BeginReloadAssembly (88ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (3ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (13ms)
+	RebuildCommonClasses (25ms)
+	RebuildNativeTypeToScriptingClass (7ms)
+	initialDomainReloadingComplete (22ms)
+	LoadAllAssembliesAndSetupDomain (220ms)
+		LoadAssemblies (186ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (82ms)
+			TypeCache.Refresh (68ms)
+				TypeCache.ScanAssembly (58ms)
+			ScanForSourceGeneratedMonoScriptInfo (9ms)
+			ResolveRequiredComponents (3ms)
+	FinalizeReload (362ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (268ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (5ms)
+			SetLoadedEditorAssemblies (4ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (35ms)
+			ProcessInitializeOnLoadAttributes (195ms)
+			ProcessInitializeOnLoadMethodAttributes (24ms)
+			AfterProcessingInitializeOnLoad (5ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (6ms)
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
+Refreshing native plugins compatible for Editor in 2.36 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1774 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 41 unused Assets / (49.9 KB). Loaded Objects now: 2240.
+Memory consumption went from 88.6 MB to 88.5 MB.
+Total: 2.920500 ms (FindLiveObjects: 0.123500 ms CreateObjectMapping: 0.042300 ms MarkObjects: 2.645200 ms  DeleteObjects: 0.108200 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:scripting/monoscript/fileName/PhotonViewHandler.cs: 04df6e0009ed212af615629d11f26713 -> 7c6c7799f7e9296388067c605d1dc27c
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:scripting/monoscript/fileName/SocketUdp.cs: 3e7d33da90a9a4f1ed17387312d5f530 -> 
+  custom:scripting/monoscript/fileName/PhotonTransformViewScaleModel.cs: 31e63267c788e1c4dbdb549acecac037 -> 
+  custom:scripting/monoscript/fileName/NetworkCullingHandler.cs: e719853acb78504ca24b045f453fe3c6 -> 
+  custom:scripting/monoscript/fileName/PhotonRigidbody2DViewEditor.cs: d21c21d035ae96df0405c871d9105c4f -> 1bbd8586933ea3b91d286e3a03ef0b15
+  custom:scripting/monoscript/fileName/PhotonStatsGui.cs: 167a05ca835506e0c5aa596702870113 -> d8361e63c4cf02d1cc41570adb7e9d85
+  custom:scripting/monoscript/fileName/ManualPhotonViewAllocator.cs: 3a9d8def9f8e9d9527a8abbbf3a2663a -> 
+  custom:scripting/monoscript/fileName/ChatOperationCode.cs: 86df694dc025ae9482f0988014323365 -> dac444e0d5bbc5c837c33663c8b2cefb
+  custom:scripting/monoscript/fileName/ChatParameterCode.cs: 4e059ec5ca848826b74f1cbd735af41e -> a0fd6a090c21b2fc7ca69a867e9c27c2
+  custom:scripting/monoscript/fileName/OnJoinedInstantiate.cs: f62f346a404f155bf52f6da4d983d5d3 -> e6fcd481d2d6dd67f5b18fb26017d8ba
+  custom:scripting/monoscript/fileName/PickupItemSyncer.cs: 74b43b7de3c10f067d9b8f861896813a -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:scripting/monoscript/fileName/CullArea.cs: 494ff32d92059b4cc62954979f90f5e0 -> 75f7e0f84478d7778555f1e1e66d50b7
+  custom:scripting/monoscript/fileName/InRoomChat.cs: a6e3d33bfbb2d8b185d12fd2b1611a88 -> 
+  custom:scripting/monoscript/fileName/ShowStatusWhenConnecting.cs: 25774a5ab23a770bc02e2280e892a2b5 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:scripting/monoscript/fileName/PickupItem.cs: 71d901a7943673c26b0527ad8f269cee -> 
+  custom:scripting/monoscript/fileName/PhotonConverter.cs: 6b8c4d06f124899faa6714823222447f -> 
+  custom:scripting/monoscript/fileName/NetworkingPeer.cs: 61464c1136cb5089a1bed19aae1f6390 -> 
+  custom:scripting/monoscript/fileName/TextButtonTransition.cs: 5c64f5a48186b1dfd8164a2e6d6225f0 -> 72621123551f8416d26a631e33786da7
+  custom:scripting/monoscript/fileName/PhotonTransformViewRotationControl.cs: 3046024c088d31207e09ad15eba81b26 -> 
+  custom:scripting/monoscript/fileName/ChatEventCode.cs: a343871e14ca167f2d2b00477ca6b374 -> 764a52cdc3a575d4587f1a0939ee2b6d
+  custom:scripting/monoscript/fileName/ChatPeer.cs: 7649bd3a3cdd1c83f9e75f3d49de3a2e -> ab4cb6a09b2bd7026434274768d75701
+  custom:scripting/monoscript/fileName/PhotonTransformViewRotationModel.cs: 04e41b01272df23e7b7699a15020bfb3 -> 
+  custom:scripting/monoscript/fileName/AccountService.cs: c037237b5f699b684000bae4a40ec7b7 -> 80b748556379aab9364d8ef00499f1a9
+  custom:scripting/monoscript/fileName/PhotonAnimatorView.cs: ed14a9803ccbfed1b614f760302f789c -> d7e478a730cbe0e6a3a4e1f87600646a
+  custom:scripting/monoscript/fileName/PhotonEditor.cs: 22628f0a0b893373157f1693598357c0 -> 9beee3a7ca2bc764b51880f31127a0ea
+  custom:scripting/monoscript/fileName/PhotonTransformViewScaleControl.cs: 466bd90c7f004fd3f16a3e6c88cfb64a -> 
+  custom:scripting/monoscript/fileName/OnClickInstantiate.cs: d6801694af9474f57c634628879ef9c3 -> 3929e8581c0458b4fa6c3ecec790414e
+  custom:scripting/monoscript/fileName/GizmoType.cs: 9060cdefb506543308c2dd8bb96f214e -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:scripting/monoscript/fileName/PhotonTransformViewEditor.cs: b8a7448b34b9f03bdfee626149ea0648 -> d59344a8429d1e1c91f78e42f728790a
+  custom:scripting/monoscript/fileName/Room.cs: 0d981d0e1652f29f29d7d3d5ae29910e -> f509531380bf8f44be3c84421df8f27b
+  custom:scripting/monoscript/fileName/PhotonEditorUtils.cs: b8690f563061cba0a1e5f9b1cfbb8f8a -> 4456563b945cca498f5f71d9eb2059b9
+  custom:scripting/monoscript/fileName/PhotonClasses.cs: 8c4aca31194a54e049d12756c1d3c12c -> 
+  custom:scripting/monoscript/fileName/ChatUserStatus.cs: 36ef76301aa14072157de3111f3fc275 -> 70a3ef1ac77c9464b5af9f3f7bba93e1
+  custom:scripting/monoscript/fileName/PhotonHandler.cs: f794d0c315941d97ad3cd33a7875649b -> 70e641dd7ce55eb351f633fc29fb5f7f
+  custom:scripting/monoscript/fileName/PhotonRigidbodyViewEditor.cs: 5f813b4f9da7f17dafdbe4bebd77190a -> ab7e34153fa9a3c646e0316fa6fc5600
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:scripting/monoscript/fileName/OnStartDelete.cs: 2a080145ee12d9ba82d39321981e9463 -> 020107d689eae9ab4a37b46ac589b3dd
+  custom:scripting/monoscript/fileName/PhotonNetwork.cs: 4eab801ccad21c93466e6698a3292da2 -> b0631ad5c9d567edbfc4fb2b742f00d0
+  custom:scripting/monoscript/fileName/PhotonGUI.cs: 6896d109dc53dc63c5e02866122db196 -> a5571c3104cbd100c9135419869f9e73
+  custom:scripting/monoscript/fileName/PhotonRigidbodyView.cs: 0234a6ad938350fc66f4397d76da6e11 -> f6b453c3dd57cf47fa35b8156daece9a
+  custom:scripting/monoscript/fileName/FriendInfo.cs: dbe3b0717eff84f0ba32639493897c08 -> be836ba41ecfa4c9dca4b510bdfea5c8
+  custom:scripting/monoscript/fileName/ConnectAndJoinRandom.cs: 964b14c4165c88f6ff00bfa01756a771 -> 00d6f17fa442bd592f9dfb4622a40a5d
+  custom:scripting/monoscript/fileName/TextToggleIsOnTransition.cs: fb1d42a564e697cf9052c0ca1effe3a4 -> 3e45da2cb510baa5765664ee499455b7
+  custom:scripting/monoscript/fileName/SmoothSyncMovement.cs: becdc4a37efa29c488181735f621952c -> 31ee6a992a574c4e665f73e48482d3fc
+  custom:scripting/monoscript/fileName/ButtonInsideScrollList.cs: 43f92291723b94b8f702b407b878a1e4 -> 663db374c5f487d95198d2dce6dd1ce7
+  custom:scripting/monoscript/fileName/TimeKeeper.cs: 8ca4f6ae8a051f4d8e775c826e0b16f6 -> 
+  custom:scripting/monoscript/fileName/ReorderableListResources.cs: 25e924e89d6b9581b3b34aa92e3ba427 -> a21528a46272f1d315f76aa8c009d10e
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:scripting/monoscript/fileName/PunTurnManager.cs: ad9c191bf2c24d8aec640e4dca9b3279 -> c24499e0acfb9782133d39c092b0366b
+  custom:scripting/monoscript/fileName/PhotonTransformView.cs: 92692890ee5caed74d0ce677ebb3a5ac -> ea668b9d3ca2e512312f4d0840810b14
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/CustomTypes.cs: d84c08b1ff6a97dd676a99d9bedef71c -> 32fb10f0e1ae6f1f4c5b8deb3c8e83c3
+  custom:scripting/monoscript/fileName/SupportLogger.cs: 11290faa2d4663cda3a3673ea9074c1d -> 6226925e792eee84b718aee3baaa82a7
+  custom:scripting/monoscript/fileName/PlayerRoomIndexing.cs: b7d631d6039c38ebb264033d6f1618dd -> 
+  custom:scripting/monoscript/fileName/PunTeams.cs: a074d5b19d017e4829f92939c3ba8609 -> 97cdf6951e96c2643337cf5fb8f69c0b
+  custom:CustomObjectIndexerAttribute: 756ad292c208cfabdd7b50bc23989ffe -> 
+  custom:scripting/monoscript/fileName/PhotonTransformViewPositionModel.cs: fdbdb53fc2b46d99ea2c00521716ca5a -> 
+  custom:scripting/monoscript/fileName/OnClickDestroy.cs: 43be561bdadc8763534f4888a185ed8c -> 84deb4bc685f090f86133752922a945d
+  custom:scripting/monoscript/fileName/PhotonView.cs: f4b0959002a578c99865ce439b519492 -> b2662a18b33c427e0ec2e5ab1a56c2b5
+  custom:scripting/monoscript/fileName/ChatChannel.cs: 080722ab892f27b53474e4d0df653c28 -> 052e931f7bf91536d9bda80d682b6368
+  custom:scripting/monoscript/fileName/ChatClient.cs: 4d6947a48d7c4fc41a46883a17e4724e -> d3eb880194f03abd869e259e1e9fd5f0
+  custom:scripting/monoscript/fileName/QuitOnEscapeOrBack.cs: c8cb866e8887fc3722773a799851883c -> 
+  custom:scripting/monoscript/fileName/IChatClientListener.cs: fec4f28e8c06a47a4e29ee3ae4fcaaea -> e6ec1b8d09bf11f3791c0bd18ae45880
+  custom:scripting/monoscript/fileName/PunPlayerScores.cs: dd89d7166e9d08b2226a185f9f183361 -> eee61e21995464ded106b44bf2f6edd4
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:scripting/monoscript/fileName/RoomInfo.cs: ea1b79a23de7a722d128a25ed956fb9f -> 86776ad49e4deb535029b369c45e7f36
+  custom:scripting/monoscript/fileName/PunTeamsInspector.cs: 927c97f5cd7c62e93e00b68934b4ed98 -> 4df913dbc11ac67364301ce3915ea909
+  custom:scripting/monoscript/fileName/PunSceneSettings.cs: c32a678978cd025e722428d0b990a013 -> 91ded15e638c075e189911af7f870d60
+  custom:scripting/monoscript/fileName/Enums.cs: 2a272c146673823cf1efccd09a164421 -> 
+  custom:scripting/monoscript/fileName/PhotonRigidbody2DView.cs: 4aa9017aef6ad8ad3d1da231b95defa2 -> cfabe07ff5658dc80bf23a32c3f3d3ea
+  custom:scripting/monoscript/fileName/ServerSettings.cs: 4ab61f8e33ac7f6755ee2fc1bc0a9ac7 -> 8fa55e8857e3ebd201455fd70a9f157d
+  custom:scripting/monoscript/fileName/PickupItemSimple.cs: 83e4999f5e04e17a01cfb39a641f3d16 -> 
+  custom:scripting/monoscript/fileName/ServerSettingsInspector.cs: 0f5778f1504cb7c6c78df28f9b1101e2 -> 95da0bc9ecca5735a6f497f524ce7e54
+  custom:scripting/monoscript/fileName/PhotonStreamQueue.cs: 944b3cfb0c509a9c981ccb685b9ddc7b -> 5d5e55e8eb60f78e116626969ed0311e
+  custom:scripting/monoscript/fileName/LoadbalancingPeer.cs: 8e225a64b40247017bb81d65410e13d1 -> d9dd9ca955de7f0a553b219d39f29621
+  custom:scripting/monoscript/fileName/PhotonAnimatorViewEditor.cs: 762e9e81a5d6938486a2be1887d563e1 -> fd89a9c520118567d7b47e39070bcd39
+  custom:scripting/monoscript/fileName/PhotonPlayer.cs: 14f9c7d290a79d56eafec8b5e737fdb4 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/PhotonViewInspector.cs: 84681baf5c32157e556b28df338ceb0e -> da72c707197b3a14a9e4fc031131a7bc
+  custom:scripting/monoscript/fileName/MoveByKeys.cs: 0cf3ce6ab8ae32652f4e840453beb11f -> 0be06a6581575752c58847799d9932e6
+  custom:scripting/monoscript/fileName/PingCloudRegions.cs: e6c87a0a245dfedd1b498faa008dc2ab -> 
+  custom:scripting/monoscript/fileName/RPC.cs: e8f814cf2f6aeb3e1d238b38d6abef9f -> 
+  custom:scripting/monoscript/fileName/InputToEvent.cs: c39f8b3460e2b7a3873b2ff3436a1178 -> 
+  custom:scripting/monoscript/fileName/PointedAtGameObjectInfo.cs: 005fac545cdc6db6f32d4fa0c9d69938 -> 0f220a9d7e421f59db30fb04c90d6c0e
+  custom:scripting/monoscript/fileName/PhotonLagSimulationGui.cs: 8a20f50a058f2e402265d478986f2938 -> de60acfca25c9c245519382776ad2f82
+  custom:scripting/monoscript/fileName/PhotonTransformViewPositionControl.cs: a99cdf1394a25caf432d94fe3418b2c7 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:scripting/monoscript/fileName/Extensions.cs: 3a1f6f758c8a7f277f61c0d0a87db005 -> 3f8618856b92f72822431fd67127e289
+  custom:scripting/monoscript/fileName/CullAreaEditor.cs: 91fdea20bee6b0604d2a3f834b947298 -> ac85e81dd9fb835b90f15d14c78d253a
+  custom:scripting/monoscript/fileName/PlayerRoomIndexingInspector.cs: c0e4fd79e8f98a9f3341eb2f6e8fb5f0 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 933980.689657 seconds.
+  path: Assets/NotBuyoTeto/Scripts/Ingame/Tetrin/MinoFrame.cs
+  artifactKey: Guid(5f265c814ca4ea644930de685b4d5c3b) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Scripts/Ingame/Tetrin/MinoFrame.cs using Guid(5f265c814ca4ea644930de685b4d5c3b) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'a93a7bc1b1db30dd78fba82307dc3849') in 0.078799 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000019 seconds.
+  path: Assets/NotBuyoTeto/Prefabs/Ingame/MultiPlay/Indicator.prefab
+  artifactKey: Guid(bf402d0951c03a146b3a058abe1ea156) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Prefabs/Ingame/MultiPlay/Indicator.prefab using Guid(bf402d0951c03a146b3a058abe1ea156) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '2819d6c2dcf59ab87665c4f6ca10f6bd') in 0.038794 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 14
+========================================================================
+Received Import Request.
+  Time since last request: 0.000010 seconds.
+  path: Assets/NCMB/Script/Task/NCMBUserTaskMethods.cs
+  artifactKey: Guid(b6084ec49276b4d2183b78cd4016fa9a) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NCMB/Script/Task/NCMBUserTaskMethods.cs using Guid(b6084ec49276b4d2183b78cd4016fa9a) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '78c7850c447d1d64ed5d2555af00f248') in 0.007777 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000050 seconds.
+  path: Assets/NotBuyoTeto/Scripts/Ingame/Buyobuyo/BuyoFrame.cs
+  artifactKey: Guid(e1ffe6abb82648442baab51f0dfea1d9) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Scripts/Ingame/Buyobuyo/BuyoFrame.cs using Guid(e1ffe6abb82648442baab51f0dfea1d9) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '21e66472a30febec821c3cd728c410e3') in 0.008302 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/NotBuyoTeto/Scripts/Ingame/MultiPlay/LobbyManager.cs
+  artifactKey: Guid(0105eb98ce4b2a44d84a398dd449b685) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Scripts/Ingame/MultiPlay/LobbyManager.cs using Guid(0105eb98ce4b2a44d84a398dd449b685) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '1ca727e2c2d46eb7fd54cb690caffb6c') in 0.008094 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/NotBuyoTeto/Scripts/Ingame/MultiPlay/TransitManager.cs
+  artifactKey: Guid(3a0dfc76a6e6abe4da7f01d355ee4d69) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Scripts/Ingame/MultiPlay/TransitManager.cs using Guid(3a0dfc76a6e6abe4da7f01d355ee4d69) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '24f17f6645b78efcef122a57921a54dc') in 0.006775 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/NotBuyoTeto/Scripts/Ingame/SinglePlay/LocalInstantiator.cs
+  artifactKey: Guid(5f5e2f793303941419c5bc6aed252f2b) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Scripts/Ingame/SinglePlay/LocalInstantiator.cs using Guid(5f5e2f793303941419c5bc6aed252f2b) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '9c5ad2a070992edc193c4febf3dab6e4') in 0.006903 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000010 seconds.
+  path: Assets/NotBuyoTeto/Scripts/Ingame/Buyobuyo/BuyoType.cs
+  artifactKey: Guid(51d8b13ecf42bd243813f2021b8bbebf) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Scripts/Ingame/Buyobuyo/BuyoType.cs using Guid(51d8b13ecf42bd243813f2021b8bbebf) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '23589596c56beb423b130eed1c19f5fd') in 0.005926 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000051 seconds.
+  path: Assets/NotBuyoTeto/Sounds/Ingame/Tetrin/mino_delete.ogg
+  artifactKey: Guid(d01a5baf866fbf84b82ae47f41c89bca) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Sounds/Ingame/Tetrin/mino_delete.ogg using Guid(d01a5baf866fbf84b82ae47f41c89bca) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '48d379bfc400cf3db24d018f6937a7c0') in 0.040638 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000010 seconds.
+  path: Assets/NotBuyoTeto/Scripts/UI/UITemplates.cs
+  artifactKey: Guid(812a010336fda2448bbd45538d0a377f) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Scripts/UI/UITemplates.cs using Guid(812a010336fda2448bbd45538d0a377f) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'f089d1d1f857aa507d9a0e077e428525') in 0.010142 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/NotBuyoTeto/Scripts/Ingame/Tetrin/ColliderBlock.cs
+  artifactKey: Guid(d96f209e629d2324bb4677e3094574f2) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Scripts/Ingame/Tetrin/ColliderBlock.cs using Guid(d96f209e629d2324bb4677e3094574f2) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'fd33c7bb438c1c3dfeebefd3bcbea314') in 0.007138 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/NotBuyoTeto/Scripts/Ingame/Tetrin/MinoType.cs
+  artifactKey: Guid(d50d4144cb8156f43bbc3f2f41743b05) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Scripts/Ingame/Tetrin/MinoType.cs using Guid(d50d4144cb8156f43bbc3f2f41743b05) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '0240df5263dc0262f785f7e9ebc94d0a') in 0.007374 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000045 seconds.
+  path: Assets/NotBuyoTeto/Scripts/Utility/TransformExtension.cs
+  artifactKey: Guid(db015c5f85c091b4d92835b09eb4feda) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Scripts/Utility/TransformExtension.cs using Guid(db015c5f85c091b4d92835b09eb4feda) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'a9f80f0170ea061cdcd778b89775117f') in 0.007138 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000022 seconds.
+  path: Assets/NotBuyoTeto/Scripts/Ingame/Tetrin/TetoSfxTypeHolder.cs
+  artifactKey: Guid(186a2e9334c32d4449fadfbee6066d4c) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Scripts/Ingame/Tetrin/TetoSfxTypeHolder.cs using Guid(186a2e9334c32d4449fadfbee6066d4c) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'c9df4919c06c0816fff36756dfdb4f8a') in 0.006531 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/NotBuyoTeto/Prefabs/Ingame/Sfx Manager.prefab
+  artifactKey: Guid(b8e2d8226d987784abe1fdeb276e0dc2) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Prefabs/Ingame/Sfx Manager.prefab using Guid(b8e2d8226d987784abe1fdeb276e0dc2) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '8cfb041177ca872998f8916e4df8040c') in 0.010000 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 7
+========================================================================
+Received Import Request.
+  Time since last request: 1.806728 seconds.
+  path: Assets/Photon/PhotonRealtime/Code/Unity/PhotonAppSettings.cs
+  artifactKey: Guid(a389b614f52fbf347a1533dbbf245033) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Photon/PhotonRealtime/Code/Unity/PhotonAppSettings.cs using Guid(a389b614f52fbf347a1533dbbf245033) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '4f4bc2d728dec270c5ad08326378421d') in 0.007273 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/UtilityScripts/TurnBased/PunTurnManager.cs
+  artifactKey: Guid(1a1b3bda60e9e804f87fd1e5d20a885a) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Photon/PhotonUnityNetworking/UtilityScripts/TurnBased/PunTurnManager.cs using Guid(1a1b3bda60e9e804f87fd1e5d20a885a) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'b4ba0a62bbdfe2b588b0f7123bd47f59') in 0.008303 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000011 seconds.
+  path: Assets/NotBuyoTeto/Prefabs/Ingame/Buyobuyo/Combo/2.prefab
+  artifactKey: Guid(70555ecc7f2c7f741aad2cfb04054a55) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Prefabs/Ingame/Buyobuyo/Combo/2.prefab using Guid(70555ecc7f2c7f741aad2cfb04054a55) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '91a6f09689a9ac8999396f0c3aefe265') in 0.013585 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 0.000011 seconds.
+  path: Assets/NotBuyoTeto/Materials/Ingame/Tetrin/Effects/eff_stone_1.mat
+  artifactKey: Guid(13fced8a2b54446f987511d3e5635486) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Materials/Ingame/Tetrin/Effects/eff_stone_1.mat using Guid(13fced8a2b54446f987511d3e5635486) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '7f29486c91ed972aa2e7e693a014cf4f') in 0.012643 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/EventSystemSpawner.cs
+  artifactKey: Guid(68187d3cf4c8746aaa64930f1a766a38) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/EventSystemSpawner.cs using Guid(68187d3cf4c8746aaa64930f1a766a38) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'e96ffa46fc599ee6c51928fcaa8e7682') in 0.008790 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000010 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/PunPlayerScores.cs
+  artifactKey: Guid(6b4df3943860f1d45bfe232053a58d80) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/PunPlayerScores.cs using Guid(6b4df3943860f1d45bfe232053a58d80) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'aac649d382ba5af9129652c9db292dc8') in 0.006781 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000008 seconds.
+  path: Assets/NotBuyoTeto/Materials/Ingame/Tetrin/Effects/kira.mat
+  artifactKey: Guid(270033f35bfea6e4e89a71287a4ceae2) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Materials/Ingame/Tetrin/Effects/kira.mat using Guid(270033f35bfea6e4e89a71287a4ceae2) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'a977d8f3e5df32508a9bfd927c042ec9') in 0.007699 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000010 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Code/Editor/PunSceneSettingsInspector.cs
+  artifactKey: Guid(1ad59deacfd0848dcb64a51b0a0eb960) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Photon/PhotonUnityNetworking/Code/Editor/PunSceneSettingsInspector.cs using Guid(1ad59deacfd0848dcb64a51b0a0eb960) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'ef25977165ac59dc43a8a47696f5d2d8') in 0.006983 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000021 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Code/Views/PhotonRigidbody2DView.cs
+  artifactKey: Guid(0e7cb724808c322458aa4d15f5035fa9) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Photon/PhotonUnityNetworking/Code/Views/PhotonRigidbody2DView.cs using Guid(0e7cb724808c322458aa4d15f5035fa9) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '9efdbe80f19549bfcd68ae51ab303ea8') in 0.007667 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/NotBuyoTeto/Prefabs/Ingame/Buyobuyo/Combo/7.prefab
+  artifactKey: Guid(69fafcdd50b225646be8c49394bd9fb3) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Prefabs/Ingame/Buyobuyo/Combo/7.prefab using Guid(69fafcdd50b225646be8c49394bd9fb3) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'bdd1ba7c141b1d95195239013185dfa8') in 0.008860 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 0.000010 seconds.
+  path: Assets/NotBuyoTeto/Prefabs/Ingame/MultiPlay/Resources/SquareParent.prefab
+  artifactKey: Guid(326fcd8955c3d8e43bc414e60861e142) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Prefabs/Ingame/MultiPlay/Resources/SquareParent.prefab using Guid(326fcd8955c3d8e43bc414e60861e142) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'df92076d3f0a687418825e296c41526e') in 0.013417 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 13
+========================================================================
+Received Import Request.
+  Time since last request: 0.000010 seconds.
+  path: Assets/NotBuyoTeto/Animations/Ingame/MultiPlay/League/CircleIndicator.anim
+  artifactKey: Guid(f736494d562a4c74f8b0cf1f5f2d2db8) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Animations/Ingame/MultiPlay/League/CircleIndicator.anim using Guid(f736494d562a4c74f8b0cf1f5f2d2db8) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'c297042ac6167cc38a873575641cd669') in 0.009035 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000008 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Code/Editor/PhotonEditor.cs
+  artifactKey: Guid(dabbbed2a74eac44dac281f20d706ba8) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Photon/PhotonUnityNetworking/Code/Editor/PhotonEditor.cs using Guid(dabbbed2a74eac44dac281f20d706ba8) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'eb0abb3968f6523ae417b45ea94a7108') in 0.006810 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000010 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnEscapeQuit.cs
+  artifactKey: Guid(1fbabafd914a48f4eb6108d8d8f43d29) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnEscapeQuit.cs using Guid(1fbabafd914a48f4eb6108d8d8f43d29) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '792d3272c1454e06d5b62ca5f94d0e28') in 0.006858 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000062 seconds.
+  path: Assets/NotBuyoTeto/Prefabs/Ingame/MultiPlay/Resources/Density Indicator.prefab
+  artifactKey: Guid(81fc9f935e133294e980371d1b79df52) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Prefabs/Ingame/MultiPlay/Resources/Density Indicator.prefab using Guid(81fc9f935e133294e980371d1b79df52) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '9841cca88b10f52985d497fe735545d6') in 0.010777 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 10
+========================================================================
+Received Import Request.
+  Time since last request: 0.000010 seconds.
+  path: Assets/NotBuyoTeto/Prefabs/Ingame/MultiPlay/Resources/Mino_J.prefab
+  artifactKey: Guid(5fd856e7ee3bd7147a817e4a54367b95) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Prefabs/Ingame/MultiPlay/Resources/Mino_J.prefab using Guid(5fd856e7ee3bd7147a817e4a54367b95) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '44397f473c31a8230a5947c06113f86e') in 0.010148 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 11
+========================================================================
+Received Import Request.
+  Time since last request: 0.000011 seconds.
+  path: Assets/NotBuyoTeto/Prefabs/Ingame/Buyobuyo/Combo/combo.prefab
+  artifactKey: Guid(c61c58661286aee4e92887c67fb6001d) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Prefabs/Ingame/Buyobuyo/Combo/combo.prefab using Guid(c61c58661286aee4e92887c67fb6001d) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'd24478f3d8992ab86552230ccc609563') in 0.010468 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 0.000011 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Code/Editor/PhotonGUI.cs
+  artifactKey: Guid(3d2cadb1ccf05074e8ce96b1393846cf) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Photon/PhotonUnityNetworking/Code/Editor/PhotonGUI.cs using Guid(3d2cadb1ccf05074e8ce96b1393846cf) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '52b221f72c739095829168221ac1a9eb') in 0.007256 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000041 seconds.
+  path: Assets/NotBuyoTeto/Prefabs/Ingame/MultiPlay/Resources/Buyo_blue.prefab
+  artifactKey: Guid(57ea23acfc0c51047a7aaa377041faa9) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Prefabs/Ingame/MultiPlay/Resources/Buyo_blue.prefab using Guid(57ea23acfc0c51047a7aaa377041faa9) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '0d8d8aeb9b78d505804bed4bfa88bfb9') in 0.015092 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 48
+========================================================================
+Received Import Request.
+  Time since last request: 0.000011 seconds.
+  path: Assets/NotBuyoTeto/Animations/Ingame/MultiPlay/Versus/WinsStar.controller
+  artifactKey: Guid(c159a685b2a2fb6419e0029e9e0c0789) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Animations/Ingame/MultiPlay/Versus/WinsStar.controller using Guid(c159a685b2a2fb6419e0029e9e0c0789) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'fa8ad7e911d8dfdbb9578181a4a64c44') in 0.005855 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 6
+========================================================================
+Received Import Request.
+  Time since last request: 0.316107 seconds.
+  path: Assets/NotBuyoTeto/Scripts/Ingame/SinglePlay/Tokoton/GameManager.cs
+  artifactKey: Guid(cdf54f59006d65d47a6c873cad393884) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Scripts/Ingame/SinglePlay/Tokoton/GameManager.cs using Guid(cdf54f59006d65d47a6c873cad393884) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'f34d53a9f9c4aff7fccd5465a3247187') in 0.008198 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000036 seconds.
+  path: Assets/NotBuyoTeto/Scripts/Ingame/MultiPlay/Battle/BuyoBuyo/NetworkHoldBuyoView.cs
+  artifactKey: Guid(a6f09f3cf710b854e8bdd5c3176408f1) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Scripts/Ingame/MultiPlay/Battle/BuyoBuyo/NetworkHoldBuyoView.cs using Guid(a6f09f3cf710b854e8bdd5c3176408f1) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'bf2d90c99c6c55ca361cac114d34917b') in 0.010111 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000011 seconds.
+  path: Assets/NotBuyoTeto/Sprites/Ingame/Buyobuyo/combo/1.png
+  artifactKey: Guid(25917dbc340bdab4a976a7d87cef97b9) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Sprites/Ingame/Buyobuyo/combo/1.png using Guid(25917dbc340bdab4a976a7d87cef97b9) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '042ea52f32ce133f8ae13094c60ee245') in 0.033209 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000072 seconds.
+  path: Assets/NotBuyoTeto/Animations/Ingame/MultiPlay/Waiting/Window/In.anim
+  artifactKey: Guid(9c5aa931883e14f439e20f14976dfaa1) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Animations/Ingame/MultiPlay/Waiting/Window/In.anim using Guid(9c5aa931883e14f439e20f14976dfaa1) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '53af40ef3f7bb03b775c258ed84879d9') in 0.006430 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000010 seconds.
+  path: Assets/NotBuyoTeto/Sprites/Ingame/Buyobuyo/Buyo/Buyo_red.png
+  artifactKey: Guid(b3b41de0fc2c739468f3729cb8724725) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Sprites/Ingame/Buyobuyo/Buyo/Buyo_red.png using Guid(b3b41de0fc2c739468f3729cb8724725) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '367032fcd6bd8af95af4a1c6813a218f') in 0.014503 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Code/Editor/ReordableList/ReorderableListResources.cs
+  artifactKey: Guid(60c609ded101b0a468fb5cf27b31cf27) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Photon/PhotonUnityNetworking/Code/Editor/ReordableList/ReorderableListResources.cs using Guid(60c609ded101b0a468fb5cf27b31cf27) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '439a49a3c86b2a2e977f80a669c9fccf') in 0.007570 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/NotBuyoTeto/Scripts/Ingame/MultiPlay/Battle/Tetrin/TetoDirector.cs
+  artifactKey: Guid(0611e9e1032cad145b0d7cdd21c9f771) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Scripts/Ingame/MultiPlay/Battle/Tetrin/TetoDirector.cs using Guid(0611e9e1032cad145b0d7cdd21c9f771) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '525ea10f29a74f5b475898f430779f26') in 0.006501 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/NotBuyoTeto/Sprites/Ingame/Buyobuyo/effect/buyo_effect_6px.png
+  artifactKey: Guid(8741b02ded52b7e46a6564b544fc4334) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Sprites/Ingame/Buyobuyo/effect/buyo_effect_6px.png using Guid(8741b02ded52b7e46a6564b544fc4334) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '672e820629338a8b82e29dbd71e8c1c8') in 0.015021 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000010 seconds.
+  path: Assets/NotBuyoTeto/Sprites/Ingame/Buyobuyo/effect/buyo_effect_10px.png
+  artifactKey: Guid(925ca0bb93d5bf74d9fe51765ec61066) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/NotBuyoTeto/Sprites/Ingame/Buyobuyo/effect/buyo_effect_10px.png using Guid(925ca0bb93d5bf74d9fe51765ec61066) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'f409afefdd3ef64f35b13c4c55266bb6') in 0.017823 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+TcpMessagingSession - receive error: operation aborted. errorcode: 995, details: スレッドの終了またはアプリケーションの要求によって、I/O 処理は中止されました。
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0

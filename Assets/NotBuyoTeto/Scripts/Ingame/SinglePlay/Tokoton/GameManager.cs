@@ -10,8 +10,6 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
     public class GameManager : SceneBase {
         [Header("References")]
         [SerializeField]
-        private BgmManager bgmManager;
-        [SerializeField]
         private IngameSfxManager sfxManager;
         [SerializeField]
         private BuyoPerspective perspective;
@@ -82,9 +80,9 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Tokoton {
 
         private void saveRanking() {
             var type = highScoreManager.RankingType;
-            var name = PlayerPrefs.GetString(PlayerPrefsKey.PlayerName);
+            var userId = PlayerPrefs.GetString(PlayerPrefsKey.PlayerId);
             var score = highScoreManager.Value;
-            var ranker = new Ranker(name, score);
+            var ranker = new Ranker(userId, score);
             rankingManager.Save(type, ranker);
         }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 using NotBuyoTeto.Ingame.Tetrin;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
@@ -8,34 +9,34 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
     public class NetworkColliderGroup : ColliderGroup {
         private PhotonView view;
 
-        protected override void Awake() {
+        public override void Awake() {
             view = GetComponent<PhotonView>();
-            if (!view.isMine) { return; }
+            if (!view.IsMine) { return; }
             base.Awake();
         }
 
-        protected override void Update() {
-            if (!view.isMine) { return; }
+        public override void Update() {
+            if (!view.IsMine) { return; }
             base.Update();
         }
 
         public override void Initialize(Instantiator instantiator, GameObject wall) {
-            if (!view.isMine) { return; }
+            if (!view.IsMine) { return; }
             base.Initialize(instantiator, wall);
         }
 
         public override void DeleteLine() {
-            if (!view.isMine) { return; }
+            if (!view.IsMine) { return; }
             base.DeleteLine();
         }
 
         protected override void OnTriggerEnter2D(Collider2D collision) {
-            if (!view.isMine) { return; }
+            if (!view.IsMine) { return; }
             base.OnTriggerEnter2D(collision);
         }
 
         protected override void OnTriggerExit2D(Collider2D collision) {
-            if (!view.isMine) { return; }
+            if (!view.IsMine) { return; }
             base.OnTriggerExit2D(collision);
         }
     }

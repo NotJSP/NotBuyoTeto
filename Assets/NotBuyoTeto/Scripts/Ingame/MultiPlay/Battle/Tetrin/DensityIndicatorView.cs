@@ -1,27 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
     [RequireComponent(typeof(SpriteRenderer))]
-    public class DensityIndicatorView : MonoBehaviour {
+    public class DensityIndicatorView : MonoBehaviour, IPunObservable {
         [SerializeField]
         private Vector3 offset;
 
         private new SpriteRenderer renderer;
         private Color color;
 
-        private void Awake() {
+        public void Awake() {
             renderer = GetComponent<SpriteRenderer>();
             color = renderer.color;
         }
 
-        private void Start() {
+        public void Start() {
             transform.position += offset;
         }
 
-        private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
-            if (stream.isWriting) {
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+            if (stream.IsWriting) {
                 serialize(stream, info);
             } else {
                 deserialize(stream, info);

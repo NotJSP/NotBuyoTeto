@@ -3,14 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Photon;
+using Photon.Pun;
+using Photon.Realtime;
 using NotBuyoTeto.SceneManagement;
 using NotBuyoTeto.Ingame.MultiPlay.Menu;
 using NotBuyoTeto.Ingame.MultiPlay.Waiting;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.League {
-    public class LeagueManager : PunBehaviour {
+    public class LeagueManager : MonoBehaviourPunCallbacks {
         [SerializeField]
         private MenuManager menuManager;
         [SerializeField]
@@ -31,12 +32,14 @@ namespace NotBuyoTeto.Ingame.MultiPlay.League {
             transit = new AnimationTransitEntry(mainPanel, "Open Window", "Close Window");
         }
 
-        private void OnEnable() {
+        public override void OnEnable() {
+            base.OnEnable();
             mainPanel.SetActive(true);
             backButton.OnPressed += back;
         }
 
-        private void OnDisable() {
+        public override void OnDisable() {
+            base.OnDisable();
             mainPanel?.SetActive(false);
             backButton.OnPressed -= back;
         }
@@ -70,10 +73,15 @@ namespace NotBuyoTeto.Ingame.MultiPlay.League {
         public void OnCancel() {
             Debug.Log(@"LeagueManager::OnCancel");
 
-            PhotonNetwork.LeaveLobby();
-            PhotonNetwork.lobby = null;
-
             backButton.Inactive();
+
+            if (PhotonNetwork.InRoom) {
+                PhotonNetwork.LeaveRoom();
+            }
+            if (PhotonNetwork.InLobby) {
+                PhotonNetwork.LeaveLobby();
+            }
+
             OutMenu(() => {
                 menuManager.gameObject.SetActive(true);
                 menuManager.InMenu(() => backButton.Active());
@@ -83,17 +91,17 @@ namespace NotBuyoTeto.Ingame.MultiPlay.League {
 
         public override void OnJoinedLobby() {
             Debug.Log("LeagueManager::OnJoinedLobby");
-            statusLabel.text = $"あなた: {PhotonNetwork.playerName}";
+            statusLabel.text = $"あなた: {PhotonNetwork.NickName}";
             PhotonNetwork.JoinRandomRoom();
         }
 
         public override void OnJoinedRoom() {
-            if (PhotonNetwork.otherPlayers.Length != 0) {
+            if (PhotonNetwork.PlayerListOthers.Length != 0) {
                 onMatchingSucceeded();
             }
         }
 
-        public override void OnPhotonPlayerConnected(PhotonPlayer player) {
+        public override void OnPlayerEnteredRoom(Player player) {
             onMatchingSucceeded();
         }
 
@@ -114,7 +122,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.League {
             Debug.Log("LeagueManager::OnLeftLobby");
         }
 
-        public override void OnPhotonRandomJoinFailed(object[] codeAndMsg) {
+        public override void OnJoinRandomFailed(short code, string msg) {
             Debug.Log("LeagueManager::OnPhotonRandomJoinFailed");
 
             var properties = new Hashtable();
@@ -136,7 +144,7 @@ namespace NotBuyoTeto.Ingame.MultiPlay.League {
             Debug.Log("LeagueManager::OnCreatedRoom");
         }
 
-        public override void OnPhotonCreateRoomFailed(object[] codeAndMsg) {
+        public override void OnCreateRoomFailed(short code, string msg) {
             Debug.Log("LeagueManager::OnPhotonCreateRoomFailed");
             statusLabel.text = @"ルーム作成に失敗しました";
         }

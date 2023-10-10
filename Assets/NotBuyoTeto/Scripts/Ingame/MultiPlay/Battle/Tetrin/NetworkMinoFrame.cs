@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 using NotBuyoTeto.Ingame.Tetrin;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
@@ -10,12 +11,12 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
 
         public override void Set(MinoType type) {
             base.Set(type);
-            photonView.RPC("Set", PhotonTargets.OthersBuffered, type);
+            photonView.RPC("Set", RpcTarget.OthersBuffered, type);
         }
 
         public override void Clear() {
             base.Clear();
-            photonView.RPC("Clear", PhotonTargets.OthersBuffered);
+            photonView.RPC("Clear", RpcTarget.OthersBuffered);
         }
     }
 }

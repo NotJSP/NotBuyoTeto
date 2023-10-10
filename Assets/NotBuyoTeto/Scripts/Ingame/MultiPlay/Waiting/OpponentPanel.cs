@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
     public class OpponentPanel : WaitingPanel {

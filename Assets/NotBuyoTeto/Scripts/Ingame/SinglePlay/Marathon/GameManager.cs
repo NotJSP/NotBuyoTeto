@@ -9,8 +9,6 @@ using NotBuyoTeto.Ingame.Tetrin;
 namespace NotBuyoTeto.Ingame.SinglePlay.Marathon {
     public class GameManager : SceneBase {
         [SerializeField]
-        private BgmManager bgmManager;
-        [SerializeField]
         private IngameSfxManager sfxManager;
         [SerializeField]
         private TetoPerspective perspective;
@@ -39,7 +37,7 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Marathon {
             gameStart();
         }
 
-        private void Update() {
+        public void Update() {
             if (Input.GetButtonDown(@"Escape")) {
                 SceneController.Instance.LoadScene(SceneName.SinglePlay, SceneTransition.Duration);
             }
@@ -84,9 +82,9 @@ namespace NotBuyoTeto.Ingame.SinglePlay.Marathon {
         }
 
         private void saveRanking() {
-            var name = PlayerPrefs.GetString(PlayerPrefsKey.PlayerName);
+            var userId = PlayerPrefs.GetString(PlayerPrefsKey.PlayerId);
             var score = highScoreManager.Value;
-            var ranker = new Ranker(name, score);
+            var ranker = new Ranker(userId, score);
             rankingManager.Save(highScoreManager.RankingType, ranker);
         }
 

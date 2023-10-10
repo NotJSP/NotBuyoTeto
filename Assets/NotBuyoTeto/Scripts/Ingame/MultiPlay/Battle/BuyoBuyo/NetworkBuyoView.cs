@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 using NotBuyoTeto.Ingame.Buyobuyo;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle.BuyoBuyo {
@@ -10,15 +11,15 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.BuyoBuyo {
         private PhotonView photonView;
 
         public override void Glow() {
-            photonView.RPC("GlowRPC", PhotonTargets.All);
+            photonView.RPC("GlowRPC", RpcTarget.All);
         }
 
         public override void HideGlow() {
-            photonView.RPC("HideGlowRPC", PhotonTargets.All);
+            photonView.RPC("HideGlowRPC", RpcTarget.All);
         }
 
         public override void Destroy() {
-            photonView.RPC("DestroyRPC", PhotonTargets.All);
+            photonView.RPC("DestroyRPC", RpcTarget.All);
         }
 
         [PunRPC]

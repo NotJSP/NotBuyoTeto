@@ -36,7 +36,7 @@ namespace NotBuyoTeto.Ingame.Tetrin {
 
         public GameObject CurrentMino => minos.Count != 0 ? minos[minos.Count - 1] : null;
 
-        private void Update() {
+        public void Update() {
             if (!controlable) { return; }
 
             if (Input.GetButtonDown(@"Hold")) {

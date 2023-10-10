@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
@@ -20,7 +21,6 @@ namespace NotBuyoTeto.Ingame.SinglePlay {
         private Text textField;
 
         private ASyncValue<int, NCMBException> currentRank = new ASyncValue<int, NCMBException>();
-        private ASyncValue<List<Ranker>, NCMBException> topRankers = new ASyncValue<List<Ranker>, NCMBException>();
 
         private StringBuilder builder;
 
@@ -49,25 +49,25 @@ namespace NotBuyoTeto.Ingame.SinglePlay {
         }
 
         private IEnumerator fetchAll(RankingType type, int score) {
-            builder = new StringBuilder();
+            this.builder = new StringBuilder();
 
+            currentRank.Reset();
             while (true) { 
-                currentRank.Reset();
                 fetchRank(type, score);
                 yield return new WaitUntil(currentRank.TakeOrFailure);
-
-                if (!currentRank.Failure) { break; }
+                if (currentRank.TakeAndSucceeded) { break; }
                 yield return new WaitForSeconds(3.0f);
             }
 
-            while (true) { 
-                topRankers.Reset();
-                fetchRankers(type);
-                yield return new WaitUntil(topRankers.TakeOrFailure);
-
-                if (!topRankers.Failure) { break; }
+            var rankers = new ASyncValue<List<Ranker>, NCMBException>();
+            while (true) {
+                fetchRankers(type, rankers);
+                yield return new WaitUntil(rankers.TakeOrFailure);
+                if (rankers.TakeAndSucceeded) { break; }
                 yield return new WaitForSeconds(3.0f);
             }
+
+            yield return fetchUsernames(rankers.Value);
         }
 
         private void fetchRank(RankingType type, int score) {
@@ -89,7 +89,7 @@ namespace NotBuyoTeto.Ingame.SinglePlay {
             });
         }
 
-        private void fetchRankers(RankingType type) {
+        private void fetchRankers(RankingType type, ASyncValue<List<Ranker>, NCMBException> results) {
             var className = getClassName(type);
             var query = new NCMBQuery<NCMBObject>(className);
             query.OrderByDescending(@"score");
@@ -97,35 +97,45 @@ namespace NotBuyoTeto.Ingame.SinglePlay {
             query.FindAsync((list, e) => {
                 if (e != null) {
                     Debug.LogError(e);
-                    topRankers.Exception = e;
+                    results.Exception = e;
                     return;
                 }
 
                 var rankers = new List<Ranker>();
                 foreach (var obj in list) {
-                    var name = Convert.ToString(obj["name"]);
+                    var userId = Convert.ToString(obj["userId"]);
                     var score = Convert.ToInt32(obj["score"]);
-                    rankers.Add(new Ranker(name, score));
+                    rankers.Add(new Ranker(userId, score));
                 }
-                topRankers.Value = rankers;
-
-                for (int i = 0; i < rankers.Count; i++) {
-                    var str = rankers[i].ToString();
-
-                    if (i < rankers.Count - 1) {
-                        builder.AppendLine(str);
-                    } else {
-                        builder.Append(str);
-                    }
-                }
-
-                textField.text = builder.ToString();
+                results.Value = rankers;
             });
         }
 
+        private IEnumerator fetchUsernames(List<Ranker> rankers) {
+            var userIds = rankers.Select(r => r.UserId).ToArray();
+            var result = new ASyncValue<Dictionary<string, string>, NCMBException>();
+            UserManager.FetchUsernames(userIds, result);
+            yield return new WaitUntil(result.TakeOrFailure);
+            var nameTable = result.Value;
+
+            for (var i = 0; i < rankers.Count; i++) {
+                var name = nameTable[rankers[i].UserId];
+                var score = rankers[i].Score;
+                var str = $"{name}: {score}";
+
+                if (i < rankers.Count - 1) {
+                    this.builder.AppendLine(str);
+                } else {
+                    this.builder.Append(str);
+                }
+            }
+
+            textField.text = this.builder.ToString();
+        }
+
         public bool Save(RankingType type, Ranker ranker) {
-            if (string.IsNullOrWhiteSpace(ranker.Name)) {
-                throw new ArgumentException(@"空の名前でランキングに登録する事はできません。");
+            if (string.IsNullOrWhiteSpace(ranker.UserId)) {
+                throw new ArgumentException(@"空のIDでランキングに登録する事はできません。");
             }
 
             if (saveCoroutine != null) {
@@ -145,9 +155,10 @@ namespace NotBuyoTeto.Ingame.SinglePlay {
         }
 
         private IEnumerator saveRank(RankingType type, Ranker ranker) {
-            var className = getClassName(type);
+            var className = this.getClassName(type);
+
             var ncmbObj = new NCMBObject(className);
-            ncmbObj[@"name"] = ranker.Name;
+            ncmbObj[@"userId"] = ranker.UserId;
             ncmbObj[@"score"] = ranker.Score;
 
             var key = PlayerPrefsKey.ObjectId[type];
@@ -165,11 +176,13 @@ namespace NotBuyoTeto.Ingame.SinglePlay {
                         return;
                     }
                     watcher.Value = true;
-                    PlayerPrefs.SetString(key, ncmbObj.ObjectId);
                 });
                 yield return new WaitUntil(watcher.TakeOrFailure);
 
-                if (!watcher.Failure) { break; }
+                if (watcher.TakeAndSucceeded) {
+                    PlayerPrefs.SetString(key, ncmbObj.ObjectId);
+                    break;
+                }
                 yield return new WaitForSeconds(3.0f);
             }
 

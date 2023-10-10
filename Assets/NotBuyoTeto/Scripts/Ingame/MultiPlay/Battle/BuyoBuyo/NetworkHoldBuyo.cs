@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 using NotBuyoTeto.Ingame.Buyobuyo;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle.BuyoBuyo {
@@ -11,12 +12,12 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.BuyoBuyo {
 
         public override void Clear() {
             base.Clear();
-            photonView.RPC("Clear", PhotonTargets.Others);
+            photonView.RPC("Clear", RpcTarget.Others);
         }
 
         public override void Set(Tuple<BuyoType, BuyoType> types) {
             base.Set(types);
-            photonView.RPC("Set", PhotonTargets.Others, types);
+            photonView.RPC("Set", RpcTarget.Others, types);
         }
     }
 }

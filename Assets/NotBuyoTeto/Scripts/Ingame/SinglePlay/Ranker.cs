@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace NotBuyoTeto.Ingame.SinglePlay {
     public class Ranker {
-        public string Name { get; }
+        public string UserId { get; }
         public int Score { get; }
 
-        public Ranker(string name, int score) {
-            this.Name = name;
+        public Ranker(string userId, int score) {
+            this.UserId = userId;
             this.Score = score;
         }
 
         public override string ToString() {
-            return $"{Name}: {Score}";
+            return $"{UserId}: {Score}";
         }
     }
 }

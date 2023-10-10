@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using NotBuyoTeto.Utility;
+using Photon.Pun;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
     [RequireComponent(typeof(Renderer))]
-    public class ColliderGroupView : MonoBehaviour {
+    public class ColliderGroupView : MonoBehaviour, IPunObservable {
         private new Renderer renderer;
         private Renderer Renderer {
             get {
@@ -19,8 +19,8 @@ namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {
         private bool firstRead = true;
         private bool firstWrite = true;
 
-        private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
-            if (stream.isWriting) {
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+            if (stream.IsWriting) {
                 serialize(stream, info);
             } else {
                 deserialize(stream, info);

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 using NotBuyoTeto.Ingame.Tetrin;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle.Tetrin {

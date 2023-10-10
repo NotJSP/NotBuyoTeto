@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Photon.Pun;
 
 namespace NotBuyoTeto.Ingame.MultiPlay.Battle {
     public class NetworkInstantiator : Instantiator {

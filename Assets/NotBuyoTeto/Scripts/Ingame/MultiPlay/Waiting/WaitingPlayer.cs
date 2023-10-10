@@ -7,13 +7,11 @@ using System.Threading.Tasks;
 namespace NotBuyoTeto.Ingame.MultiPlay.Waiting {
     public class WaitingPlayer {
         public readonly string Name;
-        public readonly FightRecord FightRecord;
-        public readonly int Rating;
+        public readonly PlayerStats Stats;
 
-        public WaitingPlayer(string name, FightRecord fightRecord, int rating) {
+        public WaitingPlayer(string name, PlayerStats stats) {
             this.Name = name;
-            this.FightRecord = fightRecord;
-            this.Rating = rating;
+            this.Stats = stats;
         }
     }
 }
